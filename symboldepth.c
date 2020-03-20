@@ -9,7 +9,7 @@ typedef struct symbol_t{
 	int constant; //constant or not
 	int initialized; // initialized or not
 	unsigned int memory; // adresse memoire
-	int type; // 0 = int, 1 = float, 2 = char, ....
+	int type; // 1 = int, 2 = float, 0 = char, ....
 	int depth;
 }symbol;
 
@@ -59,8 +59,59 @@ int exist_symbol_alldepth(char* id){
 	return ret;
 }
 
+int add_temp_var(int type){
+	int err = 0;
+	if(tablast +1 < tabsize){
+		symbol s;
+		s.id = malloc(sizeof("temp"));
+		strcpy(s.id , "temp");
+		s.constant = 0;
+		s.initialized = 0;
+		s.type = type;
+		s.depth = depth;
+		s.memory = stackpointer;
+		switch(type) {
+			case 0: //char 1o
+				stackpointer = stackpointer + 1;
+			break;
+			case 1: //int 4o
+				stackpointer = stackpointer + 4;
+			break;
+			case 2: //float 4o
+				stackpointer = stackpointer + 4;
+			break;
+			default:
+				printf("%s\n", "Type not recognised in symbol recognition \n" );
+				err = 2;
+		}
+		
+		if(err == 0){
+			tab[tablast] = s;
+			tablast ++;
+		}
+	}
+	else{
+		printf("%s\n", "Max symbol table size reached\n" );
+		err = 1;
+	}
+	return(err);
+}
 
-int add_symbol( char* id, int constant,int initialized, int type){
+
+void initalize(char* id){
+	int found =0;
+	int index = tablast;
+	while((index > 0) && !found){
+		if(strcmp(tab[index].id,id)){
+			found =1;
+			tab[index].initialized = 1;
+		}
+		index --;
+	}
+}
+
+
+int add_symbol(char* id, int constant,int initialized, int type){
 	int err = 0;
 	if(tablast +1 < tabsize){
 		symbol s;
