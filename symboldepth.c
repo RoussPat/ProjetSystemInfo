@@ -98,7 +98,7 @@ int add_temp_var(int type){
 }
 
 
-void initalize(char* id){
+void initalize_var(char* id){
 	int found =0;
 	int index = tablast;
 	while((index > 0) && !found){
