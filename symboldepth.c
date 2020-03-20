@@ -1,7 +1,5 @@
 #include "symboldepth.h"
 
-
-
 typedef struc symbol_t{
 	char * id;
 	int constant; //constant or not
@@ -18,6 +16,7 @@ int tablast;
 int tabsize;
 int depth;
 
+
 int init(int maxsize){
 	tabsize = maxsize;
 	tab = malloc(tabsize*sizeof(symbol));
@@ -26,7 +25,6 @@ int init(int maxsize){
 	tablast = 0;
 	depth = 0;
 }
-
 
 
 int add_symbol( char* id, int constant,int initialized, int type){
@@ -47,16 +45,16 @@ int add_symbol( char* id, int constant,int initialized, int type){
 			case 1: //int 4o
 				stackpointer = stackpointer + 4;
 			break;
-			case 2: //float 8o
-				stackpointer = stackpointer + 8;
+			case 2: //float 4o
+				stackpointer = stackpointer + 4;
 			break;
 			default:
-				printf("%s\n", "Type not recognisez on symbol recognition \n" );
+				printf("%s\n", "Type not recognised in symbol recognition \n" );
 				err = 2;
 		}
 		
 		if(err == 0){
-			tab[last+1] = s;
+			tab[last] = s;
 			tablast ++;
 		}
 	}
@@ -67,10 +65,11 @@ int add_symbol( char* id, int constant,int initialized, int type){
 	return(err);
 }
 
+
 unsigned int find_symbol(char* id){
 	int found =0;
 	int index = tablast;
-	unsigned int ret;
+	unsigned int ret = -1;
 	while((index > 0) && !found){
 		if(strcmp(tab[index].id),id){
 			ret = tab[index].memory;
@@ -81,9 +80,11 @@ unsigned int find_symbol(char* id){
 	return ret;
 }
 
+
 void incresedepth(){
 	depth ++;
 }
+
 
 void decreasedepth(){
 	int index = tablast;
