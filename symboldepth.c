@@ -19,7 +19,7 @@ int tabsize;
 int depth;
 
 int init(int maxsize){
-	tablast = maxsize;
+	tabsize = maxsize;
 	tab = malloc(tabsize*sizeof(symbol));
 	stackpointer =0;
 	tablast = malloc(sizeof(int));
