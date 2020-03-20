@@ -1,5 +1,6 @@
 %{
     #include <stdio.h>
+    #include "symboldepth.h"
     int yylex();
     void yyeror(char* str);
 %}
@@ -27,6 +28,9 @@ Body:
     |{printf(" affectation ");} Affectation  Body              	
     |Print {printf(" print ");} Body ;
 
+// A FAIRE : tOA tCA if else while
+	
+
 Print:
     tPRINTF tOP String tCP Pv 
     |tPRINTF tOP tVAR tCP Pv;
@@ -43,7 +47,7 @@ Pv:
 
 Affectation:
     tVAR tAFC {printf(" aff int ");} Expression Pv			;
-/*   |tVAR tEQ Boolean Pv			{printf("aff boolean");};*/
+
 
 Expression:
 	tNBINT							{printf(" valeur int = %d",$1 );}
@@ -55,6 +59,15 @@ Expression:
 	|tSUB Expression				{printf(" int negatif ");}
 	|tOP Expression tCP				{printf(" (int) ");};
 	
+//tINT tID tEGAL Expression tPV { affectation($2,$4) }  ;
+
+Return:
+    tRETURN {printf(" return \n");} tOP Expression tCP     ;
+%%
+void yyerror(char * str){};
+int main(){yyparse();return 0;}
+
+
 /*
 Boolean:
 	tVAR							{printf("variable bool");}
@@ -67,8 +80,5 @@ Boolean:
 
 OpBool:
 	tEQ | tNEQ | tIE | tSE | tSUP | tINF ;*/
-Return:
-    tRETURN {printf(" return \n");} tOP Expression tCP     ;
-%%
-void yyerror(char * str){};
-int main(){yyparse();return 0;}
+
+/*   |tVAR tEQ Boolean Pv			{printf("aff boolean");};*/
