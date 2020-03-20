@@ -1,0 +1,14 @@
+main(){
+ int i, j,k,r;
+j=4;
+i =3;
+{ int j = 5;
+printf("%d",j);
+}
+printf("%d",j);
+k=8;
+printf (i);
+r=(i+j)*(i+k/j);
+printf ( r );
+return(-17);
+}
