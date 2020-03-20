@@ -114,7 +114,7 @@ unsigned int find_symbol(char* id){
 }
 
 
-void incresedepth(){
+void increasedepth(){
 	depth ++;
 }
 

@@ -26,9 +26,10 @@ Body:
     //epsilon    
     |{printf(" definition ");}  Definition Body                
     |{printf(" affectation ");} Affectation  Body              	
-    |Print {printf(" print ");} Body ;
+    |Print {printf(" print ");} Body 
+	| tOA {increasedepth();} Body tCA;
 
-// A FAIRE : tOA tCA if else while
+// A FAIRE : if else while
 	
 
 Print:
