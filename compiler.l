@@ -30,7 +30,7 @@
 
 
 -?[0-9][.,][0-9]+e-?[0-9]+	    { yylval.nb = atof(yytext) ; return tNBFLOAT ;}
--?[0-9]+							{ yylval.nb = (int)atof(yytext) ; return tNBINT ;}
+-?[0-9]+						{ yylval.nb = (int)atof(yytext) ; return tNBINT ;}
 true 							{ return tTRUE ;}
 false							{ return tFALSE ;}
 

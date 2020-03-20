@@ -1,6 +1,5 @@
 %{
     #include <stdio.h>
-    #include "symboldepth.h"
     int yylex();
     void yyeror(char* str);
 %}
@@ -68,7 +67,6 @@ Boolean:
 
 OpBool:
 	tEQ | tNEQ | tIE | tSE | tSUP | tINF ;*/
-
 Return:
     tRETURN {printf(" return \n");} tOP Expression tCP     ;
 %%

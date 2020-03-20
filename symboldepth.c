@@ -1,6 +1,10 @@
 #include "symboldepth.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
-typedef struc symbol_t{
+typedef struct symbol_t{
 	char * id;
 	int constant; //constant or not
 	int initialized; // initialized or not
@@ -11,7 +15,7 @@ typedef struc symbol_t{
 
 
 unsigned int stackpointer;
-symbol** tab;
+symbol* tab;
 int tablast;
 int tabsize;
 int depth;
@@ -21,22 +25,51 @@ int init(int maxsize){
 	tabsize = maxsize;
 	tab = malloc(tabsize*sizeof(symbol));
 	stackpointer =0;
-	tablast = malloc(sizeof(int));
 	tablast = 0;
 	depth = 0;
+}
+
+
+int exist_symbol_curdepth(char* id){
+	int found =0;
+	int index = tablast;
+	int ret = 0;
+	while((index > 0) && !found){
+		if(strcmp(tab[index].id,id) && tab[index].depth == depth){
+			ret = 1;
+			found =1;
+		}
+		index --;
+	}
+	return ret;
+}
+
+
+int exist_symbol_alldepth(char* id){
+	int found =0;
+	int index = tablast;
+	int ret = 0;
+	while((index > 0) && !found){
+		if(strcmp(tab[index].id,id)){
+			ret = 1;
+			found =1;
+		}
+		index --;
+	}
+	return ret;
 }
 
 
 int add_symbol( char* id, int constant,int initialized, int type){
 	int err = 0;
 	if(tablast +1 < tabsize){
-		symbol* s = malloc(sizeof(symbol));
+		symbol s;
 		s.id = malloc(sizeof(id));
-		strcopy(s.id , id);
+		strcpy(s.id , id);
 		s.constant = constant;
 		s.initialized = initialized;
 		s.type = type;
-		s.depth = depth
+		s.depth = depth;
 		s.memory = stackpointer;
 		switch(type) {
 			case 0: //char 1o
@@ -54,7 +87,7 @@ int add_symbol( char* id, int constant,int initialized, int type){
 		}
 		
 		if(err == 0){
-			tab[last] = s;
+			tab[tablast] = s;
 			tablast ++;
 		}
 	}
@@ -71,7 +104,7 @@ unsigned int find_symbol(char* id){
 	int index = tablast;
 	unsigned int ret = -1;
 	while((index > 0) && !found){
-		if(strcmp(tab[index].id),id){
+		if(strcmp(tab[index].id,id)){
 			ret = tab[index].memory;
 			found =1;
 		}
@@ -96,17 +129,12 @@ void decreasedepth(){
 			case 1: //int 4o
 				stackpointer = stackpointer - 4;
 			break;
-			case 2: //float 8o
+			case 2: //float 4o
 				stackpointer = stackpointer - 4;
 			break;
 			default:
 				printf("%s\n", "This should not happend \n" );
-				err = 3;
 		}
 	}
 	tablast = index;
 }
-
-
-
-

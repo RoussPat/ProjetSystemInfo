@@ -1,4 +1,4 @@
-Terminaux inutilisés dans la grammaire
+Terminals unused in grammar
 
    tOB
    tCB
@@ -20,10 +20,7 @@ Terminaux inutilisés dans la grammaire
    tWHILE
 
 
-État 61 conflits: 4 décalage/réduction
-
-
-Grammaire
+Grammar
 
     0 $accept: File $end
 
@@ -63,32 +60,30 @@ Grammaire
 
    19 Expression: tNBINT
    20           | tVAR
-   21           | Expression OpInt Expression
-   22           | tSUB Expression
-   23           | tOP Expression tCP
+   21           | Expression tMUL Expression
+   22           | Expression tDIV Expression
+   23           | Expression tSUB Expression
+   24           | Expression tADD Expression
+   25           | tSUB Expression
+   26           | tOP Expression tCP
 
-   24 OpInt: tMUL
-   25      | tDIV
-   26      | tSUB
-   27      | tADD
+   27 $@5: %empty
 
-   28 $@5: %empty
-
-   29 Return: tRETURN $@5 tOP Expression tCP
+   28 Return: tRETURN $@5 tOP Expression tCP
 
 
-Terminaux, suivis des règles où ils apparaissent
+Terminals, with rules where they appear
 
 $end (0) 0
 error (256)
-tADD (258) 27
-tSUB (259) 22 26
-tMUL (260) 24
-tDIV (261) 25
+tADD (258) 24
+tSUB (259) 23 25
+tMUL (260) 21
+tDIV (261) 22
 tPV (262) 16
 tV (263) 15
-tCP (264) 2 10 11 23 29
-tOP (265) 2 10 11 23 29
+tCP (264) 2 10 11 26 28
+tOP (265) 2 10 11 26 28
 tOB (266)
 tCB (267)
 tOA (268) 2
@@ -113,616 +108,659 @@ tNOT (286)
 tNEQ (287)
 tIF (288)
 tWHILE (289)
-tRETURN (290) 29
+tRETURN (290) 28
 tQ (291) 12
 tNBINT (292) 19
 tVAR (293) 11 12 13 15 18 20
 
 
-Non-terminaux, suivis des règles où ils apparaissent
+Nonterminals, with rules where they appear
 
 $accept (39)
-    à gauche: 0
+    on left: 0
 File (40)
-    à gauche: 1, à droite: 0
+    on left: 1, on right: 0
 Main (41)
-    à gauche: 2, à droite: 1
+    on left: 2, on right: 1
 Body (42)
-    à gauche: 3 5 7 9, à droite: 2 5 7 9
+    on left: 3 5 7 9, on right: 2 5 7 9
 $@1 (43)
-    à gauche: 4, à droite: 5
+    on left: 4, on right: 5
 $@2 (44)
-    à gauche: 6, à droite: 7
+    on left: 6, on right: 7
 $@3 (45)
-    à gauche: 8, à droite: 9
+    on left: 8, on right: 9
 Print (46)
-    à gauche: 10 11, à droite: 9
+    on left: 10 11, on right: 9
 String (47)
-    à gauche: 12, à droite: 10
+    on left: 12, on right: 10
 Definition (48)
-    à gauche: 13, à droite: 5
+    on left: 13, on right: 5
 DefinitionN (49)
-    à gauche: 14 15, à droite: 13 15
+    on left: 14 15, on right: 13 15
 Pv (50)
-    à gauche: 16, à droite: 10 11 13 18
+    on left: 16, on right: 10 11 13 18
 Affectation (51)
-    à gauche: 18, à droite: 7
+    on left: 18, on right: 7
 $@4 (52)
-    à gauche: 17, à droite: 18
+    on left: 17, on right: 18
 Expression (53)
-    à gauche: 19 20 21 22 23, à droite: 18 21 22 23 29
-OpInt (54)
-    à gauche: 24 25 26 27, à droite: 21
-Return (55)
-    à gauche: 29, à droite: 2
-$@5 (56)
-    à gauche: 28, à droite: 29
+    on left: 19 20 21 22 23 24 25 26, on right: 18 21 22 23 24 25 26
+    28
+Return (54)
+    on left: 28, on right: 2
+$@5 (55)
+    on left: 27, on right: 28
 
 
-État 0
+State 0
 
     0 $accept: . File $end
 
-    tMAIN  décalage et aller à l'état 1
+    tMAIN  shift, and go to state 1
 
-    File  aller à l'état 2
-    Main  aller à l'état 3
+    File  go to state 2
+    Main  go to state 3
 
 
-État 1
+State 1
 
     2 Main: tMAIN . tOP tCP tOA Body Return tCA
 
-    tOP  décalage et aller à l'état 4
+    tOP  shift, and go to state 4
 
 
-État 2
+State 2
 
     0 $accept: File . $end
 
-    $end  décalage et aller à l'état 5
+    $end  shift, and go to state 5
 
 
-État 3
+State 3
 
     1 File: Main .
 
-    $défaut  réduction par utilisation de la règle 1 (File)
+    $default  reduce using rule 1 (File)
 
 
-État 4
+State 4
 
     2 Main: tMAIN tOP . tCP tOA Body Return tCA
 
-    tCP  décalage et aller à l'état 6
+    tCP  shift, and go to state 6
 
 
-État 5
+State 5
 
     0 $accept: File $end .
 
-    $défaut  accepter
+    $default  accept
 
 
-État 6
+State 6
 
     2 Main: tMAIN tOP tCP . tOA Body Return tCA
 
-    tOA  décalage et aller à l'état 7
+    tOA  shift, and go to state 7
 
 
-État 7
+State 7
 
     2 Main: tMAIN tOP tCP tOA . Body Return tCA
 
-    tPRINTF  décalage et aller à l'état 8
+    tPRINTF  shift, and go to state 8
 
-    tINT      réduction par utilisation de la règle 4 ($@1)
-    tVAR      réduction par utilisation de la règle 6 ($@2)
-    $défaut  réduction par utilisation de la règle 3 (Body)
+    tINT      reduce using rule 4 ($@1)
+    tVAR      reduce using rule 6 ($@2)
+    $default  reduce using rule 3 (Body)
 
-    Body   aller à l'état 9
-    $@1    aller à l'état 10
-    $@2    aller à l'état 11
-    Print  aller à l'état 12
+    Body   go to state 9
+    $@1    go to state 10
+    $@2    go to state 11
+    Print  go to state 12
 
 
-État 8
+State 8
 
    10 Print: tPRINTF . tOP String tCP Pv
    11      | tPRINTF . tOP tVAR tCP Pv
 
-    tOP  décalage et aller à l'état 13
+    tOP  shift, and go to state 13
 
 
-État 9
+State 9
 
     2 Main: tMAIN tOP tCP tOA Body . Return tCA
 
-    tRETURN  décalage et aller à l'état 14
+    tRETURN  shift, and go to state 14
 
-    Return  aller à l'état 15
+    Return  go to state 15
 
 
-État 10
+State 10
 
     5 Body: $@1 . Definition Body
 
-    tINT  décalage et aller à l'état 16
+    tINT  shift, and go to state 16
 
-    Definition  aller à l'état 17
+    Definition  go to state 17
 
 
-État 11
+State 11
 
     7 Body: $@2 . Affectation Body
 
-    tVAR  décalage et aller à l'état 18
+    tVAR  shift, and go to state 18
 
-    Affectation  aller à l'état 19
+    Affectation  go to state 19
 
 
-État 12
+State 12
 
     9 Body: Print . $@3 Body
 
-    $défaut  réduction par utilisation de la règle 8 ($@3)
+    $default  reduce using rule 8 ($@3)
 
-    $@3  aller à l'état 20
+    $@3  go to state 20
 
 
-État 13
+State 13
 
    10 Print: tPRINTF tOP . String tCP Pv
    11      | tPRINTF tOP . tVAR tCP Pv
 
-    tQ    décalage et aller à l'état 21
-    tVAR  décalage et aller à l'état 22
+    tQ    shift, and go to state 21
+    tVAR  shift, and go to state 22
 
-    String  aller à l'état 23
-
-
-État 14
-
-   29 Return: tRETURN . $@5 tOP Expression tCP
-
-    $défaut  réduction par utilisation de la règle 28 ($@5)
-
-    $@5  aller à l'état 24
+    String  go to state 23
 
 
-État 15
+State 14
+
+   28 Return: tRETURN . $@5 tOP Expression tCP
+
+    $default  reduce using rule 27 ($@5)
+
+    $@5  go to state 24
+
+
+State 15
 
     2 Main: tMAIN tOP tCP tOA Body Return . tCA
 
-    tCA  décalage et aller à l'état 25
+    tCA  shift, and go to state 25
 
 
-État 16
+State 16
 
    13 Definition: tINT . tVAR DefinitionN Pv
 
-    tVAR  décalage et aller à l'état 26
+    tVAR  shift, and go to state 26
 
 
-État 17
+State 17
 
     5 Body: $@1 Definition . Body
 
-    tPRINTF  décalage et aller à l'état 8
+    tPRINTF  shift, and go to state 8
 
-    tINT      réduction par utilisation de la règle 4 ($@1)
-    tVAR      réduction par utilisation de la règle 6 ($@2)
-    $défaut  réduction par utilisation de la règle 3 (Body)
+    tINT      reduce using rule 4 ($@1)
+    tVAR      reduce using rule 6 ($@2)
+    $default  reduce using rule 3 (Body)
 
-    Body   aller à l'état 27
-    $@1    aller à l'état 10
-    $@2    aller à l'état 11
-    Print  aller à l'état 12
+    Body   go to state 27
+    $@1    go to state 10
+    $@2    go to state 11
+    Print  go to state 12
 
 
-État 18
+State 18
 
    18 Affectation: tVAR . tAFC $@4 Expression Pv
 
-    tAFC  décalage et aller à l'état 28
+    tAFC  shift, and go to state 28
 
 
-État 19
+State 19
 
     7 Body: $@2 Affectation . Body
 
-    tPRINTF  décalage et aller à l'état 8
+    tPRINTF  shift, and go to state 8
 
-    tINT      réduction par utilisation de la règle 4 ($@1)
-    tVAR      réduction par utilisation de la règle 6 ($@2)
-    $défaut  réduction par utilisation de la règle 3 (Body)
+    tINT      reduce using rule 4 ($@1)
+    tVAR      reduce using rule 6 ($@2)
+    $default  reduce using rule 3 (Body)
 
-    Body   aller à l'état 29
-    $@1    aller à l'état 10
-    $@2    aller à l'état 11
-    Print  aller à l'état 12
+    Body   go to state 29
+    $@1    go to state 10
+    $@2    go to state 11
+    Print  go to state 12
 
 
-État 20
+State 20
 
     9 Body: Print $@3 . Body
 
-    tPRINTF  décalage et aller à l'état 8
+    tPRINTF  shift, and go to state 8
 
-    tINT      réduction par utilisation de la règle 4 ($@1)
-    tVAR      réduction par utilisation de la règle 6 ($@2)
-    $défaut  réduction par utilisation de la règle 3 (Body)
+    tINT      reduce using rule 4 ($@1)
+    tVAR      reduce using rule 6 ($@2)
+    $default  reduce using rule 3 (Body)
 
-    Body   aller à l'état 30
-    $@1    aller à l'état 10
-    $@2    aller à l'état 11
-    Print  aller à l'état 12
+    Body   go to state 30
+    $@1    go to state 10
+    $@2    go to state 11
+    Print  go to state 12
 
 
-État 21
+State 21
 
    12 String: tQ . tVAR tQ
 
-    tVAR  décalage et aller à l'état 31
+    tVAR  shift, and go to state 31
 
 
-État 22
+State 22
 
    11 Print: tPRINTF tOP tVAR . tCP Pv
 
-    tCP  décalage et aller à l'état 32
+    tCP  shift, and go to state 32
 
 
-État 23
+State 23
 
    10 Print: tPRINTF tOP String . tCP Pv
 
-    tCP  décalage et aller à l'état 33
+    tCP  shift, and go to state 33
 
 
-État 24
+State 24
 
-   29 Return: tRETURN $@5 . tOP Expression tCP
+   28 Return: tRETURN $@5 . tOP Expression tCP
 
-    tOP  décalage et aller à l'état 34
+    tOP  shift, and go to state 34
 
 
-État 25
+State 25
 
     2 Main: tMAIN tOP tCP tOA Body Return tCA .
 
-    $défaut  réduction par utilisation de la règle 2 (Main)
+    $default  reduce using rule 2 (Main)
 
 
-État 26
+State 26
 
    13 Definition: tINT tVAR . DefinitionN Pv
 
-    tV  décalage et aller à l'état 35
+    tV  shift, and go to state 35
 
-    $défaut  réduction par utilisation de la règle 14 (DefinitionN)
+    $default  reduce using rule 14 (DefinitionN)
 
-    DefinitionN  aller à l'état 36
+    DefinitionN  go to state 36
 
 
-État 27
+State 27
 
     5 Body: $@1 Definition Body .
 
-    $défaut  réduction par utilisation de la règle 5 (Body)
+    $default  reduce using rule 5 (Body)
 
 
-État 28
+State 28
 
    18 Affectation: tVAR tAFC . $@4 Expression Pv
 
-    $défaut  réduction par utilisation de la règle 17 ($@4)
+    $default  reduce using rule 17 ($@4)
 
-    $@4  aller à l'état 37
+    $@4  go to state 37
 
 
-État 29
+State 29
 
     7 Body: $@2 Affectation Body .
 
-    $défaut  réduction par utilisation de la règle 7 (Body)
+    $default  reduce using rule 7 (Body)
 
 
-État 30
+State 30
 
     9 Body: Print $@3 Body .
 
-    $défaut  réduction par utilisation de la règle 9 (Body)
+    $default  reduce using rule 9 (Body)
 
 
-État 31
+State 31
 
    12 String: tQ tVAR . tQ
 
-    tQ  décalage et aller à l'état 38
+    tQ  shift, and go to state 38
 
 
-État 32
+State 32
 
    11 Print: tPRINTF tOP tVAR tCP . Pv
 
-    tPV  décalage et aller à l'état 39
+    tPV  shift, and go to state 39
 
-    Pv  aller à l'état 40
+    Pv  go to state 40
 
 
-État 33
+State 33
 
    10 Print: tPRINTF tOP String tCP . Pv
 
-    tPV  décalage et aller à l'état 39
+    tPV  shift, and go to state 39
 
-    Pv  aller à l'état 41
-
-
-État 34
-
-   29 Return: tRETURN $@5 tOP . Expression tCP
-
-    tSUB    décalage et aller à l'état 42
-    tOP     décalage et aller à l'état 43
-    tNBINT  décalage et aller à l'état 44
-    tVAR    décalage et aller à l'état 45
-
-    Expression  aller à l'état 46
+    Pv  go to state 41
 
 
-État 35
+State 34
+
+   28 Return: tRETURN $@5 tOP . Expression tCP
+
+    tSUB    shift, and go to state 42
+    tOP     shift, and go to state 43
+    tNBINT  shift, and go to state 44
+    tVAR    shift, and go to state 45
+
+    Expression  go to state 46
+
+
+State 35
 
    15 DefinitionN: tV . tVAR DefinitionN
 
-    tVAR  décalage et aller à l'état 47
+    tVAR  shift, and go to state 47
 
 
-État 36
+State 36
 
    13 Definition: tINT tVAR DefinitionN . Pv
 
-    tPV  décalage et aller à l'état 39
+    tPV  shift, and go to state 39
 
-    Pv  aller à l'état 48
+    Pv  go to state 48
 
 
-État 37
+State 37
 
    18 Affectation: tVAR tAFC $@4 . Expression Pv
 
-    tSUB    décalage et aller à l'état 42
-    tOP     décalage et aller à l'état 43
-    tNBINT  décalage et aller à l'état 44
-    tVAR    décalage et aller à l'état 45
+    tSUB    shift, and go to state 42
+    tOP     shift, and go to state 43
+    tNBINT  shift, and go to state 44
+    tVAR    shift, and go to state 45
 
-    Expression  aller à l'état 49
+    Expression  go to state 49
 
 
-État 38
+State 38
 
    12 String: tQ tVAR tQ .
 
-    $défaut  réduction par utilisation de la règle 12 (String)
+    $default  reduce using rule 12 (String)
 
 
-État 39
+State 39
 
    16 Pv: tPV .
 
-    $défaut  réduction par utilisation de la règle 16 (Pv)
+    $default  reduce using rule 16 (Pv)
 
 
-État 40
+State 40
 
    11 Print: tPRINTF tOP tVAR tCP Pv .
 
-    $défaut  réduction par utilisation de la règle 11 (Print)
+    $default  reduce using rule 11 (Print)
 
 
-État 41
+State 41
 
    10 Print: tPRINTF tOP String tCP Pv .
 
-    $défaut  réduction par utilisation de la règle 10 (Print)
+    $default  reduce using rule 10 (Print)
 
 
-État 42
+State 42
 
-   22 Expression: tSUB . Expression
+   25 Expression: tSUB . Expression
 
-    tSUB    décalage et aller à l'état 42
-    tOP     décalage et aller à l'état 43
-    tNBINT  décalage et aller à l'état 44
-    tVAR    décalage et aller à l'état 45
+    tSUB    shift, and go to state 42
+    tOP     shift, and go to state 43
+    tNBINT  shift, and go to state 44
+    tVAR    shift, and go to state 45
 
-    Expression  aller à l'état 50
-
-
-État 43
-
-   23 Expression: tOP . Expression tCP
-
-    tSUB    décalage et aller à l'état 42
-    tOP     décalage et aller à l'état 43
-    tNBINT  décalage et aller à l'état 44
-    tVAR    décalage et aller à l'état 45
-
-    Expression  aller à l'état 51
+    Expression  go to state 50
 
 
-État 44
+State 43
+
+   26 Expression: tOP . Expression tCP
+
+    tSUB    shift, and go to state 42
+    tOP     shift, and go to state 43
+    tNBINT  shift, and go to state 44
+    tVAR    shift, and go to state 45
+
+    Expression  go to state 51
+
+
+State 44
 
    19 Expression: tNBINT .
 
-    $défaut  réduction par utilisation de la règle 19 (Expression)
+    $default  reduce using rule 19 (Expression)
 
 
-État 45
+State 45
 
    20 Expression: tVAR .
 
-    $défaut  réduction par utilisation de la règle 20 (Expression)
+    $default  reduce using rule 20 (Expression)
 
 
-État 46
+State 46
 
-   21 Expression: Expression . OpInt Expression
-   29 Return: tRETURN $@5 tOP Expression . tCP
+   21 Expression: Expression . tMUL Expression
+   22           | Expression . tDIV Expression
+   23           | Expression . tSUB Expression
+   24           | Expression . tADD Expression
+   28 Return: tRETURN $@5 tOP Expression . tCP
 
-    tADD  décalage et aller à l'état 52
-    tSUB  décalage et aller à l'état 53
-    tMUL  décalage et aller à l'état 54
-    tDIV  décalage et aller à l'état 55
-    tCP   décalage et aller à l'état 56
-
-    OpInt  aller à l'état 57
+    tADD  shift, and go to state 52
+    tSUB  shift, and go to state 53
+    tMUL  shift, and go to state 54
+    tDIV  shift, and go to state 55
+    tCP   shift, and go to state 56
 
 
-État 47
+State 47
 
    15 DefinitionN: tV tVAR . DefinitionN
 
-    tV  décalage et aller à l'état 35
+    tV  shift, and go to state 35
 
-    $défaut  réduction par utilisation de la règle 14 (DefinitionN)
+    $default  reduce using rule 14 (DefinitionN)
 
-    DefinitionN  aller à l'état 58
+    DefinitionN  go to state 57
 
 
-État 48
+State 48
 
    13 Definition: tINT tVAR DefinitionN Pv .
 
-    $défaut  réduction par utilisation de la règle 13 (Definition)
+    $default  reduce using rule 13 (Definition)
 
 
-État 49
+State 49
 
    18 Affectation: tVAR tAFC $@4 Expression . Pv
-   21 Expression: Expression . OpInt Expression
+   21 Expression: Expression . tMUL Expression
+   22           | Expression . tDIV Expression
+   23           | Expression . tSUB Expression
+   24           | Expression . tADD Expression
 
-    tADD  décalage et aller à l'état 52
-    tSUB  décalage et aller à l'état 53
-    tMUL  décalage et aller à l'état 54
-    tDIV  décalage et aller à l'état 55
-    tPV   décalage et aller à l'état 39
+    tADD  shift, and go to state 52
+    tSUB  shift, and go to state 53
+    tMUL  shift, and go to state 54
+    tDIV  shift, and go to state 55
+    tPV   shift, and go to state 39
 
-    Pv     aller à l'état 59
-    OpInt  aller à l'état 57
-
-
-État 50
-
-   21 Expression: Expression . OpInt Expression
-   22           | tSUB Expression .
-
-    tMUL  décalage et aller à l'état 54
-    tDIV  décalage et aller à l'état 55
-
-    $défaut  réduction par utilisation de la règle 22 (Expression)
-
-    OpInt  aller à l'état 57
+    Pv  go to state 58
 
 
-État 51
+State 50
 
-   21 Expression: Expression . OpInt Expression
-   23           | tOP Expression . tCP
+   21 Expression: Expression . tMUL Expression
+   22           | Expression . tDIV Expression
+   23           | Expression . tSUB Expression
+   24           | Expression . tADD Expression
+   25           | tSUB Expression .
 
-    tADD  décalage et aller à l'état 52
-    tSUB  décalage et aller à l'état 53
-    tMUL  décalage et aller à l'état 54
-    tDIV  décalage et aller à l'état 55
-    tCP   décalage et aller à l'état 60
+    tMUL  shift, and go to state 54
+    tDIV  shift, and go to state 55
 
-    OpInt  aller à l'état 57
-
-
-État 52
-
-   27 OpInt: tADD .
-
-    $défaut  réduction par utilisation de la règle 27 (OpInt)
+    $default  reduce using rule 25 (Expression)
 
 
-État 53
+State 51
 
-   26 OpInt: tSUB .
+   21 Expression: Expression . tMUL Expression
+   22           | Expression . tDIV Expression
+   23           | Expression . tSUB Expression
+   24           | Expression . tADD Expression
+   26           | tOP Expression . tCP
 
-    $défaut  réduction par utilisation de la règle 26 (OpInt)
-
-
-État 54
-
-   24 OpInt: tMUL .
-
-    $défaut  réduction par utilisation de la règle 24 (OpInt)
-
-
-État 55
-
-   25 OpInt: tDIV .
-
-    $défaut  réduction par utilisation de la règle 25 (OpInt)
+    tADD  shift, and go to state 52
+    tSUB  shift, and go to state 53
+    tMUL  shift, and go to state 54
+    tDIV  shift, and go to state 55
+    tCP   shift, and go to state 59
 
 
-État 56
+State 52
 
-   29 Return: tRETURN $@5 tOP Expression tCP .
+   24 Expression: Expression tADD . Expression
 
-    $défaut  réduction par utilisation de la règle 29 (Return)
+    tSUB    shift, and go to state 42
+    tOP     shift, and go to state 43
+    tNBINT  shift, and go to state 44
+    tVAR    shift, and go to state 45
 
-
-État 57
-
-   21 Expression: Expression OpInt . Expression
-
-    tSUB    décalage et aller à l'état 42
-    tOP     décalage et aller à l'état 43
-    tNBINT  décalage et aller à l'état 44
-    tVAR    décalage et aller à l'état 45
-
-    Expression  aller à l'état 61
+    Expression  go to state 60
 
 
-État 58
+State 53
+
+   23 Expression: Expression tSUB . Expression
+
+    tSUB    shift, and go to state 42
+    tOP     shift, and go to state 43
+    tNBINT  shift, and go to state 44
+    tVAR    shift, and go to state 45
+
+    Expression  go to state 61
+
+
+State 54
+
+   21 Expression: Expression tMUL . Expression
+
+    tSUB    shift, and go to state 42
+    tOP     shift, and go to state 43
+    tNBINT  shift, and go to state 44
+    tVAR    shift, and go to state 45
+
+    Expression  go to state 62
+
+
+State 55
+
+   22 Expression: Expression tDIV . Expression
+
+    tSUB    shift, and go to state 42
+    tOP     shift, and go to state 43
+    tNBINT  shift, and go to state 44
+    tVAR    shift, and go to state 45
+
+    Expression  go to state 63
+
+
+State 56
+
+   28 Return: tRETURN $@5 tOP Expression tCP .
+
+    $default  reduce using rule 28 (Return)
+
+
+State 57
 
    15 DefinitionN: tV tVAR DefinitionN .
 
-    $défaut  réduction par utilisation de la règle 15 (DefinitionN)
+    $default  reduce using rule 15 (DefinitionN)
 
 
-État 59
+State 58
 
    18 Affectation: tVAR tAFC $@4 Expression Pv .
 
-    $défaut  réduction par utilisation de la règle 18 (Affectation)
+    $default  reduce using rule 18 (Affectation)
 
 
-État 60
+State 59
 
-   23 Expression: tOP Expression tCP .
+   26 Expression: tOP Expression tCP .
 
-    $défaut  réduction par utilisation de la règle 23 (Expression)
+    $default  reduce using rule 26 (Expression)
 
 
-État 61
+State 60
 
-   21 Expression: Expression . OpInt Expression
-   21           | Expression OpInt Expression .
+   21 Expression: Expression . tMUL Expression
+   22           | Expression . tDIV Expression
+   23           | Expression . tSUB Expression
+   24           | Expression . tADD Expression
+   24           | Expression tADD Expression .
 
-    tADD  décalage et aller à l'état 52
-    tSUB  décalage et aller à l'état 53
-    tMUL  décalage et aller à l'état 54
-    tDIV  décalage et aller à l'état 55
+    tMUL  shift, and go to state 54
+    tDIV  shift, and go to state 55
 
-    tADD      [réduction par utilisation de la règle 21 (Expression)]
-    tSUB      [réduction par utilisation de la règle 21 (Expression)]
-    tMUL      [réduction par utilisation de la règle 21 (Expression)]
-    tDIV      [réduction par utilisation de la règle 21 (Expression)]
-    $défaut  réduction par utilisation de la règle 21 (Expression)
+    $default  reduce using rule 24 (Expression)
 
-    OpInt  aller à l'état 57
+
+State 61
+
+   21 Expression: Expression . tMUL Expression
+   22           | Expression . tDIV Expression
+   23           | Expression . tSUB Expression
+   23           | Expression tSUB Expression .
+   24           | Expression . tADD Expression
+
+    tMUL  shift, and go to state 54
+    tDIV  shift, and go to state 55
+
+    $default  reduce using rule 23 (Expression)
+
+
+State 62
+
+   21 Expression: Expression . tMUL Expression
+   21           | Expression tMUL Expression .
+   22           | Expression . tDIV Expression
+   23           | Expression . tSUB Expression
+   24           | Expression . tADD Expression
+
+    $default  reduce using rule 21 (Expression)
+
+
+State 63
+
+   21 Expression: Expression . tMUL Expression
+   22           | Expression . tDIV Expression
+   22           | Expression tDIV Expression .
+   23           | Expression . tSUB Expression
+   24           | Expression . tADD Expression
+
+    $default  reduce using rule 22 (Expression)
