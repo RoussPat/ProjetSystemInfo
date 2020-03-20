@@ -27,7 +27,7 @@ Body:
     |{printf(" definition ");}  Definition Body                
     |{printf(" affectation ");} Affectation  Body              	
     |Print {printf(" print ");} Body 
-	| tOA {increasedepth();} Body tCA;
+	| tOA {increasedepth();} Body tCA {decreasedepth();};
 
 // A FAIRE : if else while
 	
@@ -39,19 +39,32 @@ String:
     tQ tVAR tQ ;                    
 
 Definition:
-    tINT tVAR DefinitionN Pv ;  
+    tINT tVAR DefinitionN Pv 
+	| tCONST tINT tVAR DefinitionN Pv 
+	| Constante ; 
+
+Constante: 
+	tCONST tINT tVAR DefinitionC Pv; 
+
 DefinitionN:
     //epsilon
-    |tV tVAR DefinitionN 			{printf(" definitionN ");};
+    |tV tVAR DefinitionN 			{add_symbol($2,0,0,1); printf ("Définition variable");}; 
+
+DefinitionC:
+    //epsilon
+    |tV tVAR DefinitionN 			{add_symbol($2,1,0,1); printf ("Définition constante");}; 
+
 Pv:
     tPV {printf("; \n");};
 
 Affectation:
-    tVAR tAFC {printf(" aff int ");} Expression Pv			;
+    tVAR tAFC {add_symbol($1,0,1,0/*recuperer le type*/); printf("AFC %d %d",0/* adresse ??? */,$1);} /* ATTENTION variable (pas constante)*/ Expression Pv; //j'aurais bien mis tINT au lieu de tVAR
+
 
 
 Expression:
 	tNBINT							{printf(" valeur int = %d",$1 );}
+	|tCONST tVAR					{printf(" constante int ");}		//j'ai ajoute ca
 	|tVAR							{printf(" variable int ");}
 	|Expression tMUL Expression	    {printf(" MUL int ");}
 	|Expression tDIV Expression	    {printf(" DIV int ");}
