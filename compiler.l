@@ -29,10 +29,9 @@
 "!"                             { return tNOT ;}
 
 
--?[0-9][.,][0-9]+e-?[0-9]+	    { yylval.nb = atof(yytext) ; return tNBFLOAT ;}
 -?[0-9]+						{ yylval.nb = (int)atof(yytext) ; return tNBINT ;}
-true 							{ return tTRUE ;}
-false							{ return tFALSE ;}
+true 							{ yylval.nb = 1; return tTRUE ;}
+false							{ yylval.nb = 0; return tFALSE ;}
 
 
 main							{ return tMAIN ;}
@@ -43,8 +42,6 @@ return                          { return tRETURN ;}
 
 const							{ return tCONST ;}
 int  							{ return tINT ;}
-float  							{ return tFLOAT ;}
-bool  							{ return tBOOL ;}
 char  							{ return tCHAR ;}
 
 [A-Za-z0-9_]+ 					{ yylval.str = strdup(yytext) ; return tVAR ;}

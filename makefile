@@ -9,3 +9,7 @@ lexicale:
    
 clean:
 	rm -f lex.yy.c lexer
+	rm compiler
+	rm y.output
+	rm y.tab.c
+	rm y.tab.h
