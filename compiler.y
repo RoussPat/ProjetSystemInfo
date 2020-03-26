@@ -1,6 +1,7 @@
 %{
     #include <stdio.h>
     #include "symboldepth.h"
+	#include "asm.h"
 	#include <stdlib.h>
 	#include <unistd.h>
     int yylex();
