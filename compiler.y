@@ -2,8 +2,6 @@
     #include <stdio.h>
     #include "symboldepth.h"
 	#include "asm.h"
-	#include <stdlib.h>
-	#include <unistd.h>
     int yylex();
     void yyerror(char* str);
 	int yydebug = 0;
