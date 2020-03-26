@@ -5,19 +5,19 @@
 typedef enum t_op_code {
 	ADD, MUL, SUB, DIV, COP,
     AFC, JMP, JMF, INF, SUP,
-	EQ, PRI,
+	EQ, PRI
 } op_code;
 
 typedef struct t_element {
 	short size;
-	t_op_code OP_CODE;
+	op_code OP_CODE;
 	short el1;
 	short el2;
 	short el3;
 } element;
 
 typedef struct t_asm_table {
-	t_element* first;
+	element* first;
 	int size;
 	int next;
 } asm_table;
