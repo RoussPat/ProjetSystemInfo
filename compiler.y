@@ -24,7 +24,7 @@
 File:
     {init(100); } Main;
 Main:
-    tMAIN /*{printf(" ;main \n");}*/ tOP tCP tOA Body Return tCA    ;
+    tMAIN /*{printf(" ;main \n");}*/ tOP tCP tOA Body Return tCA ;
 Body:
     //epsilon    
     |Definition Body
@@ -43,18 +43,18 @@ Print:
 									};
 
 Definition:
-    tINT tVAR 						{add_symbol($2,0,0,1); printf (";Definition int: %s\n", $2);} DefinitionN Pv ;
+    tINT tVAR 						{add_symbol($2,0,0,1);} DefinitionN Pv ;
 
 Constante: 
-	tCONST tINT tVAR 				{add_symbol($3,1,0,1); printf (";Definition int constante: %s\n", $3);}   DefinitionC Pv; 
+	tCONST tINT tVAR 				{add_symbol($3,1,0,1); }   DefinitionC Pv; 
 
 DefinitionN:
     //epsilon
-    |tV tVAR DefinitionN 			{add_symbol($2,0,0,1); printf (";Definition int: %s\n", $2);}; 
+    |tV tVAR DefinitionN 			{add_symbol($2,0,0,1); }; 
 
 DefinitionC:
     //epsilon
-    |tV tVAR DefinitionN 			{add_symbol($2,1,0,1); printf (";Definition int constante: %s\n", $2);}; 
+    |tV tVAR DefinitionN 			{add_symbol($2,1,0,1); }; 
 
 Pv:
     tPV /*{printf("; \n");}*/ ;
@@ -89,7 +89,7 @@ Expression:
 //tINT tID tEGAL Expression tPV { affectation($2,$4) }  ;
 
 Return:
-    tRETURN {printf(" return \n");} tOP Expression tCP     ;
+	tRETURN Expression Pv {printf(" return : %d\n",$2);} ;
 %%
 void yyerror(char * str){
 	printf("Erreur de parsing\n");};

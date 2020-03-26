@@ -73,6 +73,7 @@ unsigned int add_temp_var(int type){
 		s.depth = depth;
 		s.temp = 1;
 		s.memory = stackpointer;
+		printf("[temp_var] new var :  %s @ %d\n",s.id,stackpointer);
 		switch(type) {
 			case 0: //char 1o
 				stackpointer = stackpointer + 1;
@@ -94,7 +95,7 @@ unsigned int add_temp_var(int type){
 		printf("%s\n", "[add_temp_var] Max symbol table size reached \n" );
 		err = 1;
 	}
-	if(err == 0){
+	if(err != 0){
 		return(-1);
 	}
 	else{
@@ -195,27 +196,29 @@ void increasedepth(){
 void decreasedepth(){
 	int index = tablast-1;
 	while((index >= 0) & tab[index].depth == depth){
+		printf("delete de id : %s @ %d\n",tab[index].id,tab[index].memory);
 		switch(tab[index].type) {
 			case 0: //char 1o
 				stackpointer = stackpointer - 1;
+				tablast--;
 			break;
 			case 1: //int 4o
 				stackpointer = stackpointer - 4;
+				tablast--;
 			break;
 			default:
 				printf("%s\n", "This should not happend \n" );
 		}
 		index --;
 	}
-	tablast = index;
 	depth --;
 }
 
 void delete_temp_var(){
 	int index = tablast-1;
 	while(index >= 0){
-		//printf("id : %s\n",tab[index].id);
 		if(tab[index].temp != 0){
+			printf("delete de id : %s @ %d\n",tab[index].id,tab[index].memory);
 			switch(tab[index].type) {
 			case 0: //char 1o
 				stackpointer = stackpointer - 1;
