@@ -3,6 +3,7 @@
     #include "symboldepth.h"
     int yylex();
     void yyeror(char* str);
+	
 %}
 %union{
     int nb;
