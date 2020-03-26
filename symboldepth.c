@@ -36,7 +36,7 @@ int exist_symbol_curdepth(char* id){
 	int index = tablast-1;
 	int ret = 0;
 	while((index >= 0) && !found){
-		if(strcmp(tab[index].id,id) && tab[index].depth == depth){
+		if((strcmp(tab[index].id,id)==0) && tab[index].depth == depth){
 			ret = 1;
 			found =1;
 		}
@@ -63,7 +63,7 @@ int exist_symbol_alldepth(char* id){
 unsigned int add_temp_var(int type){
 	unsigned int ret = stackpointer;
 	int err = 0;
-	if(tablast +1 >= tabsize){
+	if(tablast +1 < tabsize){
 		symbol s;
 		s.id = malloc(sizeof("temp"));
 		strcpy(s.id , "temp");
@@ -108,7 +108,7 @@ void initalize_var(char* id){
 	int found =0;
 	int index = tablast-1;
 	while((index >= 0) && !found){
-		if(strcmp(tab[index].id,id)){
+		if(strcmp(tab[index].id,id)==0){
 			found =1;
 			tab[index].initialized = 1;
 		}
@@ -130,7 +130,7 @@ int add_symbol(char* id, int constant,int initialized, int type){
 		s.depth = depth;
 		s.temp = 0;
 		s.memory = stackpointer;
-		printf("[add_symbol] new var :  %s\n",s.id);
+		printf("[add_symbol] new var :  %s @ %d\n",s.id,stackpointer);
 		switch(type) {
 			case 0: //char 1o
 				stackpointer = stackpointer + 1;
@@ -161,7 +161,7 @@ unsigned int find_symbol(char* id){
 	int index = tablast-1;
 	unsigned int ret = -1;
 	while((index >= 0) && !found){
-		if(strcmp(tab[index].id,id)){
+		if(strcmp(tab[index].id,id)==0){
 			ret = tab[index].memory;
 			found =1;
 		}
@@ -176,7 +176,7 @@ int var_is_const(char* id){
 	int index = tablast-1;
 	int ret = -1;
 	while((index >= 0) && !found){
-		if(strcmp(tab[index].id,id)){
+		if(strcmp(tab[index].id,id)==0){
 			ret = tab[index].constant;
 			found =1;
 		}
@@ -208,6 +208,7 @@ void decreasedepth(){
 		index --;
 	}
 	tablast = index;
+	depth --;
 }
 
 void delete_temp_var(){

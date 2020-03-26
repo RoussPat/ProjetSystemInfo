@@ -1,14 +1,17 @@
 %{
     #include <stdio.h>
     #include "symboldepth.h"
+	#include <stdlib.h>
+	#include <unistd.h>
     int yylex();
-    void yyeror(char* str);
-	
+    void yyerror(char* str);
+	int yydebug = 0;
 %}
 %union{
     int nb;
     char* str;
 }
+
 
 %left tADD tSUB
 %left tMUL tDIV
@@ -16,29 +19,28 @@
 %token <nb> tNBINT
 %token <str> tVAR
 %type <nb> Expression
-%type <str> String
 %%
 %start File;
 File:
     {init(100); } Main;
 Main:
-    tMAIN {printf(" ;main \n");} tOP tCP tOA Body Return tCA    ;
+    tMAIN /*{printf(" ;main \n");}*/ tOP tCP tOA Body Return tCA    ;
 Body:
     //epsilon    
     |Definition Body
     |Constante Body                
     |Affectation  Body              	
     |Print Body 
-	| tOA {increasedepth();} Body tCA {decreasedepth();};
+	|tOA {increasedepth();} Body tCA {decreasedepth();} Body;
 
 // A FAIRE : if else while
 	
 
 Print:
-    tPRINTF tOP String tCP Pv 		{printf("PRI %s\n",$3);};
-
-String:
-    tQ tVAR tQ   					{$$ = $2;};
+    tPRINTF tOP tVAR tCP Pv 		{if(exist_symbol_alldepth($3)){
+										printf("PRI %d\n",find_symbol($3));
+										}
+									};
 
 Definition:
     tINT tVAR 						{add_symbol($2,0,0,1); printf (";Definition int: %s\n", $2);} DefinitionN Pv ;
@@ -58,7 +60,7 @@ Pv:
     tPV /*{printf("; \n");}*/ ;
 
 Affectation:
-    tVAR tAFC Expression Pv   { if(exist_symbol_alldepth($1)){
+    tVAR tAFC Expression Pv   { if(exist_symbol_curdepth($1)){
 							    	if(!(var_is_const($1))){
 							    		initalize_var($1);
 							    		printf("AFC %d %d\n",find_symbol($1),$3);
@@ -75,9 +77,9 @@ Expression:
 	|Expression tDIV Expression	    {$$ = add_temp_var(1); printf("DIV %d %d %d\n",$$,$1,$3);}
 	|Expression tSUB Expression	    {$$ = add_temp_var(1); printf("SOU %d %d %d\n",$$,$1,$3);}
 	|Expression tADD Expression	    {$$ = add_temp_var(1); printf("ADD %d %d %d\n",$$,$1,$3);}
-	|tSUB Expression				{$$ = add_temp_var(1); printf("SOU %d 0 %d\n",$$,$2);}
+//	|tSUB Expression				{$$ = add_temp_var(1); printf("SOU %d 0 %d\n",$$,$2);}
 	|tOP Expression tCP				{$$ = $2;}; // je vois pas ce qu'il y a a faire ici il faut gerer la prioroté des operations
-	|tNOT Expression 				{$$ = add_temp_var(1); printf("NOT %d %d\n",$$,$2);}
+//	|tNOT Expression 				{$$ = add_temp_var(1); printf("NOT %d %d\n",$$,$2);}
 	|Expression tEQ Expression		{$$ = add_temp_var(1); printf("EQU %d %d %d\n",$$,$1,$3);}
 	|Expression tNEQ Expression		{$$ = add_temp_var(1); printf("NEQ %d %d %d\n",$$,$1,$3);}
 	|Expression tIE Expression		{$$ = add_temp_var(1); printf("IEQ %d %d %d\n",$$,$1,$3);}
@@ -89,6 +91,7 @@ Expression:
 Return:
     tRETURN {printf(" return \n");} tOP Expression tCP     ;
 %%
-void yyerror(char * str){};
+void yyerror(char * str){
+	printf("Erreur de parsing\n");};
 int main(){yyparse();return 0;}
 
