@@ -15,11 +15,11 @@ typedef struct symbol_t{
 }symbol;
 
 
-unsigned int stackpointer;
-symbol* tab;
-int tablast;
-int tabsize;
-int depth;
+extern unsigned int stackpointer;
+extern symbol* tab;
+extern int tablast;
+extern int tabsize;
+extern int depth;
 
 
 int init(int maxsize){
@@ -33,9 +33,9 @@ int init(int maxsize){
 
 int exist_symbol_curdepth(char* id){
 	int found =0;
-	int index = tablast;
+	int index = tablast-1;
 	int ret = 0;
-	while((index > 0) && !found){
+	while((index >= 0) && !found){
 		if(strcmp(tab[index].id,id) && tab[index].depth == depth){
 			ret = 1;
 			found =1;
@@ -48,10 +48,10 @@ int exist_symbol_curdepth(char* id){
 
 int exist_symbol_alldepth(char* id){
 	int found =0;
-	int index = tablast;
+	int index = tablast-1;
 	int ret = 0;
-	while((index > 0) && !found){
-		if(strcmp(tab[index].id,id)){
+	while((index >= 0) && !found){
+		if(strcmp(tab[index].id,id) == 0){
 			ret = 1;
 			found =1;
 		}
@@ -106,8 +106,8 @@ unsigned int add_temp_var(int type){
 
 void initalize_var(char* id){
 	int found =0;
-	int index = tablast;
-	while((index > 0) && !found){
+	int index = tablast-1;
+	while((index >= 0) && !found){
 		if(strcmp(tab[index].id,id)){
 			found =1;
 			tab[index].initialized = 1;
@@ -119,9 +119,10 @@ void initalize_var(char* id){
 
 int add_symbol(char* id, int constant,int initialized, int type){
 	int err = 0;
-	if(tablast +1 >= tabsize){
+	//printf("tabsize : %d  tablast : %d  tablast +1 >= tabsize : %d\n",tabsize,tablast,tablast +1 < tabsize);
+	if((tablast +1) < tabsize){
 		symbol s;
-		s.id = malloc(sizeof(strlen(id)));
+		s.id = malloc(sizeof(strlen(id)+1));
 		strcpy(s.id , id);
 		s.constant = constant;
 		s.initialized = initialized;
@@ -129,7 +130,7 @@ int add_symbol(char* id, int constant,int initialized, int type){
 		s.depth = depth;
 		s.temp = 0;
 		s.memory = stackpointer;
-		printf("[add_symbol]  TEST0\n");
+		printf("[add_symbol] new var :  %s\n",s.id);
 		switch(type) {
 			case 0: //char 1o
 				stackpointer = stackpointer + 1;
@@ -143,10 +144,8 @@ int add_symbol(char* id, int constant,int initialized, int type){
 		}
 		
 		if(err == 0){
-			printf("[add_symbol]  TEST1\n");
 			tab[tablast] = s;
 			tablast ++;
-			printf("[add_symbol]  TEST2\n");
 		}
 	}
 	else{
@@ -159,9 +158,9 @@ int add_symbol(char* id, int constant,int initialized, int type){
 
 unsigned int find_symbol(char* id){
 	int found =0;
-	int index = tablast;
+	int index = tablast-1;
 	unsigned int ret = -1;
-	while((index > 0) && !found){
+	while((index >= 0) && !found){
 		if(strcmp(tab[index].id,id)){
 			ret = tab[index].memory;
 			found =1;
@@ -174,9 +173,9 @@ unsigned int find_symbol(char* id){
 
 int var_is_const(char* id){
 	int found =0;
-	int index = tablast;
+	int index = tablast-1;
 	int ret = -1;
-	while((index > 0) && !found){
+	while((index >= 0) && !found){
 		if(strcmp(tab[index].id,id)){
 			ret = tab[index].constant;
 			found =1;
@@ -194,8 +193,8 @@ void increasedepth(){
 
 
 void decreasedepth(){
-	int index = tablast;
-	while((index > 0) & tab[index].depth == depth){
+	int index = tablast-1;
+	while((index >= 0) & tab[index].depth == depth){
 		switch(tab[index].type) {
 			case 0: //char 1o
 				stackpointer = stackpointer - 1;
@@ -212,8 +211,9 @@ void decreasedepth(){
 }
 
 void delete_temp_var(){
-	int index = tablast;
-	while(index > 0){
+	int index = tablast-1;
+	while(index >= 0){
+		//printf("id : %s\n",tab[index].id);
 		if(tab[index].temp != 0){
 			switch(tab[index].type) {
 			case 0: //char 1o
@@ -227,8 +227,8 @@ void delete_temp_var(){
 			default:
 				printf("%s\n", "This should not happend \n" );
 			}
-		index --;
 		}
+	index --;
 	}
 }
 
