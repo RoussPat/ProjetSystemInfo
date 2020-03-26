@@ -64,13 +64,11 @@ Affectation:
 							    	}
 							    }
     							delete_temp_var(); }; 
-	//j'aurais bien mis tINT au lieu de tVAR   ||| Reponse : j'ai mis tVAR pcq on ne sais pas ce que c'est au moment de l'affectation, peut importe le type on affecte a une variable ||| j'ai changer des trucs
-
 
 
 Expression:
 	tNBINT							{$$ = $1;}
-	//|tCONST tVAR					{printf(" constante int ");}		//j'ai ajoute ca ||| ya pas besoin, ce sera juste une variable avec un nom je crois pas qu'il y aie besoin de preciser que c'est une constante au moment d'utiliser la variable.
+
 	|tVAR							{$$ = find_symbol($1);}
 	|Expression tMUL Expression	    {$$ = add_temp_var(1); printf("MUL %d %d %d\n",$$,$1,$3);}
 	|Expression tDIV Expression	    {$$ = add_temp_var(1); printf("DIV %d %d %d\n",$$,$1,$3);}
