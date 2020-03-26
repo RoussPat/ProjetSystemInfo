@@ -36,7 +36,7 @@ int exist_symbol_curdepth(char* id){
 	int index = tablast-1;
 	int ret = 0;
 	while((index >= 0) && !found){
-		if(strcmp(tab[index].id,id) && tab[index].depth == depth){
+		if((strcmp(tab[index].id,id)==0) && tab[index].depth == depth){
 			ret = 1;
 			found =1;
 		}
@@ -63,7 +63,7 @@ int exist_symbol_alldepth(char* id){
 unsigned int add_temp_var(int type){
 	unsigned int ret = stackpointer;
 	int err = 0;
-	if(tablast +1 >= tabsize){
+	if(tablast +1 < tabsize){
 		symbol s;
 		s.id = malloc(sizeof("temp"));
 		strcpy(s.id , "temp");
@@ -73,6 +73,7 @@ unsigned int add_temp_var(int type){
 		s.depth = depth;
 		s.temp = 1;
 		s.memory = stackpointer;
+		printf("[temp_var] new var :  %s @ %d\n",s.id,stackpointer);
 		switch(type) {
 			case 0: //char 1o
 				stackpointer = stackpointer + 1;
@@ -94,7 +95,7 @@ unsigned int add_temp_var(int type){
 		printf("%s\n", "[add_temp_var] Max symbol table size reached \n" );
 		err = 1;
 	}
-	if(err == 0){
+	if(err != 0){
 		return(-1);
 	}
 	else{
@@ -108,7 +109,7 @@ void initalize_var(char* id){
 	int found =0;
 	int index = tablast-1;
 	while((index >= 0) && !found){
-		if(strcmp(tab[index].id,id)){
+		if(strcmp(tab[index].id,id)==0){
 			found =1;
 			tab[index].initialized = 1;
 		}
@@ -130,7 +131,7 @@ int add_symbol(char* id, int constant,int initialized, int type){
 		s.depth = depth;
 		s.temp = 0;
 		s.memory = stackpointer;
-		printf("[add_symbol] new var :  %s\n",s.id);
+		printf("[add_symbol] new var :  %s @ %d\n",s.id,stackpointer);
 		switch(type) {
 			case 0: //char 1o
 				stackpointer = stackpointer + 1;
@@ -161,7 +162,7 @@ unsigned int find_symbol(char* id){
 	int index = tablast-1;
 	unsigned int ret = -1;
 	while((index >= 0) && !found){
-		if(strcmp(tab[index].id,id)){
+		if(strcmp(tab[index].id,id)==0){
 			ret = tab[index].memory;
 			found =1;
 		}
@@ -176,7 +177,7 @@ int var_is_const(char* id){
 	int index = tablast-1;
 	int ret = -1;
 	while((index >= 0) && !found){
-		if(strcmp(tab[index].id,id)){
+		if(strcmp(tab[index].id,id)==0){
 			ret = tab[index].constant;
 			found =1;
 		}
@@ -195,26 +196,29 @@ void increasedepth(){
 void decreasedepth(){
 	int index = tablast-1;
 	while((index >= 0) & tab[index].depth == depth){
+		printf("delete de id : %s @ %d\n",tab[index].id,tab[index].memory);
 		switch(tab[index].type) {
 			case 0: //char 1o
 				stackpointer = stackpointer - 1;
+				tablast--;
 			break;
 			case 1: //int 4o
 				stackpointer = stackpointer - 4;
+				tablast--;
 			break;
 			default:
 				printf("%s\n", "This should not happend \n" );
 		}
 		index --;
 	}
-	tablast = index;
+	depth --;
 }
 
 void delete_temp_var(){
 	int index = tablast-1;
 	while(index >= 0){
-		//printf("id : %s\n",tab[index].id);
 		if(tab[index].temp != 0){
+			printf("delete de id : %s @ %d\n",tab[index].id,tab[index].memory);
 			switch(tab[index].type) {
 			case 0: //char 1o
 				stackpointer = stackpointer - 1;

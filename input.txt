@@ -2,10 +2,11 @@ main(){
 int i, j,k,r;
 j=4;
 i =3;
-{ int j = 5;
-printf("%d",j);
+{ int j;
+j = 5;
+printf(j);
 }
-printf("%d",j);
+printf(j);
 k=8;
 printf (i);
 r=(i+j)*(i+k/j);
