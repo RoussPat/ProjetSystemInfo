@@ -23,7 +23,7 @@
 File:
     {init(100); } Main;
 Main:
-    tMAIN /*{printf(" ;main \n");}*/ tOP tCP tOA Body Return tCA ;
+    tMAIN /*{printf(" ;main \n");}*/ tOP tCP tOA Body /*Return*/ tCA ;
 Body:
     //epsilon    
     |Definition Body
@@ -62,14 +62,14 @@ Affectation:
     tVAR tAFC Expression Pv   { if(exist_symbol_curdepth($1)){
 							    	if(!(var_is_const($1))){
 							    		initalize_var($1);
-							    		printf("AFC %d %d\n",find_symbol($1),$3);
+							    		printf("COP %d %d\n",find_symbol($1),$3);
 							    	}
 							    }
     							delete_temp_var(); }; 
 
 
 Expression:
-	tNBINT							{$$ = $1;}
+	tNBINT							{$$ = add_temp_var(1); printf("AFC %d %d\n",$$,$1);}
 
 	|tVAR							{$$ = find_symbol($1);}
 	|Expression tMUL Expression	    {$$ = add_temp_var(1); printf("MUL %d %d %d\n",$$,$1,$3);}
@@ -88,7 +88,7 @@ Expression:
 //tINT tID tEGAL Expression tPV { affectation($2,$4) }  ;
 
 Return:
-	tRETURN Expression Pv {printf(" return : %d\n",$2);} ;
+	tRETURN Expression Pv {printf("return : %d\n",$2);} ;
 %%
 void yyerror(char * str){
 	printf("Erreur de parsing\n");};
