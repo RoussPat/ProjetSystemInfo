@@ -37,6 +37,7 @@ false							{ yylval.nb = 0; return tFALSE ;}
 main							{ return tMAIN ;}
 printf							{ return tPRINTF ;}
 if  							{ return tIF ;}
+else							{ return tELSE;}
 while 							{ return tWHILE ;}
 return                          { return tRETURN ;}
 

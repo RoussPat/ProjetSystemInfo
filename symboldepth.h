@@ -13,6 +13,7 @@ void initalize_var(char* id);
 unsigned int add_temp_var(int type);
 int var_is_const(char* id);
 void delete_temp_var();
+int getDepth();
 
 unsigned int stackpointer;
 symbol* tab;
