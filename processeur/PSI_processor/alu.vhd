@@ -58,28 +58,49 @@ architecture Behavioral of alu is
 begin
 
 -- Implementation des operations
-	-- Gestion des erreurs
-	S <=  S_add(7 downto 0) when Ctrl_ALU = X"01" else 
-			S_sou(7 downto 0) when Ctrl_ALU = X"03" else
-			S_mul(7 downto 0) when Ctrl_ALU = X"02" else
-			S_equ when Ctrl_ALU = X"0B" else
-			S_inf when Ctrl_ALU = X"09" else
-			S_sup when Ctrl_ALU = X"0A" ;
+	-- Gestion des OpCodes
+	S <=  S_add(7 downto 0) when Ctrl_Alu = X"01" else 
+			S_sou(7 downto 0) when Ctrl_Alu = X"03" else
+			S_mul(7 downto 0) when Ctrl_Alu = X"02" else
+			S_equ when Ctrl_Alu = X"0B" else
+			S_inf when Ctrl_Alu = X"09" else
+			S_sup when Ctrl_Alu = X"0A";
+			-- division ???
 			
-	S_add <= ("0" & A)+ ("0" & B); 
+	-- Actions a faire en fonction de l'OpCode
+	S_add <= ("0" & A)+ ("0" & B); -- est-ce quon utilise une variable temporaire comme a ecrit la prof dans le forum ?
 	S_sou <= A-B;
 	S_mul <= A*B;
 	
-	S_equ <= when else;
-	S_inf <= when else;
-	S_sup <= when else;
+	S_equ <= '1' when (Ctrl_Alu = X"09" and A = B) else '0';
+	S_inf <= '1' when (Ctrl_Alu = X"09" and A < B) else '0';
+	S_sup <= '1' when (Ctrl_Alu = X"09" and A > B) else '0';
 	
-	C <= when else;
-	N <= when else;
-	Z <= when else;
-	V <= when else;
-
---Ex prof : pq pb puisquon a dit quon etait sur 8 bits ??
+	-- Flag Carry
+	C <=  S_add(8) (when Ctrl_Alu = X"01" and S_add(8) = '1') else '0';
+	
+	-- Flag Negative
+	N <=  S_add(7) when (Ctrl_Alu = X"01" and S_add(7) = '1') else	-- add
+			S_sou(7) when (Ctrl_Alu = X"03" and S_sou(7) = '1') else	-- soustraction
+			S_mul(7) when (Ctrl_Alu = X"02" and S_mul(7) = '1') else		
+	-- multiplication (a faire ? cf partie 2 forum)
+			'0';
+	
+	-- Flag Zero
+	Z <=  '1' when (Ctr_Alu = X"01" and S_add(7 downto 0) = X"00") else
+			'1' when (Ctr_Alu = X"03" and S_sou(7 downto 0) = X"00") else
+			'1' when (Ctr_Alu = X"02" and S_mul(7 downto 0) = X"00") else
+			'0';
+	
+	-- Flag Overflow
+	V <=  '1' when (S_add(7) = '1' and A(7) = '0' and B(7) = '0') else 	-- add cas 1 : A et B positifs
+			'1' when (S_add(7) = '0' and A(7) = '1' and B(7) = '1') else	-- add cas 2 : A et B negatifs
+			'1' when (S_sou(7) = '0' and A(7) = '1' and B(7) = '0') else	-- sou cas 1 : A negatif, B positif
+			'1' when (S_sou(7) = '1' and A(7) = '0' and B(7) = '1') else 	-- sou cas 2 : A positif, B negatif
+			'0';
+			
+			
+--Ex prof :
 -- resultat <= a+b;
 --resultat_tmp <= (b"0" & a) + (b"0" & b);
 --resultat <= resultat_tmp(3 downto 0);
