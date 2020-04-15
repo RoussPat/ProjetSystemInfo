@@ -1,4 +1,11 @@
+compilateur/lex.yy.c
+compilateur/y.output
+compilateur/y.tab.c
+compilateur/y.tab.h
+compilateur/compiler
+compilateur/a.out
 lex.yy.c
+a.out
 y.output
 y.tab.c
 y.tab.h

@@ -234,6 +234,7 @@ void delete_temp_var(){
 		}
 	index --;
 	}
+}
 int getDepth() {
 	return(depth);
 }

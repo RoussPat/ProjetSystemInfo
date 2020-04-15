@@ -2,9 +2,10 @@ main(){
 int i, j,k,r;
 j=4;
 i =3;
-{ int j;
-j = 5;
-printf(j);
+if(i==3){ 
+	int j;
+	j = 5;
+	printf(j);
 }
 printf(j);
 k=8;
