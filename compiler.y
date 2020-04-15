@@ -6,6 +6,7 @@
     int yylex();
     void yyerror(char* str);
 	int yydebug = 0;
+	int curentTable;
 %}
 %union{
     int nb;
@@ -22,7 +23,7 @@
 %%
 %start File;
 File:
-    {init(100);int curentTable = initTable(100)} Main;
+    {init(100);curentTable = initTable(100);} Main;
 Main:
     tMAIN /*{printf(" ;main \n");}*/ tOP tCP tOA Body /*Return*/ tCA ;
 Body:
@@ -36,20 +37,20 @@ Body:
 	|tIF tOP Expression tCP tOA 
 	{increasedepth();curentTable = newif(getDepth(),$3);} 
 	Body tCA 
-	{curentTable = endif(getDepth(),$1); decreasedepth();} 
+	{curentTable = endif(getDepth()); decreasedepth();} 
 	Body
 
 	|tIF tOP Expression tCP tOA 
 	{increasedepth();curentTable = newifelse(getDepth(),$3);} 
-	Body tCA tESLE 
-	{ curentTable = newelse(getdepth());} 
+	Body tCA tELSE 
+	{ curentTable = newelse(getDepth());} 
 	tOA  Body tCA  
 	{curentTable = endifelse(getDepth()); decreasedepth();} 
 	Body;
 	
 
 Print:
-    tprintf tOP tVAR tCP Pv 		{if(exist_symbol_alldepth($3)){
+    tPRINTF tOP tVAR tCP Pv 		{if(exist_symbol_alldepth($3)){
 										addline(getDepth(),PRI,find_symbol($3),-1,-1);
 										//printf("PRI %d\n",find_symbol($3));
 										}
@@ -96,12 +97,12 @@ Expression:
 
 //	|tNOT Expression 				{$$ = add_temp_var(1);addline(getDepth(),NOT,$$,$2,-1); 														/*printf("NOT %d %d\n",$$,$2);*/}
 	|Expression tEQ Expression		{$$ = add_temp_var(1);addline(getDepth(),EQU,$$,$1,$3); 														/*printf("EQU %d %d %d\n",$$,$1,$3);*/}
-	|Expression tNEQ Expression		{$$ = add_temp_var(1);addline(getDepth(),NEQ,$$,$1,$3); 
-														/*printf("NEQ %d %d %d\n",$$,$1,$3);*/}
-	|Expression tIE Expression		{$$ = add_temp_var(1);addline(getDepth(),IEQ,$$,$1,$3); 														/*printf("IEQ %d %d %d\n",$$,$1,$3);*/}
+//	|Expression tNEQ Expression		{$$ = add_temp_var(1);addline(getDepth(),NEQ,$$,$1,$3); }
+														/*printf("NEQ %d %d %d\n",$$,$1,$3);*/
+//	|Expression tIE Expression		{$$ = add_temp_var(1);addline(getDepth(),IEQ,$$,$1,$3); 														/*printf("IEQ %d %d %d\n",$$,$1,$3);*/}
 	|Expression tSUP Expression		{$$ = add_temp_var(1);addline(getDepth(),SUP,$$,$1,$3); 														/*printf("SUP %d %d %d\n",$$,$1,$3);*/}
 	|Expression tINF Expression		{$$ = add_temp_var(1);addline(getDepth(),INF,$$,$1,$3); 														/*printf("INF %d %d %d\n",$$,$1,$3);*/}
-	|Expression tSE Expression 		{$$ = add_temp_var(1);addline(getDepth(),SEQ,$$,$1,$3); 														/*printf("SEQ %d %d %d\n",$$,$1,$3);*/};
+//	|Expression tSE Expression 		{$$ = add_temp_var(1);addline(getDepth(),SEQ,$$,$1,$3); 														/*printf("SEQ %d %d %d\n",$$,$1,$3);*/};
 //tINT tID tEGAL Expression tPV { affectation($2,$4) }  ;
 /*
 Return:
