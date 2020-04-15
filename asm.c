@@ -24,13 +24,6 @@ typedef struct t_asm_table {
 } asm_table;
 
 
-
-
-
-//Créer un tableau de struct C qui stocke le code assembleur généré.
-//=> Print, à la fin de yyparse (dans fonction main ou comme action à la fin du File), ce tableau dans le teminal ou dans un fichier (fprintf). DONE
-//=> Mettre à jour votre makefile: ajouter le fichier ".c" dans la ligne gcc. Inclus le fichier ".h" dans Yacc, zone définition.      DONE
-
 FILE* Outputfile;
 asm_table* table;
 int maxtable;
@@ -40,7 +33,7 @@ void addline(int num,op_code code,int el1,int el2,int el3){
 	if(table[num].curElem +1 >= 100){
 		writetablebut1st(num);
 	}
-	table[num].elem[curElem].line = line;
+	table[num].elem[curElem].line = line; // c'est pas table[num]->elem[curElem].line plutot ? comme table est un * 
 	table[num].elem[curElem].code = code;
 	table[num].elem[curElem].el1 = el1;
 	table[num].elem[curElem].el2 = el2;
@@ -48,26 +41,25 @@ void addline(int num,op_code code,int el1,int el2,int el3){
 	table[num].curElem ++;
 	table[num].size ++;
 	line ++;
-
 }
 
 
 int initTable(int size){
 	Outputfile = fopen("a.out", "w+");
 	table = malloc(size * sizeof(asm_table));
-	table[0].curElem = 0;
+	table[0].curElem = 0; //idem pour la "->" ?
 	table[0].size =0;
-	int maxtable = max;
+	int maxtable = max; //max ?
 	line = 1;
 	return(0);
 }
 
 int newif(int depth,int Expression ){
-	if(depth < maxsize){
-		table[depth].curElem =0;
+	if(depth < maxsize){	
+		table[depth].curElem =0; //->
 		table[depth].size =0;
 		addline(depth,JMF,Expression,-1,-1);
-		return depth;
+		return depth; //depth ne doit pas s'incrémenter ?
 	}
 	else{
 		printf("%s%d\n", "profondeur maximale atteinte : ", maxsize );
@@ -75,7 +67,7 @@ int newif(int depth,int Expression ){
 	}
 }
 int endif(int depth){
-	table[depth].elem[0].el2 = line;
+	table[depth].elem[0].el2 = line; // ->
 	writefulltable(depth);
 }
 
@@ -91,7 +83,7 @@ int endifelse(int depth){
 
 void writefulltable(int num){
 	int l;
-	for(l=0;l<(table[num].curElem-1);l++){
+	for(l=0;l<(table[num].curElem-1);l++){ //->
 		if(table[num].curElem.el2 =-1){
 			fprintf(Outputfile,"%d %d\n",table[num].curElem.code,table[num].curElem.el1);
 		}
