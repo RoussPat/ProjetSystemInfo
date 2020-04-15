@@ -3,11 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef enum t_op_code {
-	ADD, MUL, SUB, DIV, COP,
-    AFC, JMP, JMF, INF, SUP,
-	EQ, PRI
-} op_code;
+
 
 typedef struct t_element {
 	int line;
@@ -18,7 +14,7 @@ typedef struct t_element {
 } element;
 
 typedef struct t_asm_table {
-	element[100] elem;
+	struct t_element elem[100];
 	int curElem;
 	int size;
 } asm_table;
@@ -33,11 +29,11 @@ void addline(int num,op_code code,int el1,int el2,int el3){
 	if(table[num].curElem +1 >= 100){
 		writetablebut1st(num);
 	}
-	table[num].elem[curElem].line = line; 
-	table[num].elem[curElem].code = code;
-	table[num].elem[curElem].el1 = el1;
-	table[num].elem[curElem].el2 = el2;
-	table[num].elem[curElem].el3 = el3;
+	table[num].elem[table[num].curElem].line = line; 
+	table[num].elem[table[num].curElem].code = code;
+	table[num].elem[table[num].curElem].el1 = el1;
+	table[num].elem[table[num].curElem].el2 = el2;
+	table[num].elem[table[num].curElem].el3 = el3;
 	table[num].curElem ++;
 	table[num].size ++;
 	line ++;
@@ -46,6 +42,7 @@ void addline(int num,op_code code,int el1,int el2,int el3){
 
 int initTable(int size){
 	Outputfile = fopen("a.out", "w+");
+	fclose(Outputfile);
 	table = malloc(size * sizeof(asm_table));
 	table[0].curElem = 0; 
 	table[0].size =0;
@@ -55,49 +52,78 @@ int initTable(int size){
 }
 
 int newif(int depth,int Expression ){
-	if(depth < maxsize){	
-		table[depth].curElem =0; //->
+	if(depth < maxtable){	
+		table[depth].curElem =0; 
 		table[depth].size =0;
 		addline(depth,JMF,Expression,-1,-1);
 		return depth; 
 	}
 	else{
-		printf("%s%d\n", "profondeur maximale atteinte : ", maxsize );
+		printf("%s%d\n", "profondeur maximale atteinte : ", maxtable );
 		return -1;
 	}
 }
 int endif(int depth){
-	table[depth].elem[0].el2 = line; 
+	table[depth].elem[0].el2 = line;
 	writefulltable(depth);
 }
 
 int newifelse(int depth,int Expression){
-
+	if(depth < maxtable){	
+		table[depth].curElem =0; 
+		table[depth].size =0;
+		addline(depth,JMF,Expression,-1,-1);
+		return depth; 
+	}
+	else{
+		printf("%s%d\n", "profondeur maximale atteinte : ", maxtable );
+		return -1;
+	}
 }
+
 int newelse(int depth){
 
 }
+
 int endifelse(int depth){
 
 }
 
 void writefulltable(int num){
+	Outputfile = fopen("a.out", "a+");
 	int l;
-	for(l=0;l<(table[num].curElem-1);l++){
-		if(table[num].curElem.el2 =-1){
-			fprintf(Outputfile,"%d %d\n",table[num].curElem.code,table[num].curElem.el1);
+	for(l=1;l<(table[num].curElem-1);l++){
+		if(table[num].elem[l].el2 =-1){
+			fprintf(Outputfile,"%d %d\n",table[num].elem[l].code,table[num].elem[l].el1);
 		}
 		else{
-			if(table[num].curElem.el3 =-1){
-				fprintf(Outputfile,"%d %d %d\n",table[num].curElem.code,table[num].curElem.el1,table[num].curElem.el2);
+			if(table[num].elem[l].el3 =-1){
+				fprintf(Outputfile,"%d %d %d\n",table[num].elem[l].code,table[num].elem[l].el1,table[num].elem[l].el2);
 			}
 			else{
-				fprintf(Outputfile,"%d %d %d %d\n",table[num].curElem.code,table[num].curElem.el1,table[num].curElem.el2,table[num].curElem.el3);
+				fprintf(Outputfile,"%d %d %d %d\n",table[num].elem[l].code,table[num].elem[l].el1,table[num].elem[l].el2,table[num].elem[l].el3);
 			}
 		}
 	}
+	fclose(Outputfile);	
 }
 
 void writetablebut1st(int num){
-
+	Outputfile = fopen("a.out", "a+");
+	int l;
+	for(l=1;l<(table[num].curElem-1);l++){
+		if(table[num].elem[l].el2 =-1){
+			fprintf(Outputfile,"%d %d\n",table[num].elem[l].code,table[num].elem[l].el1);
+		}
+		else{
+			if(table[num].elem[l].el3 =-1){
+				fprintf(Outputfile,"%d %d %d\n",table[num].elem[l].code,table[num].elem[l].el1,table[num].elem[l].el2);
+			}
+			else{
+				fprintf(Outputfile,"%d %d %d %d\n",table[num].elem[l].code,table[num].elem[l].el1,table[num].elem[l].el2,table[num].elem[l].el3);
+			}
+		}
+	}
+	table[num].curElem = 1;
+	fclose(Outputfile);	
 }
