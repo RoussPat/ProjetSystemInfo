@@ -8,31 +8,61 @@
 <msg type="info" file="Xst" num="0" delta="new" >Part-select index evaluated to out of bound value may lead to incorrect synthesis results; it is recommended not to use them in RTL
 </msg>
 
-<msg type="error" file="HDLCompiler" num="69" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 50: &lt;<arg fmt="%s" index="1">clk</arg>&gt; is not declared.
+<msg type="error" file="HDLCompiler" num="69" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 63: &lt;<arg fmt="%s" index="1">ctrl_alu</arg>&gt; is not declared.
 </msg>
 
-<msg type="error" file="HDLCompiler" num="187" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 50: Actual <arg fmt="%s" index="1"></arg> of formal <arg fmt="%s" index="2">s</arg> must be a <arg fmt="%s" index="3">signal</arg>
+<msg type="error" file="HDLCompiler" num="69" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 64: &lt;<arg fmt="%s" index="1">ctrl_alu</arg>&gt; is not declared.
 </msg>
 
-<msg type="error" file="HDLCompiler" num="69" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 48: &lt;<arg fmt="%s" index="1">clk</arg>&gt; is not declared.
+<msg type="error" file="HDLCompiler" num="69" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 65: &lt;<arg fmt="%s" index="1">ctrl_alu</arg>&gt; is not declared.
 </msg>
 
-<msg type="error" file="HDLCompiler" num="69" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 57: &lt;<arg fmt="%s" index="1">input_1</arg>&gt; is not declared.
+<msg type="error" file="HDLCompiler" num="69" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 66: &lt;<arg fmt="%s" index="1">ctrl_alu</arg>&gt; is not declared.
 </msg>
 
-<msg type="error" file="HDLCompiler" num="69" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 64: &lt;<arg fmt="%s" index="1">output_1</arg>&gt; is not declared.
+<msg type="error" file="HDLCompiler" num="69" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 67: &lt;<arg fmt="%s" index="1">ctrl_alu</arg>&gt; is not declared.
 </msg>
 
-<msg type="error" file="HDLCompiler" num="69" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 66: &lt;<arg fmt="%s" index="1">output_1</arg>&gt; is not declared.
+<msg type="error" file="HDLCompiler" num="69" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 68: &lt;<arg fmt="%s" index="1">ctrl_alu</arg>&gt; is not declared.
 </msg>
 
-<msg type="error" file="HDLCompiler" num="69" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 63: &lt;<arg fmt="%s" index="1">input_1</arg>&gt; is not declared.
+<msg type="error" file="HDLCompiler" num="69" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 62: &lt;<arg fmt="%s" index="1">ctrl_alu</arg>&gt; is not declared.
 </msg>
 
-<msg type="error" file="HDLCompiler" num="69" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 61: &lt;<arg fmt="%s" index="1">input_1</arg>&gt; is not declared.
+<msg type="error" file="HDLCompiler" num="1728" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 66: Type error near <arg fmt="%s" index="1">s_equ</arg> ; current type <arg fmt="%s" index="2">std_logic</arg>; expected type <arg fmt="%s" index="3">std_logic_vector</arg>
 </msg>
 
-<msg type="error" file="HDLCompiler" num="854" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 43: Unit &lt;<arg fmt="%s" index="1">behavioral</arg>&gt; ignored due to previous errors.
+<msg type="error" file="HDLCompiler" num="1728" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 67: Type error near <arg fmt="%s" index="1">s_inf</arg> ; current type <arg fmt="%s" index="2">std_logic</arg>; expected type <arg fmt="%s" index="3">std_logic_vector</arg>
+</msg>
+
+<msg type="error" file="HDLCompiler" num="1728" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 68: Type error near <arg fmt="%s" index="1">s_sup</arg> ; current type <arg fmt="%s" index="2">std_logic</arg>; expected type <arg fmt="%s" index="3">std_logic_vector</arg>
+</msg>
+
+<msg type="error" file="HDLCompiler" num="1731" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 72: found &apos;<arg fmt="%d" index="1">0</arg>&apos; definitions of operator <arg fmt="%s" index="2">&quot;+&quot;</arg>, cannot determine exact overloaded matching definition for <arg fmt="%s" index="2">&quot;+&quot;</arg>
+</msg>
+
+<msg type="error" file="HDLCompiler" num="1731" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 73: found &apos;<arg fmt="%d" index="1">0</arg>&apos; definitions of operator <arg fmt="%s" index="2">&quot;-&quot;</arg>, cannot determine exact overloaded matching definition for <arg fmt="%s" index="2">&quot;-&quot;</arg>
+</msg>
+
+<msg type="error" file="HDLCompiler" num="1731" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 74: found &apos;<arg fmt="%d" index="1">0</arg>&apos; definitions of operator <arg fmt="%s" index="2">&quot;*&quot;</arg>, cannot determine exact overloaded matching definition for <arg fmt="%s" index="2">&quot;*&quot;</arg>
+</msg>
+
+<msg type="error" file="HDLCompiler" num="1731" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 75: found &apos;<arg fmt="%d" index="1">0</arg>&apos; definitions of operator <arg fmt="%s" index="2">&quot;/&quot;</arg>, cannot determine exact overloaded matching definition for <arg fmt="%s" index="2">&quot;/&quot;</arg>
+</msg>
+
+<msg type="error" file="HDLCompiler" num="69" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 77: &lt;<arg fmt="%s" index="1">ctrl_alu</arg>&gt; is not declared.
+</msg>
+
+<msg type="error" file="HDLCompiler" num="69" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 78: &lt;<arg fmt="%s" index="1">ctrl_alu</arg>&gt; is not declared.
+</msg>
+
+<msg type="error" file="HDLCompiler" num="69" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 79: &lt;<arg fmt="%s" index="1">ctrl_alu</arg>&gt; is not declared.
+</msg>
+
+<msg type="error" file="HDLCompiler" num="806" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 82: Syntax error near &quot;<arg fmt="%s" index="1">when</arg>&quot;.
+</msg>
+
+<msg type="error" file="HDLCompiler" num="69" delta="new" >"/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" Line 86: &lt;<arg fmt="%s" index="1">ctrl_alu</arg>&gt; is not declared.
 </msg>
 
 </messages>

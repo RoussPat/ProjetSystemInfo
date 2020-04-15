@@ -28,6 +28,7 @@
     <file xil_pn:branch="Implementation" xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="alu.prj"/>
     <file xil_pn:branch="Implementation" xil_pn:fileType="FILE_XST_REPORT" xil_pn:name="alu.syr"/>
     <file xil_pn:branch="Implementation" xil_pn:fileType="FILE_XST" xil_pn:name="alu.xst"/>
+    <file xil_pn:fileType="FILE_HTML" xil_pn:name="alu_envsettings.html"/>
     <file xil_pn:fileType="FILE_HTML" xil_pn:name="alu_summary.html"/>
     <file xil_pn:fileType="FILE_XRPT" xil_pn:name="alu_xst.xrpt"/>
     <file xil_pn:fileType="FILE_FITTER_REPORT" xil_pn:name="webtalk_pn.xml"/>
@@ -63,7 +64,7 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1586953563" xil_pn:in_ck="139111095815142598" xil_pn:name="TRANEXT_xstsynthesize_spartan6" xil_pn:prop_ck="-6247601924458018453" xil_pn:start_ts="1586953557">
+    <transform xil_pn:end_ts="1586970496" xil_pn:in_ck="139111095815142598" xil_pn:name="TRANEXT_xstsynthesize_spartan6" xil_pn:prop_ck="-6247601924458018453" xil_pn:start_ts="1586970489">
       <status xil_pn:value="FailedRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <status xil_pn:value="OutOfDateForInputs"/>

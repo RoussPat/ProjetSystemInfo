@@ -5,14 +5,14 @@
     The structure and the elements are likely to change over the next few releases.
     This means code written to parse this file will need to be revisited each subsequent release.-->
 
-  <application stringID="Xst" timeStamp="Wed Apr 15 14:25:59 2020">
+  <application stringID="Xst" timeStamp="Wed Apr 15 19:08:12 2020">
     <section stringID="User_Env">
       <table stringID="User_EnvVar">
         <column stringID="variable"/>
         <column stringID="value"/>
         <row stringID="row" value="0">
           <item stringID="variable" value="LD_LIBRARY_PATH"/>
-          <item stringID="value" value="/usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE//lib/lin64"/>
+          <item stringID="value" value="/usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE//lib/lin64:/lib/i386-linux-gnu"/>
         </row>
         <row stringID="row" value="1">
           <item stringID="variable" value="XILINXD_LICENSE_FILE"/>
@@ -20,7 +20,7 @@
         </row>
         <row stringID="row" value="2">
           <item stringID="variable" value="PATH"/>
-          <item stringID="value" value="/usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE//bin/lin64:/usr/local/insa/lustre-v4-III-dc-linux64/bin:/usr/local/insa/arm-ada/compilateur/gcc-arm-none-eabi/bin:/usr/local/insa/anaconda/bin:/usr/local/insa/bin:/usr/local/insa/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/insa/tina/bin"/>
+          <item stringID="value" value="/usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE//bin/lin64:/home_pers/vernadat/Desktop/tina-3.4.4/bin:/home/commetud/GEI/OCaml/.opam/4.08.1/bin:/usr/local/insa/lustre-v4-III-dc-linux64/bin:/usr/local/insa/arm-ada/compilateur/gcc-arm-none-eabi/bin:/usr/local/insa/anaconda/bin:/usr/local/insa/bin:/usr/local/insa/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/insa/tina/bin"/>
         </row>
         <row stringID="row" value="3">
           <item stringID="variable" value="XILINX"/>
@@ -31,17 +31,17 @@
         <item stringID="User_EnvOsname" value="Ubuntu"/>
         <item stringID="User_EnvOsrelease" value="Ubuntu 18.04.4 LTS"/>
       </item>
-      <item stringID="User_EnvHost" value="srv-neo2"/>
+      <item stringID="User_EnvHost" value="srv-ens"/>
       <table stringID="User_EnvCpu">
         <column stringID="arch"/>
         <column stringID="speed"/>
         <row stringID="row" value="0">
-          <item stringID="arch" value="Intel(R) Xeon(R) CPU E5-2650 v4 @ 2.20GHz"/>
-          <item stringID="speed" value="2708.179 MHz"/>
+          <item stringID="arch" value="Intel(R) Xeon(R) CPU E5-2650 v3 @ 2.30GHz"/>
+          <item stringID="speed" value="1198.784 MHz"/>
         </row>
         <row stringID="row" value="1">
-          <item stringID="arch" value="Intel(R) Xeon(R) CPU E5-2650 v4 @ 2.20GHz"/>
-          <item stringID="speed" value="1199.113 MHz"/>
+          <item stringID="arch" value="Intel(R) Xeon(R) CPU E5-2650 v3 @ 2.30GHz"/>
+          <item stringID="speed" value="1390.486 MHz"/>
         </row>
       </table>
     </section>
@@ -98,7 +98,7 @@
       <item DEFAULT="0" label="-slice_utilization_ratio_maxmargin" stringID="XST_SLICEUTILIZATIONRATIOMAXMARGIN" value="5"/>
     </section>
     <section stringID="XST_ERRORS_STATISTICS">
-      <item dataType="int" filtered="0" stringID="XST_NUMBER_OF_ERRORS" value="9"/>
+      <item dataType="int" filtered="0" stringID="XST_NUMBER_OF_ERRORS" value="19"/>
       <item dataType="int" filtered="0" stringID="XST_NUMBER_OF_WARNINGS" value="0"/>
       <item dataType="int" filtered="0" stringID="XST_NUMBER_OF_INFOS" value="1"/>
     </section>
