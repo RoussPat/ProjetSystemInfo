@@ -46,10 +46,10 @@ architecture Behavioral of alu is
 	signal S_add : STD_LOGIC_VECTOR(7 downto 0);
 	signal S_sou : STD_LOGIC_VECTOR(7 downto 0);
 	signal S_mul : STD_LOGIC_VECTOR(7 downto 0);
+	Signal S_div : STD_LOGIC_VECTOR(7 downto 0);
 	signal S_equ : STD_LOGIC;
 	signal S_inf : STD_LOGIC;
 	signal S_sup : STD_LOGIC;
-	-- estce quon fait la division ??
 	signal C : STD_LOGIC := '0';
 	signal N : STD_LOGIC := '0';
 	signal Z : STD_LOGIC := '0';
@@ -62,6 +62,7 @@ begin
 	S <=  S_add(7 downto 0) when Ctrl_Alu = X"01" else 
 			S_sou(7 downto 0) when Ctrl_Alu = X"03" else
 			S_mul(7 downto 0) when Ctrl_Alu = X"02" else
+			S_div(7 downto 0) when Ctrl_Alu = X"04" else
 			S_equ when Ctrl_Alu = X"0B" else
 			S_inf when Ctrl_Alu = X"09" else
 			S_sup when Ctrl_Alu = X"0A";
@@ -71,25 +72,27 @@ begin
 	S_add <= ("0" & A)+ ("0" & B); -- est-ce quon utilise une variable temporaire comme a ecrit la prof dans le forum ?
 	S_sou <= A-B;
 	S_mul <= A*B;
+	S_div <= A/B; --gestion automatique du cas B=0 ??? (ex : A/B when (B != '0') else '0')
 	
-	S_equ <= '1' when (Ctrl_Alu = X"09" and A = B) else '0';
-	S_inf <= '1' when (Ctrl_Alu = X"09" and A < B) else '0';
-	S_sup <= '1' when (Ctrl_Alu = X"09" and A > B) else '0';
+	S_equ <= '1' when (Ctrl_Alu = X"09" and A = B) else '0'; -- egalite
+	S_inf <= '1' when (Ctrl_Alu = X"09" and A < B) else '0'; -- inferieur stricte
+	S_sup <= '1' when (Ctrl_Alu = X"09" and A > B) else '0'; -- superieur stricte
 	
 	-- Flag Carry
 	C <=  S_add(8) (when Ctrl_Alu = X"01" and S_add(8) = '1') else '0';
 	
 	-- Flag Negative
-	N <=  S_add(7) when (Ctrl_Alu = X"01" and S_add(7) = '1') else	-- add
+	N <=  S_add(7) when (Ctrl_Alu = X"01" and S_add(7) = '1') else	-- addition
 			S_sou(7) when (Ctrl_Alu = X"03" and S_sou(7) = '1') else	-- soustraction
-			S_mul(7) when (Ctrl_Alu = X"02" and S_mul(7) = '1') else		
-	-- multiplication (a faire ? cf partie 2 forum)
+			S_mul(7) when (Ctrl_Alu = X"02" and S_mul(7) = '1') else	-- multiplication
+			S_div(7) when (Ctrl_Alu = X"04" and S_div(7) = '1') else	-- division
 			'0';
 	
 	-- Flag Zero
-	Z <=  '1' when (Ctr_Alu = X"01" and S_add(7 downto 0) = X"00") else
-			'1' when (Ctr_Alu = X"03" and S_sou(7 downto 0) = X"00") else
-			'1' when (Ctr_Alu = X"02" and S_mul(7 downto 0) = X"00") else
+	Z <=  '1' when (Ctr_Alu = X"01" and S_add(7 downto 0) = X"00") else -- addition
+			'1' when (Ctr_Alu = X"03" and S_sou(7 downto 0) = X"00") else -- soustraction
+			'1' when (Ctr_Alu = X"02" and S_mul(7 downto 0) = X"00") else -- multiplication
+			'1' when (Ctr_Alu = X"04" and S_div(7 downto 0) = X"00") else -- division
 			'0';
 	
 	-- Flag Overflow
