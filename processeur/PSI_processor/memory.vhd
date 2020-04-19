@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date:    14:20:13 04/15/2020 
+-- Create Date:    12:59:46 04/19/2020 
 -- Design Name: 
 -- Module Name:    memory - Behavioral 
 -- Project Name: 
@@ -30,6 +30,12 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity memory is
+    Port ( addr : in  STD_LOGIC_VECTOR (7 downto 0);
+           IN : in  STD_LOGIC_VECTOR (7 downto 0);
+           RW : in  STD_LOGIC;
+           RST : in  STD_LOGIC;
+           CLK : in  STD_LOGIC;
+           OUT : out  STD_LOGIC_VECTOR (7 downto 0));
 end memory;
 
 architecture Behavioral of memory is
