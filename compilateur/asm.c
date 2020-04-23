@@ -11,173 +11,169 @@ typedef struct t_element {
 	short el1;
 	short el2;
 	short el3;
+	struct t_element * next;
 } element;
 
 typedef struct t_asm_table {
-	struct t_element elem[100];
-	int curElem;
-	int size;
+	struct t_element* head;
+	struct t_element* curElem;
+	int line;
 } asm_table;
 
 
 FILE* Outputfile;
-asm_table* table;
-int maxtable;
-int line;
-char ret[4];
+asm_table table;
+char ret[4] ;
 
-void addline(int num,op_code code,int el1,int el2,int el3){
-	if(table[num].curElem +1 >= 100){
-		writetablebut1st(num);
+void addline(op_code code,int el1, int el2, int el3){
+	element* new = malloc(sizeof(element));
+	new->next = NULL;
+	new->line = table.line;
+	new->el1 = el1;
+	new->el2 = el2;
+	new->el3 = el3;
+	if(table.line > 0){
+		table.curElem->next = new;
 	}
-	table[num].elem[table[num].curElem].line = line; 
-	table[num].elem[table[num].curElem].code = code;
-	table[num].elem[table[num].curElem].el1 = el1;
-	table[num].elem[table[num].curElem].el2 = el2;
-	table[num].elem[table[num].curElem].el3 = el3;
-	table[num].curElem ++;
-	table[num].size ++;
-	line ++;
+	else{
+		table.head = new;
+	}
+	table.curElem = new;
+	table.line ++;
 }
 
-
-int initTable(int size){
+void initTable(){
 	Outputfile = fopen("a.out", "w+");
 	fclose(Outputfile);
-	table = malloc(size * sizeof(asm_table));
-	table[0].curElem = 0; 
-	table[0].size =0;
-	int maxtable = size; 
-	line = 1;
-	return(0);
+	table.line = 0;
 }
 
-int newif(int depth,int Expression ){
-	writetablebut1st(depth-1);
-	if(depth < maxtable){	
-		table[depth].curElem =0; 
-		table[depth].size =0;
-		addline(depth,JMF,Expression,-1,-1);
-		return depth; 
-	}
-	else{
-		printf("%s%d\n", "profondeur maximale atteinte : ", maxtable );
-		return -1;
-	}
-}
-int endif(int depth){
-	table[depth].elem[0].el2 = line;
-	writefulltable(depth);
-
+int getcurline(){
+	return(table.line);
 }
 
-int newifelse(int depth,int Expression){
-	if(depth < maxtable){	
-		table[depth].curElem =0; 
-		table[depth].size =0;
-		addline(depth,JMF,Expression,-1,-1);
-		return depth; 
+void update_element(int linenumber,int newel1, int newel2, int newel3){ //don't update if newelX = -2
+	if(linenumber > table.line){
+		printf("error on updating element line %d\n",linenumber );
 	}
-	else{
-		printf("%s%d\n", "profondeur maximale atteinte : ", maxtable );
-		return -1;
+	element* modify = table.head;
+	while(modify->line != linenumber){
+		modify=modify->next;
+	}
+	if(newel1 != -2){
+		modify->el1 = newel1;
+	}
+	if(newel2 != -2){
+		modify->el2 = newel2;
+	}
+	if(newel1 != -2){
+		modify->el2 = newel2;
 	}
 }
 
-int newelse(int depth){
-	table[depth].elem[0].el2=line;
-	writefulltable(depth);
-	table[depth].curElem =0; 
-	addline(depth,JMP,-1,-1,-1);
-	return depth;
-
-}
-
-int endifelse(int depth){
-	table[depth].elem[0].el2 = line;
-	writefulltable(depth);
-}
 
 void writefulltable(int num){
 	Outputfile = fopen("a.out", "a+");
-	int l;
-	for(l=1;l<(table[num].curElem-1);l++){
-		if(table[num].elem[l].el2 =-1){
-			fprintf(Outputfile,"%s %d\n",getopcode(table[num].elem[l].code),table[num].elem[l].el1);
+	element * current = table.head;
+	while(current->next != NULL){
+			if(current->el2 =-1){
+			fprintf(Outputfile,"%s %d\n",getopcode(current->code,1),current->el1);
 		}
 		else{
-			if(table[num].elem[l].el3 =-1){
-				fprintf(Outputfile,"%s %d %d\n",getopcode(table[num].elem[l].code),table[num].elem[l].el1,table[num].elem[l].el2);
+			if(current->el3 =-1){
+				fprintf(Outputfile,"%s %d %d\n",getopcode(current->code,2),current->el1,current->el2);
 			}
 			else{
-				fprintf(Outputfile,"%s %d %d %d\n",getopcode(table[num].elem[l].code),table[num].elem[l].el1,table[num].elem[l].el2,table[num].elem[l].el3);
+				fprintf(Outputfile,"%s %d %d %d\n",getopcode(current->code,3),current->el1,current->el2,current->el3);
 			}
 		}
 	}
+
 	fclose(Outputfile);	
 }
 
-void writetablebut1st(int num){
-	Outputfile = fopen("a.out", "a+");
-	int l;
-	for(l=1;l<(table[num].curElem-1);l++){
-		if(table[num].elem[l].el2 == -1){
-			fprintf(Outputfile,"%s %d\n",getopcode(table[num].elem[l].code),table[num].elem[l].el1);
-		}
-		else{
-			if(table[num].elem[l].el3 == -1){
-				fprintf(Outputfile,"%s %d %d\n",getopcode(table[num].elem[l].code),table[num].elem[l].el1,table[num].elem[l].el2);
-			}
-			else{
-				fprintf(Outputfile,"%s %d %d %d\n",getopcode(table[num].elem[l].code),table[num].elem[l].el1,table[num].elem[l].el2,table[num].elem[l].el3);
-			}
-		}
-	}
-	table[num].curElem = 1;
-	fclose(Outputfile);	
-}
 
-char* getopcode(int code){
-	strcpy(ret,"NAN");
+char* getopcode(int code,int nbop){
+	strcpy(ret, "NAN");
+	int err =0;
 	switch(code){
 		case ADD:
 			strcpy(ret,"ADD");
+			if(nbop != 3 ){
+				err = 1;
+			}
 		break;
 		case MUL:
 			strcpy(ret,"MUL");
+			if(nbop != 3 ){
+				err = 1;
+			}
 		break;
 		case SOU:
 			strcpy(ret,"SOU");
+			if(nbop != 3 ){
+				err = 1;
+			}
 		break;
 		case DIV:
 			strcpy(ret,"DIV");
+			if(nbop != 3 ){
+				err = 1;
+			}
 		break;
 		case COP:
 			strcpy(ret,"COP");
+			if(nbop != 2 ){
+				err = 1;
+			}
 		break;
 		case AFC:
 			strcpy(ret,"AFC");
+			if(nbop != 2 ){
+				err = 1;
+			}
 		break;
 		case JMP:
 			strcpy(ret,"JMP");
+			if(nbop != 1 ){
+				err = 1;
+			}
 		break;
 		case JMF:
 			strcpy(ret,"JMF");
+			if(nbop != 1 ){
+				err = 1;
+			}
 		break;
 		case INF:
 			strcpy(ret,"INF");
+			if(nbop != 3 ){
+				err = 1;
+			}
 		break;
 		case SUP:
 			strcpy(ret,"SUP");
+			if(nbop != 3 ){
+				err = 1;
+			}
 		break;
 		case EQU:
 			strcpy(ret,"EQU");
+			if(nbop != 3 ){
+				err = 1;
+			}
 		break;
 		case PRI:
 			strcpy(ret,"PRI");
+			if(nbop != 1 ){
+				err = 1;
+			}
 		break;
 		default:
 		break;
+	}
+	if(err!=0){
+		printf("erreur dans le nombre d'argument du %s, il a %d arguments\n",ret,nbop );
 	}
 	return ret;
 }

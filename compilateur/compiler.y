@@ -16,14 +16,14 @@
 
 %left tADD tSUB
 %left tMUL tDIV
-%token tPV tV tADD tMUL tDIV tSUB tCP tOP tOB tCB tOA tCA tIE tSE tSUP tINF tEQ tAFC tTRUE tFALSE tMAIN tPRINTF tCONST tINT tCHAR tNOT tNEQ tRETURN tQ tELSE
-%token <nb> tNBINT <nb> tIF <nb> tWHILE
+%token tPV tV tADD tMUL tDIV tSUB tCP tOP tOB tCB tOA tCA tIE tSE tSUP tINF tEQ tAFC tTRUE tFALSE tMAIN tPRINTF tCONST tINT tCHAR tNOT tNEQ tRETURN tQ
+%token <nb> tNBINT <nb> tIF <nb> tWHILE <nb> tELSE
 %token <str> tVAR
 %type <nb> Expression
 %%
 %start File;
 File:
-    {init(100);curentTable = initTable(100);} Main;
+    {init(100); initTable();} Main;
 Main:
     tMAIN /*{printf(" ;main \n");}*/ tOP tCP tOA Body /*Return*/ tCA {writefulltable(0);};
 Body:
@@ -34,24 +34,15 @@ Body:
     |Print Body 
 	|/*tWHILE*/ tOA {increasedepth();} Body tCA {decreasedepth();} Body
 
-	|tIF tOP Expression tCP tOA 
-	{increasedepth();curentTable = newif(getDepth(),$3);} 
-	Body tCA 
-	{curentTable = endif(getDepth()); decreasedepth();} 
-	Body
+	|tIF tOP Expression tCP tOA {increasedepth();$1=getcurline();addline(JMF,!($3),-1,-1);
+} Body tCA {decreasedepth();update_element($1,-2,getcurline(),-2);} Body
 
-	|tIF tOP Expression tCP tOA 
-	{increasedepth();curentTable = newifelse(getDepth(),$3);} 
-	Body tCA tELSE 
-	{ curentTable = newelse(getDepth());} 
-	tOA  Body tCA  
-	{curentTable = endifelse(getDepth()); decreasedepth();} 
-	Body;
+	|tIF tOP Expression tCP tOA {increasedepth();$1=getcurline();addline(JMF,!($3),-1,-1);} Body tCA tELSE tOA  {addline(JMP,-1,-1,-1),update_element($1,-2,getcurline(),-2);$9=getcurline();} Body tCA {decreasedepth();update_element($9,getcurline(),-2,-2);} Body;
 	
 
 Print:
     tPRINTF tOP tVAR tCP Pv 		{if(exist_symbol_alldepth($3)){
-										addline(getDepth(),PRI,find_symbol($3),-1,-1);
+										addline(PRI,find_symbol($3),-1,-1);
 										//printf("PRI %d\n",find_symbol($3));
 										}
 									};
@@ -77,7 +68,7 @@ Affectation:
     tVAR tAFC Expression Pv   { if(exist_symbol_curdepth($1)){
 							    	if(!(var_is_const($1))){
 							    		initalize_var($1);
-										addline(getDepth(),COP,find_symbol($1),$3,-1);
+										addline(COP,find_symbol($1),$3,-1);
 							    		//printf("COP %d %d\n",find_symbol($1),$3);
 							    	}
 							    }
@@ -85,24 +76,24 @@ Affectation:
 
 
 Expression:
-	tNBINT							{$$ = add_temp_var(1); addline(getDepth(),AFC,$$,$1,-1); 															/*printf("AFC %d %d\n",$$,$1);*/}
+	tNBINT							{$$ = add_temp_var(1); addline(AFC,$$,$1,-1); 															/*printf("AFC %d %d\n",$$,$1);*/}
 
 	|tVAR							{$$ = find_symbol($1);}
-	|Expression tMUL Expression	    {$$ = add_temp_var(1); addline(getDepth(),MUL,$$,$1,$3); 															/*printf("MUL %d %d %d\n",$$,$1,$3);*/}
-	|Expression tDIV Expression	    {$$ = add_temp_var(1); addline(getDepth(),DIV,$$,$1,$3); 															/*printf("DIV %d %d %d\n",$$,$1,$3);*/}
-	|Expression tSUB Expression	    {$$ = add_temp_var(1);addline(getDepth(),SOU,$$,$1,$3);													/*printf("SOU %d %d %d\n",$$,$1,$3);*/}
-	|Expression tADD Expression	    {$$ = add_temp_var(1);addline(getDepth(),ADD,$$,$1,$3);													/*printf("ADD %d %d %d\n",$$,$1,$3);*/}
-//	|tSUB Expression				{$$ = add_temp_var(1);addline(getDepth(),SOU,$$,0,$2); 															/*printf("SOU %d 0 %d\n",$$,$2);*/}
+	|Expression tMUL Expression	    {$$ = add_temp_var(1); addline(MUL,$$,$1,$3); 															/*printf("MUL %d %d %d\n",$$,$1,$3);*/}
+	|Expression tDIV Expression	    {$$ = add_temp_var(1); addline(DIV,$$,$1,$3); 															/*printf("DIV %d %d %d\n",$$,$1,$3);*/}
+	|Expression tSUB Expression	    {$$ = add_temp_var(1);addline(SOU,$$,$1,$3);													/*printf("SOU %d %d %d\n",$$,$1,$3);*/}
+	|Expression tADD Expression	    {$$ = add_temp_var(1);addline(ADD,$$,$1,$3);													/*printf("ADD %d %d %d\n",$$,$1,$3);*/}
+//	|tSUB Expression				{$$ = add_temp_var(1);addline(SOU,$$,0,$2); 															/*printf("SOU %d 0 %d\n",$$,$2);*/}
 	|tOP Expression tCP				{$$ = $2;}; 
 
-//	|tNOT Expression 				{$$ = add_temp_var(1);addline(getDepth(),NOT,$$,$2,-1); 														/*printf("NOT %d %d\n",$$,$2);*/}
-	|Expression tEQ Expression		{$$ = add_temp_var(1);addline(getDepth(),EQU,$$,$1,$3); 														/*printf("EQU %d %d %d\n",$$,$1,$3);*/}
-//	|Expression tNEQ Expression		{$$ = add_temp_var(1);addline(getDepth(),NEQ,$$,$1,$3); }
+//	|tNOT Expression 				{$$ = add_temp_var(1);addline(NOT,$$,$2,-1); 														/*printf("NOT %d %d\n",$$,$2);*/}
+	|Expression tEQ Expression		{$$ = add_temp_var(1);addline(EQU,$$,$1,$3); 														/*printf("EQU %d %d %d\n",$$,$1,$3);*/}
+//	|Expression tNEQ Expression		{$$ = add_temp_var(1);addline(NEQ,$$,$1,$3); }
 														/*printf("NEQ %d %d %d\n",$$,$1,$3);*/
-//	|Expression tIE Expression		{$$ = add_temp_var(1);addline(getDepth(),IEQ,$$,$1,$3); 														/*printf("IEQ %d %d %d\n",$$,$1,$3);*/}
-	|Expression tSUP Expression		{$$ = add_temp_var(1);addline(getDepth(),SUP,$$,$1,$3); 														/*printf("SUP %d %d %d\n",$$,$1,$3);*/}
-	|Expression tINF Expression		{$$ = add_temp_var(1);addline(getDepth(),INF,$$,$1,$3); 														/*printf("INF %d %d %d\n",$$,$1,$3);*/}
-//	|Expression tSE Expression 		{$$ = add_temp_var(1);addline(getDepth(),SEQ,$$,$1,$3); 														/*printf("SEQ %d %d %d\n",$$,$1,$3);*/};
+//	|Expression tIE Expression		{$$ = add_temp_var(1);addline(IEQ,$$,$1,$3); 														/*printf("IEQ %d %d %d\n",$$,$1,$3);*/}
+	|Expression tSUP Expression		{$$ = add_temp_var(1);addline(SUP,$$,$1,$3); 														/*printf("SUP %d %d %d\n",$$,$1,$3);*/}
+	|Expression tINF Expression		{$$ = add_temp_var(1);addline(INF,$$,$1,$3); 														/*printf("INF %d %d %d\n",$$,$1,$3);*/}
+//	|Expression tSE Expression 		{$$ = add_temp_var(1);addline(SEQ,$$,$1,$3); 														/*printf("SEQ %d %d %d\n",$$,$1,$3);*/};
 //tINT tID tEGAL Expression tPV { affectation($2,$4) }  ;
 /*
 Return:
