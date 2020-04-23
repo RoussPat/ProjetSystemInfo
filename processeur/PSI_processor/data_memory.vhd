@@ -40,8 +40,26 @@ end memory;
 
 architecture Behavioral of memory is
 
+	type data is array (NATURAL range <>) of STD_LOGIC_VECTOR(7 downto 0);
+	signal d : data(13 downto 0); --a verifier pour la taille
+
 begin
 
+	process
+	begin
+		-- synchrone
+		wait until CLK'event and CLK = '1';
+			if (RST='0') then	
+				d <= (others => X"00"); -- cmt tout mettre a 0? ?
+			elsif (RST='1') then
+				-- lecture
+				-- ???if (RW='1') then
+					
+				-- ecriture
+				if (RW='0') then
+					data(to_integer(unsigned(addr))) <= v_IN;
+				end if;
+			end if;
+	end process;
 
 end Behavioral;
-

@@ -54,10 +54,11 @@ begin
 	-- le contenu du banc de registres est alors 
 	-- initialisé à 0x00
 		wait until CLK'event and CLK = '1';
-			if (RST='0') then	
-				reg <= (others => X"01") -- cmt tout mettre a 0? ?
+			if (RST='0') then	--et quand RST=1 on fait quoi ?
+				reg <= (others => X"00"); -- cmt tout mettre a 0? ?
 			elsif (W='1') then
-				reg(to_integer(unsigned(addrW))); <= DATA;				
+				reg(to_integer(unsigned(addrW))) <= DATA;	
+			
 			end if;				
 -- @A et @B permettent de lire deux registres simultanément. 
 -- Les valeurs correspondantes sont propagées vers les sorties QA et QB.

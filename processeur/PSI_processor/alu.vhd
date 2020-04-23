@@ -79,7 +79,7 @@ begin
 	S_sup <= '1' when (Ctrl_Alu = X"09" and A > B) else '0'; -- superieur stricte
 	
 	-- Flag Carry
-	C <=  S_add(8) (when Ctrl_Alu = X"01" and S_add(8) = '1') else '0';
+	C <=  S_add(8) when (Ctrl_Alu = X"01" and S_add(8) = '1') else '0';
 	
 	-- Flag Negative
 	N <=  S_add(7) when (Ctrl_Alu = X"01" and S_add(7) = '1') else	-- addition

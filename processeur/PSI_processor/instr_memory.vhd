@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date:    12:59:46 04/19/2020 
+-- Create Date:    11:20:34 04/23/2020 
 -- Design Name: 
--- Module Name:    memory - Behavioral 
+-- Module Name:    instr_memory - Behavioral 
 -- Project Name: 
 -- Target Devices: 
 -- Tool versions: 
@@ -29,16 +29,13 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity memory is
+entity instr_memory is
     Port ( addr : in  STD_LOGIC_VECTOR (7 downto 0);
-           v_IN : in  STD_LOGIC_VECTOR (7 downto 0);
-           RW : in  STD_LOGIC;
-           RST : in  STD_LOGIC;
            CLK : in  STD_LOGIC;
-           v_OUT : out  STD_LOGIC_VECTOR (7 downto 0));
-end memory;
+           v_OUT : out  STD_LOGIC_VECTOR (31 downto 0));
+end instr_memory;
 
-architecture Behavioral of memory is
+architecture Behavioral of instr_memory is
 
 begin
 
