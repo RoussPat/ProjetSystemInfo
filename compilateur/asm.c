@@ -23,15 +23,17 @@ typedef struct t_asm_table {
 
 FILE* Outputfile;
 asm_table table;
-char ret[4] ;
+//char ret[4] ;
 
 void addline(op_code code,int el1, int el2, int el3){
+	printf("new line added LINE %d: %d %d %d %d\n",table.line,code,el1,el2,el3);
 	element* new = malloc(sizeof(element));
 	new->next = NULL;
 	new->line = table.line;
 	new->el1 = el1;
 	new->el2 = el2;
 	new->el3 = el3;
+	new->code = code;
 	if(table.line > 0){
 		table.curElem->next = new;
 	}
@@ -76,24 +78,42 @@ void writefulltable(int num){
 	Outputfile = fopen("a.out", "a+");
 	element * current = table.head;
 	while(current->next != NULL){
-			if(current->el2 =-1){
-			fprintf(Outputfile,"%s %d\n",getopcode(current->code,1),current->el1);
+			if(current->el2 ==-1){
+			printf("%s %d\n",getopcode(current->code,1),current->el1);
+			fprintf(Outputfile,"%x %d\n",current->code+1,current->el1);
 		}
 		else{
-			if(current->el3 =-1){
-				fprintf(Outputfile,"%s %d %d\n",getopcode(current->code,2),current->el1,current->el2);
+			if(current->el3 ==-1){
+				printf("%s %d %d\n",getopcode(current->code,2),current->el1,current->el2);
+				fprintf(Outputfile,"%x %d %d\n",current->code+1,current->el1,current->el2);
 			}
 			else{
-				fprintf(Outputfile,"%s %d %d %d\n",getopcode(current->code,3),current->el1,current->el2,current->el3);
+				printf("%s %d %d %d\n",getopcode(current->code,3),current->el1,current->el2,current->el3);
+				fprintf(Outputfile,"%x %d %d %d\n",current->code+1,current->el1,current->el2,current->el3);
 			}
 		}
+		current = current->next;
 	}
-
+		if(current->el2 ==-1){
+			printf("%s %d\n",getopcode(current->code,1),current->el1);
+			fprintf(Outputfile,"%x %d\n",current->code+1,current->el1);
+		}
+		else{
+			if(current->el3 ==-1){
+				printf("%s %d %d\n",getopcode(current->code,2),current->el1,current->el2);
+				fprintf(Outputfile,"%x %d %d\n",current->code+1,current->el1,current->el2);
+			}
+			else{
+				printf("%s %d %d %d\n",getopcode(current->code,3),current->el1,current->el2,current->el3);
+				fprintf(Outputfile,"%x %d %d %d\n",current->code+1,current->el1,current->el2,current->el3);
+			}
+		}
 	fclose(Outputfile);	
 }
 
 
-char* getopcode(int code,int nbop){
+char* getopcode(op_code code,int nbop){
+	char* ret = malloc(4*sizeof(char));
 	strcpy(ret, "NAN");
 	int err =0;
 	switch(code){
@@ -141,7 +161,7 @@ char* getopcode(int code,int nbop){
 		break;
 		case JMF:
 			strcpy(ret,"JMF");
-			if(nbop != 1 ){
+			if(nbop != 2 ){
 				err = 1;
 			}
 		break;

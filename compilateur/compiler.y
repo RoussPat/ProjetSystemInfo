@@ -23,7 +23,7 @@
 %%
 %start File;
 File:
-    {init(100); initTable();} Main;
+    {init(255); initTable();} Main;
 Main:
     tMAIN /*{printf(" ;main \n");}*/ tOP tCP tOA Body /*Return*/ tCA {writefulltable(0);};
 Body:
@@ -86,7 +86,7 @@ Expression:
 //	|tSUB Expression				{$$ = add_temp_var(1);addline(SOU,$$,0,$2); 															/*printf("SOU %d 0 %d\n",$$,$2);*/}
 	|tOP Expression tCP				{$$ = $2;}; 
 
-//	|tNOT Expression 				{$$ = add_temp_var(1);addline(NOT,$$,$2,-1); 														/*printf("NOT %d %d\n",$$,$2);*/}
+//	|tNOT Expression 				{$$ = add_temp_var(1);addline(NOT,$$,$2,-1); 														/*printf("NOT %d %d\n",$$,$2);}*/
 	|Expression tEQ Expression		{$$ = add_temp_var(1);addline(EQU,$$,$1,$3); 														/*printf("EQU %d %d %d\n",$$,$1,$3);*/}
 //	|Expression tNEQ Expression		{$$ = add_temp_var(1);addline(NEQ,$$,$1,$3); }
 														/*printf("NEQ %d %d %d\n",$$,$1,$3);*/

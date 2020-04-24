@@ -3,6 +3,7 @@ typedef enum t_op_code {
     AFC, JMP, JMF, INF, SUP,
 	EQU, PRI
 } op_code;
+
 typedef struct t_element element;
 typedef struct t_asm_table asm_table;
 
@@ -11,4 +12,4 @@ void initTable();
 int getcurline();
 void update_element(int linenumber,int newel1, int newel2, int newel3);
 void writefulltable(int num);
-char* getopcode(int code,int nbop);
+char* getopcode(op_code code,int nbop);
