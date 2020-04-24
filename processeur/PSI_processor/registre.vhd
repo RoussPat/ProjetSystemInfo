@@ -44,29 +44,22 @@ end registre;
 architecture Behavioral of registre is
 
 	type registres is array (NATURAL range <>) of STD_LOGIC_VECTOR(7 downto 0);
-	signal reg : registres(3 downto 0); --a verifier pour la taille
+	signal reg : registres(3 downto 0);
 
 begin
 
 	process
 	begin
-	-- Le signal reset RST est actif à 0 : 
-	-- le contenu du banc de registres est alors 
-	-- initialisé à 0x00
 		wait until CLK'event and CLK = '1';
-			if (RST='0') then	--et quand RST=1 on fait quoi ?
-				reg <= (others => X"00"); -- cmt tout mettre a 0? ?
+			if (RST='0') then
+				-- initialisation du banc de registres a 0x00
+				reg <= (others => X"00");
 			elsif (W='1') then
-				reg(to_integer(unsigned(addrW))) <= DATA;	
-			
-			end if;				
--- @A et @B permettent de lire deux registres simultanément. 
--- Les valeurs correspondantes sont propagées vers les sorties QA et QB.
--- L’écriture de données dans un registre se fait par le biais des entrées @W, W et DATA. W
--- spécifie si une écriture doit être réalisée. Cette entrée est active à 1, pour une écriture. Lorsque
+				reg(to_integer(unsigned(addrW))) <= DATA;				
+			end if;
 	end process;
 	
-		QA <= reg(to_integer(unsigned(A))) when W='0' else DATA;--verifier les conditions +bypass D ?
+		QA <= reg(to_integer(unsigned(A))) when W='0' else DATA; -- A FAIRE : bypass D ?
 		QB <= reg(to_integer(unsigned(B))) when W='0' else DATA;
 	
 end Behavioral;

@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date:    11:20:34 04/23/2020 
+-- Create Date:    15:21:34 04/24/2020 
 -- Design Name: 
 -- Module Name:    instr_memory - Behavioral 
 -- Project Name: 
@@ -32,13 +32,24 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity instr_memory is
     Port ( addr : in  STD_LOGIC_VECTOR (7 downto 0);
            CLK : in  STD_LOGIC;
-           v_OUT : out  STD_LOGIC_VECTOR (31 downto 0));
+           instr_OUT : out  STD_LOGIC_VECTOR (31 downto 0));
 end instr_memory;
 
 architecture Behavioral of instr_memory is
 
-begin
+	-- a modifier pr prendre fichier code
+	signal instr : := rom(file => "test_intr_memory"); 
 
+	--voir pour lecture fichier 
+	--fopen
+
+begin
+	
+	process
+	begin
+		wait until CLK'event and CLK = '1';
+		instr_OUT <= instr(to_integer(unsigned(addr)));
+	end process;
 
 end Behavioral;
 
