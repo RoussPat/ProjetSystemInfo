@@ -19,6 +19,8 @@
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use std.textio.all;
+use ieee.std_logic_textio.all;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -38,10 +40,35 @@ end instr_memory;
 architecture Behavioral of instr_memory is
 
 	-- a modifier pr prendre fichier code
-	signal instr : := rom(file => "test_intr_memory"); 
+	--signal instr : ; 
+	--creer fonction
 
-	--voir pour lecture fichier 
-	--fopen
+-- Init memory with the filename "init_file" or not.
+  impure function init_mem(filename: in string) return mem_array_t is
+    file f_handler: text;
+    variable mem: mem_array_t;
+    variable f_line: line;
+    variable data_line : std_logic_vector(data_size-1 downto 0);
+    variable good: boolean;
+    variable lineno: integer := 0;
+  begin
+    mem := (others => (others => '0'));
+    file_open(f_handler, filename, READ_MODE);
+    while (not endfile(f_handler)) loop
+      readline(f_handler, f_line);
+      hread(f_line, data_line, good);
+      assert good report "READ ERROR" severity warning;
+      mem(lineno) := data_line;
+      lineno := lineno + 1;
+    end loop;
+    file_close(f_handler);
+    return mem;
+  end function;
+mem_array <= init_mem("nom du fichier, il faut le chemin je crois");
+-- ah oui, il faut changer le mem_array_t du premier ligne à ton array type
+--et quelques modifs comme ceci
+(--data_size comme la valeur que tu utilise, normalement 16?
+
 
 begin
 	
