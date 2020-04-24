@@ -15,8 +15,10 @@ int var_is_const(char* id);
 void delete_temp_var();
 int getDepth();
 
-unsigned int stackpointer;
-symbol* tab;
-int tablast;
-int tabsize;
-int depth;
+ unsigned int stackpointer;
+ unsigned int temppointer;
+ symbol* tab;
+ int tablast;
+ int templast;
+ int tabsize;
+ int depth;

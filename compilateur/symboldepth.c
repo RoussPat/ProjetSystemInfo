@@ -16,8 +16,10 @@ typedef struct symbol_t{
 
 
 extern unsigned int stackpointer;
+extern unsigned int temppointer;
 extern symbol* tab;
 extern int tablast;
+extern int templast;
 extern int tabsize;
 extern int depth;
 
@@ -26,7 +28,9 @@ int init(int maxsize){
 	tabsize = maxsize;
 	tab = malloc(tabsize*sizeof(symbol));
 	stackpointer =0;
+	temppointer = maxsize;
 	tablast = 0;
+	templast = maxsize;
 	depth = 0;
 }
 
@@ -61,9 +65,9 @@ int exist_symbol_alldepth(char* id){
 }
 
 unsigned int add_temp_var(int type){
-	unsigned int ret = stackpointer;
+	unsigned int ret = temppointer;
 	int err = 0;
-	if(tablast +1 < tabsize){
+	if(tablast < templast -1){
 		symbol s;
 		s.id = malloc(sizeof("temp"));
 		strcpy(s.id , "temp");
@@ -72,14 +76,14 @@ unsigned int add_temp_var(int type){
 		s.type = type;
 		s.depth = depth;
 		s.temp = 1;
-		s.memory = stackpointer;
-		printf(";[temp_var] new var :  %s @ %d\n",s.id,stackpointer);
+		s.memory = temppointer;
+		printf(";[temp_var] new var :  %s @ %d\n",s.id,temppointer);
 		switch(type) {
 			case 0: //char 1o
-				stackpointer = stackpointer + 1;
+				temppointer = temppointer - 1;
 			break;
 			case 1: //int 4o
-				stackpointer = stackpointer + 4;
+				temppointer = temppointer - 1;
 			break;
 			default:
 				printf(";%s\n", "[add_temp_var] Type not recognised in symbol recognition \n" );
@@ -87,8 +91,8 @@ unsigned int add_temp_var(int type){
 		}
 		
 		if(err == 0){
-			tab[tablast] = s;
-			tablast ++;
+			tab[templast] = s;
+			templast --;
 		}
 	}
 	else{
@@ -121,7 +125,7 @@ void initalize_var(char* id){
 int add_symbol(char* id, int constant,int initialized, int type){
 	int err = 0;
 	//printf("tabsize : %d  tablast : %d  tablast +1 >= tabsize : %d\n",tabsize,tablast,tablast +1 < tabsize);
-	if((tablast +1) < tabsize){
+	if((tablast +1) < templast){
 		symbol s;
 		s.id = malloc(sizeof(strlen(id)+1));
 		strcpy(s.id , id);
@@ -137,7 +141,7 @@ int add_symbol(char* id, int constant,int initialized, int type){
 				stackpointer = stackpointer + 1;
 			break;
 			case 1: //int 4o
-				stackpointer = stackpointer + 4;
+				stackpointer = stackpointer + 1;
 			break;
 			default:
 				printf(";%s\n", "[add_symbol] Type not recognised in symbol recognition \n" );
@@ -162,6 +166,9 @@ unsigned int find_symbol(char* id){
 	int index = tablast-1;
 	unsigned int ret = -1;
 	while((index >= 0) && !found){
+		if(strcmp(id,"j")==0){
+			printf("[DEBUG] depth: %d memory : %d name: %s \n",tab[index].depth,tab[index].memory,tab[index].id);
+		}
 		if(strcmp(tab[index].id,id)==0){
 			ret = tab[index].memory;
 			found =1;
@@ -203,7 +210,7 @@ void decreasedepth(){
 				tablast--;
 			break;
 			case 1: //int 4o
-				stackpointer = stackpointer - 4;
+				stackpointer = stackpointer - 1;
 				tablast--;
 			break;
 			default:
@@ -215,24 +222,24 @@ void decreasedepth(){
 }
 
 void delete_temp_var(){
-	int index = tablast-1;
-	while(index >= 0){
+	int index = templast+1;
+	while(index <= tabsize){
 		if(tab[index].temp != 0){
 			printf(";delete de id : %s @ %d\n",tab[index].id,tab[index].memory);
 			switch(tab[index].type) {
 			case 0: //char 1o
-				stackpointer = stackpointer - 1;
-				tablast --;
+				temppointer = temppointer + 1;
+				templast ++;
 			break;
 			case 1: //int 4o
-				stackpointer = stackpointer - 4;
-				tablast --;
+				temppointer = temppointer + 1;
+				templast ++;
 			break;
 			default:
 				printf(";%s\n", "This should not happend \n" );
 			}
 		}
-	index --;
+	index ++;
 	}
 }
 int getDepth() {
