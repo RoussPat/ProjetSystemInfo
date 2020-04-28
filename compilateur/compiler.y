@@ -32,12 +32,12 @@ Body:
     |Constante Body
     |Affectation  Body
     |Print Body 
-	|/*tWHILE*/ tOA {increasedepth();} Body tCA {decreasedepth();} Body
+	|tWHILE tOP Expression tCP tOA {increasedepth(); $1=getcurline(); addline(JMF,($3),-1,-1);} Body tCA {decreasedepth();addline(JMP,$1-1,-1,-1);update_element($1,-2,getcurline(),-2);} Body
 
 	|tIF tOP Expression tCP tOA {increasedepth();$1=getcurline();addline(JMF,!($3),-1,-1);
-} Body tCA {decreasedepth();update_element($1,-2,getcurline(),-2);} Body
+} Body tCA {decreasedepth();update_element($1,-2,getcurline()+1,-2);} Body
 
-	|tIF tOP Expression tCP tOA {increasedepth();$1=getcurline();addline(JMF,!($3),-1,-1);} Body tCA tELSE tOA  {addline(JMP,-1,-1,-1),update_element($1,-2,getcurline(),-2);$9=getcurline();} Body tCA {decreasedepth();update_element($9,getcurline(),-2,-2);} Body;
+	|tIF tOP Expression tCP tOA {increasedepth();$1=getcurline();addline(JMF,!($3),-1,-1);} Body tCA tELSE tOA  {addline(JMP,-1,-1,-1),update_element($1,-2,getcurline()+1,-2);$9=getcurline();} Body tCA {decreasedepth();update_element($9,getcurline()+1,-2,-2);} Body;
 	
 
 Print:
@@ -65,7 +65,7 @@ Pv:
     tPV /*{printf("; \n");}*/ ;
 
 Affectation:
-    tVAR tAFC Expression Pv   { if(exist_symbol_curdepth($1)){
+    tVAR tAFC Expression Pv   { if(exist_symbol_alldepth($1)){
 							    	if(!(var_is_const($1))){
 							    		initalize_var($1);
 										addline(COP,find_symbol($1),$3,-1);

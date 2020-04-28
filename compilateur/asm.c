@@ -94,20 +94,20 @@ void writefulltable(int num){
 		}
 		current = current->next;
 	}
-		if(current->el2 ==-1){
-			printf("%s %d\n",getopcode(current->code,1),current->el1);
-			fprintf(Outputfile,"%x %d\n",current->code+1,current->el1);
+	if(current->el2 ==-1){
+		printf("%s %d\n",getopcode(current->code,1),current->el1);
+		fprintf(Outputfile,"%x %d\n",current->code+1,current->el1);
+	}
+	else{
+		if(current->el3 ==-1){
+			printf("%s %d %d\n",getopcode(current->code,2),current->el1,current->el2);
+			fprintf(Outputfile,"%x %d %d\n",current->code+1,current->el1,current->el2);
 		}
 		else{
-			if(current->el3 ==-1){
-				printf("%s %d %d\n",getopcode(current->code,2),current->el1,current->el2);
-				fprintf(Outputfile,"%x %d %d\n",current->code+1,current->el1,current->el2);
-			}
-			else{
-				printf("%s %d %d %d\n",getopcode(current->code,3),current->el1,current->el2,current->el3);
-				fprintf(Outputfile,"%x %d %d %d\n",current->code+1,current->el1,current->el2,current->el3);
-			}
+			printf("%s %d %d %d\n",getopcode(current->code,3),current->el1,current->el2,current->el3);
+			fprintf(Outputfile,"%x %d %d %d\n",current->code+1,current->el1,current->el2,current->el3);
 		}
+	}
 	fclose(Outputfile);	
 }
 
