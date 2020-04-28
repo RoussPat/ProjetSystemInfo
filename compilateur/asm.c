@@ -68,8 +68,8 @@ void update_element(int linenumber,int newel1, int newel2, int newel3){ //don't 
 	if(newel2 != -2){
 		modify->el2 = newel2;
 	}
-	if(newel1 != -2){
-		modify->el2 = newel2;
+	if(newel3 != -2){
+		modify->el3 = newel3;
 	}
 }
 

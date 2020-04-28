@@ -27,17 +27,17 @@ File:
 Main:
     tMAIN /*{printf(" ;main \n");}*/ tOP tCP tOA Body /*Return*/ tCA {writefulltable(0);};
 Body:
-    //epsilon
+    %empty //epsilon
     |Definition Body
     |Constante Body
     |Affectation  Body
     |Print Body 
 	|tWHILE tOP Expression tCP tOA {increasedepth(); $1=getcurline(); addline(JMF,($3),-1,-1);} Body tCA {decreasedepth();addline(JMP,$1-1,-1,-1);update_element($1,-2,getcurline(),-2);} Body
 
-	|tIF tOP Expression tCP tOA {increasedepth();$1=getcurline();addline(JMF,!($3),-1,-1);
-} Body tCA {decreasedepth();update_element($1,-2,getcurline()+1,-2);} Body
+	|tIF tOP Expression tCP tOA {increasedepth();$1=getcurline();addline(JMF,($3),-1,-1);} Body tCA tELSE tOA  {$9=getcurline();addline(JMP,-1,-1,-1),update_element($1,-2,getcurline(),-2);} Body tCA {decreasedepth();update_element($9,getcurline()+1,-2,-2);} Body
 
-	|tIF tOP Expression tCP tOA {increasedepth();$1=getcurline();addline(JMF,!($3),-1,-1);} Body tCA tELSE tOA  {addline(JMP,-1,-1,-1),update_element($1,-2,getcurline()+1,-2);$9=getcurline();} Body tCA {decreasedepth();update_element($9,getcurline()+1,-2,-2);} Body;
+	|tIF tOP Expression tCP tOA {increasedepth();$1=getcurline();addline(JMF,($3),-1,-1);
+} Body tCA {decreasedepth();update_element($1,-2,getcurline()+1,-2);} Body;
 	
 
 Print:
@@ -54,11 +54,11 @@ Constante:
 	tCONST tINT tVAR 				{add_symbol($3,1,0,1); }   DefinitionC Pv; 
 
 DefinitionN:
-    //epsilon
+    %empty//epsilon
     |tV tVAR DefinitionN 			{add_symbol($2,0,0,1); }; 
 
 DefinitionC:
-    //epsilon
+    %empty//epsilon
     |tV tVAR DefinitionN 			{add_symbol($2,1,0,1); }; 
 
 Pv:
@@ -94,10 +94,7 @@ Expression:
 	|Expression tSUP Expression		{$$ = add_temp_var(1);addline(SUP,$$,$1,$3); 														/*printf("SUP %d %d %d\n",$$,$1,$3);*/}
 	|Expression tINF Expression		{$$ = add_temp_var(1);addline(INF,$$,$1,$3); 														/*printf("INF %d %d %d\n",$$,$1,$3);*/}
 //	|Expression tSE Expression 		{$$ = add_temp_var(1);addline(SEQ,$$,$1,$3); 														/*printf("SEQ %d %d %d\n",$$,$1,$3);*/};
-//tINT tID tEGAL Expression tPV { affectation($2,$4) }  ;
-/*
-Return:
-	tRETURN Expression Pv {print("return : %d\n",$2);} ;*/
+
 %%
 void yyerror(char * str){
 	printf("Erreur de parsing\n");};

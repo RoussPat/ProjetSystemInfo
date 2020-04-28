@@ -1,8 +1,10 @@
 main(){
-int l;
-l=0;
-while(l < 10){
-	printf(l);
-	l=l+1;
-}
+	int l;
+	l=1;
+	if(l==1){
+		printf(l);
+	}
+	else{
+		printf(l);
+	}
 }
