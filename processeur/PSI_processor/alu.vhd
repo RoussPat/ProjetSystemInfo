@@ -19,6 +19,8 @@
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -59,7 +61,7 @@ begin
 
 -- Implementation des operations
 	-- Gestion des OpCodes
-	S <=  S_add(7 downto 0) when Ctrl_Alu = X"01" else 
+	S <=  S_add(7etud downto 0) when Ctrl_Alu = X"01" else 
 			S_sou(7 downto 0) when Ctrl_Alu = X"03" else
 			S_mul(7 downto 0) when Ctrl_Alu = X"02" else
 			S_equ when Ctrl_Alu = X"0B" else
@@ -71,9 +73,9 @@ begin
 	S_sou <= A-B;
 	S_mul <= A*B;
 	
-	S_equ <= '1' when (Ctrl_Alu = X"09" and A = B) else '0'; -- egalite
+	S_equ <= '1' when (Ctrl_Alu = X"0B" and A = B) else '0'; -- egalite
 	S_inf <= '1' when (Ctrl_Alu = X"09" and A < B) else '0'; -- inferieur stricte
-	S_sup <= '1' when (Ctrl_Alu = X"09" and A > B) else '0'; -- superieur stricte
+	S_sup <= '1' when (Ctrl_Alu = X"0A" and A > B) else '0'; -- superieur stricte
 	
 	-- Flag Carry
 	C <=  S_add(8) when (Ctrl_Alu = X"01" and S_add(8) = '1') else '0';
