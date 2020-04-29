@@ -16,7 +16,6 @@ processeur/PSI_processor/iseconfig
 processeur/PSI_processor/iseconfig/alu.xreport
 processeur/PSI_processor/iseconfig/PSI_processor.projectmgr
 processeur/PSI_processor/PSI_processor.gise
-processeur/PSI_processor/PSI_processor.xise
 processeur/PSI_processor/registre.v
 processeur/PSI_processor/webtalk_pn.xml
 processeur/PSI_processor/_xmsgs
