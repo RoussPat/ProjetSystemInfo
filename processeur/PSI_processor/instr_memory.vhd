@@ -41,11 +41,10 @@ entity instr_memory is
 end instr_memory;
 
 architecture Behavioral of instr_memory is
-	--mem_array <= init_mem("nom du fichier, il faut le chemin je crois");
-	-- INIT a faire ???
+
 	signal instruction_OUT: mem_array_t := init_mem(filename => "./executable.hex");
 	-- Permet de recuperer un fichier avec les instructions a executer
-	type mem_array is array(0 to 2**8-1) of std_logic_vector(7 downto 0);
+	type mem_array_t is array(0 to 2**8-1) of std_logic_vector(7 downto 0);
 	-- Init memory with the filename "init_file" or not.
 	impure function init_mem(filename: in string) return mem_array_t is
 	 file f_handler: text;
