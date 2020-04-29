@@ -1,10 +1,14 @@
 main(){
 	int l;
-	l=1;
-	if(l==1){
+	l=0;
+	if(l==0){
+		l=l+14;
 		printf(l);
 	}
 	else{
 		printf(l);
+	}
+	if(l==1){
+		l=l*2;
 	}
 }

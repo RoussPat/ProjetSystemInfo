@@ -55,6 +55,7 @@ int getcurline(){
 }
 
 void update_element(int linenumber,int newel1, int newel2, int newel3){ //don't update if newelX = -2
+	printf("Modif ligne %d : ",linenumber);
 	if(linenumber > table.line){
 		printf("error on updating element line %d\n",linenumber );
 	}
@@ -63,21 +64,28 @@ void update_element(int linenumber,int newel1, int newel2, int newel3){ //don't 
 		modify=modify->next;
 	}
 	if(newel1 != -2){
+		printf(" Arg1 : %d devient %d\n",modify->el1,newel1);
 		modify->el1 = newel1;
+
 	}
 	if(newel2 != -2){
+		printf(" Arg2 : %d devient %d\n",modify->el2,newel2);
 		modify->el2 = newel2;
 	}
 	if(newel3 != -2){
+		printf(" Arg13: %d devient %d\n",modify->el3,newel3);
 		modify->el3 = newel3;
 	}
-}
+	printf("\n");
+}	
 
 
 void writefulltable(int num){
 	Outputfile = fopen("a.out", "a+");
 	element * current = table.head;
+	element * tofree;
 	while(current->next != NULL){
+			printf("[%3d]",current->line);
 			if(current->el2 ==-1){
 			printf("%s %d\n",getopcode(current->code,1),current->el1);
 			fprintf(Outputfile,"%x %d\n",current->code+1,current->el1);
@@ -92,8 +100,11 @@ void writefulltable(int num){
 				fprintf(Outputfile,"%x %d %d %d\n",current->code+1,current->el1,current->el2,current->el3);
 			}
 		}
+		tofree = current;
 		current = current->next;
+		free(tofree);
 	}
+	printf("[%3d]",current->line);
 	if(current->el2 ==-1){
 		printf("%s %d\n",getopcode(current->code,1),current->el1);
 		fprintf(Outputfile,"%x %d\n",current->code+1,current->el1);
@@ -108,7 +119,8 @@ void writefulltable(int num){
 			fprintf(Outputfile,"%x %d %d %d\n",current->code+1,current->el1,current->el2,current->el3);
 		}
 	}
-	fclose(Outputfile);	
+	free(current);
+	//fclose(Outputfile);
 }
 
 
@@ -120,37 +132,37 @@ char* getopcode(op_code code,int nbop){
 		case ADD:
 			strcpy(ret,"ADD");
 			if(nbop != 3 ){
-				err = 1;
+				err = 3;
 			}
 		break;
 		case MUL:
 			strcpy(ret,"MUL");
 			if(nbop != 3 ){
-				err = 1;
+				err = 3;
 			}
 		break;
 		case SOU:
 			strcpy(ret,"SOU");
 			if(nbop != 3 ){
-				err = 1;
+				err = 3;
 			}
 		break;
 		case DIV:
 			strcpy(ret,"DIV");
 			if(nbop != 3 ){
-				err = 1;
+				err = 3;
 			}
 		break;
 		case COP:
 			strcpy(ret,"COP");
 			if(nbop != 2 ){
-				err = 1;
+				err = 2;
 			}
 		break;
 		case AFC:
 			strcpy(ret,"AFC");
 			if(nbop != 2 ){
-				err = 1;
+				err = 2;
 			}
 		break;
 		case JMP:
@@ -162,25 +174,25 @@ char* getopcode(op_code code,int nbop){
 		case JMF:
 			strcpy(ret,"JMF");
 			if(nbop != 2 ){
-				err = 1;
+				err = 2;
 			}
 		break;
 		case INF:
 			strcpy(ret,"INF");
 			if(nbop != 3 ){
-				err = 1;
+				err = 3;
 			}
 		break;
 		case SUP:
 			strcpy(ret,"SUP");
 			if(nbop != 3 ){
-				err = 1;
+				err = 3;
 			}
 		break;
 		case EQU:
 			strcpy(ret,"EQU");
 			if(nbop != 3 ){
-				err = 1;
+				err = 3;
 			}
 		break;
 		case PRI:
@@ -193,7 +205,7 @@ char* getopcode(op_code code,int nbop){
 		break;
 	}
 	if(err!=0){
-		printf("erreur dans le nombre d'argument du %s, il a %d arguments\n",ret,nbop );
+		printf("erreur dans le nombre d'argument du %s, il a %d arguments au lieu de %d\n",ret,nbop,err );
 	}
 	return ret;
 }
