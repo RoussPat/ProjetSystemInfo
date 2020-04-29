@@ -32,6 +32,7 @@ int init(int maxsize){
 	tablast = 0;
 	templast = maxsize;
 	depth = 0;
+	return(0);
 }
 
 
@@ -202,7 +203,7 @@ void increasedepth(){
 
 void decreasedepth(){
 	int index = tablast-1;
-	while((index >= 0) & tab[index].depth == depth){
+	while((index >= 0) && (tab[index].depth == depth)){
 		printf(";delete de id : %s @ %d\n",tab[index].id,tab[index].memory);
 		switch(tab[index].type) {
 			case 0: //char 1o

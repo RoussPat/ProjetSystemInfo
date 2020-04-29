@@ -1,7 +1,7 @@
 all:
-	yacc -d -t -v compiler.y
+	yacc -d -t -v -Wall compiler.y
 	flex compiler.l
-	gcc lex.yy.c y.tab.c symboldepth.c asm.c -o compiler
+	gcc -Wall lex.yy.c y.tab.c symboldepth.c asm.c -o compiler
 
 lexicale:
 	flex lexicale.l

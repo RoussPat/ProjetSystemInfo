@@ -11,5 +11,5 @@ void addline(op_code code,int el1, int el2, int el3);
 void initTable();
 int getcurline();
 void update_element(int linenumber,int newel1, int newel2, int newel3);
-void writefulltable(int num);
+void writefulltable();
 char* getopcode(op_code code,int nbop);

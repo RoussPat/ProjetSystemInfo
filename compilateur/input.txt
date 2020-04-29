@@ -1,15 +1,14 @@
 main(){
-int i, j,k,r;
-j=4;
-i =3;
-if(i==3){ 
-	int j;
-	j = 5;
-	printf(j);
-}
-printf(j);
-k=8;
-printf (i);
-r=(i+j)*(i+k/j);
-printf ( r );
+	int l;
+	l=0;
+	if(l==0){
+		l=l+14;
+		printf(l);
+	}
+	else{
+		printf(l);
+	}
+	if(l==1){
+		l=l*2;
+	}
 }
