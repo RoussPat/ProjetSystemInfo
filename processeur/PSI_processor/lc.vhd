@@ -39,7 +39,7 @@ end lc;
 architecture Behavioral of lc is
 
 begin
-	--a completer
+	--val <= OP; ???
 	
 end Behavioral;
 

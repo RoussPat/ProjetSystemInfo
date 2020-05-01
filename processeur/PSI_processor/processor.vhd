@@ -89,10 +89,11 @@ architecture Behavioral of processor is
 	end component;
 	
 	component mux is
-		Port (  A 	: in  STD_LOGIC_VECTOR (7 downto 0);
-				  B 	: out  STD_LOGIC_VECTOR (7 downto 0);
-				  OP 	: in  STD_LOGIC_VECTOR (2 downto 0);
-				  S 	: in  STD_LOGIC_VECTOR (7 downto 0));
+		Generic ( num_Mux : NATURAL := 0); -- permet de definir le numero du multiplexeur a utiliser
+		Port ( 	 A 	: in  STD_LOGIC_VECTOR (7 downto 0);
+					 B 	: out  STD_LOGIC_VECTOR (7 downto 0);
+					 OP 	: in  STD_LOGIC_VECTOR (2 downto 0);
+					 S 	: in  STD_LOGIC_VECTOR (7 downto 0));
 	end component;
 	
 	component lc is
