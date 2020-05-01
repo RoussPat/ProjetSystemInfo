@@ -39,7 +39,7 @@ end processor;
 architecture Behavioral of processor is
 	-- Composants du processeur
 	component alu is
-		Port ( A : in  STD_LOGIC_VECTOR (7 downto 0);
+		Port (  A : in  STD_LOGIC_VECTOR (7 downto 0);
 				  B : in  STD_LOGIC_VECTOR (7 downto 0);
 				  S : out  STD_LOGIC_VECTOR (7 downto 0);
 				  Crtl_Alu : in  STD_LOGIC_VECTOR (2 downto 0);
@@ -50,7 +50,7 @@ architecture Behavioral of processor is
 	end component;
 
 	component pipeline is
-		Port ( CLK   : in  STD_LOGIC;
+		Port (  CLK    : in  STD_LOGIC;
 				  A_in   : in  STD_LOGIC_VECTOR (7 downto 0);
 				  OP_in  : in  STD_LOGIC_VECTOR (2 downto 0);
 				  B_in   : in  STD_LOGIC_VECTOR (7 downto 0);
@@ -62,42 +62,42 @@ architecture Behavioral of processor is
 	end component;
 	
 	component registre is
-		Port ( A : in  STD_LOGIC_VECTOR (3 downto 0);
-				  B : in  STD_LOGIC_VECTOR (3 downto 0);
-				  addrW : in  STD_LOGIC_VECTOR (3 downto 0);
-				  W : in  STD_LOGIC;
-				  DATA : in  STD_LOGIC_VECTOR (7 downto 0);
-				  RST : in  STD_LOGIC;
-				  CLK : in  STD_LOGIC;
-				  QA : out  STD_LOGIC_VECTOR (7 downto 0);
-				  QB : out  STD_LOGIC_VECTOR (7 downto 0));
+		Port (  A 		: in  STD_LOGIC_VECTOR (3 downto 0);
+				  B 		: in  STD_LOGIC_VECTOR (3 downto 0);
+				  addrW  : in  STD_LOGIC_VECTOR (3 downto 0);
+				  W 		: in  STD_LOGIC;
+				  DATA 	: in  STD_LOGIC_VECTOR (7 downto 0);
+				  RST 	: in  STD_LOGIC;
+				  CLK 	: in  STD_LOGIC;
+				  QA		: out  STD_LOGIC_VECTOR (7 downto 0);
+				  QB 		: out  STD_LOGIC_VECTOR (7 downto 0));
 	end component;
 	
 	component memory is
-		Port ( addr : in  STD_LOGIC_VECTOR (7 downto 0);
-				  v_IN : in  STD_LOGIC_VECTOR (7 downto 0);
-				  RW : in  STD_LOGIC;
-				  RST : in  STD_LOGIC;
-				  CLK : in  STD_LOGIC;
+		Port (  addr  : in  STD_LOGIC_VECTOR (7 downto 0);
+				  v_IN  : in  STD_LOGIC_VECTOR (7 downto 0);
+				  RW 	  : in  STD_LOGIC;
+				  RST   : in  STD_LOGIC;
+				  CLK   : in  STD_LOGIC;
 				  v_OUT : out  STD_LOGIC_VECTOR (7 downto 0));
 	end component;
 	
 	component instr_memory is
-		Port ( addr : in  STD_LOGIC_VECTOR (7 downto 0);
-				  CLK : in  STD_LOGIC;
+		Port (  addr 		: in  STD_LOGIC_VECTOR (7 downto 0);
+				  CLK 		: in  STD_LOGIC;
 				  instr_OUT : out  STD_LOGIC_VECTOR (31 downto 0));
 	end component;
 	
 	component mux is
-		Port ( A : in  STD_LOGIC_VECTOR (7 downto 0);
-				  B : out  STD_LOGIC_VECTOR (7 downto 0);
-				  OP : in  STD_LOGIC_VECTOR (2 downto 0);
-				  S : in  STD_LOGIC_VECTOR (7 downto 0));
+		Port (  A 	: in  STD_LOGIC_VECTOR (7 downto 0);
+				  B 	: out  STD_LOGIC_VECTOR (7 downto 0);
+				  OP 	: in  STD_LOGIC_VECTOR (2 downto 0);
+				  S 	: in  STD_LOGIC_VECTOR (7 downto 0));
 	end component;
 	
 	component lc is
-		Port ( OP : in  STD_LOGIC_VECTOR (7 downto 0);
-				  val : out  STD_LOGIC);
+		Port ( OP  : in  STD_LOGIC_VECTOR (7 downto 0);
+				 val : out  STD_LOGIC);
 	end component;
 
 begin
