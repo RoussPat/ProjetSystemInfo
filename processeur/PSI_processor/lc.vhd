@@ -41,5 +41,8 @@ architecture Behavioral of lc is
 begin
 	--val <= OP; ???
 	
+	-- LOAD
+	-- STORE
+	
 end Behavioral;
 

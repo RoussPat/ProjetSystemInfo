@@ -2,7 +2,7 @@ set -tmpdir "/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_pro
 set -xsthdpdir "/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/xst"
 run -compileonly yes
 -p xc6slx16-3-csg324
--top alu
+-top processor
 -opt_mode Speed
 -opt_level 1
 -power NO
@@ -47,4 +47,4 @@ run -compileonly yes
 -iob Auto
 -equivalent_register_removal YES
 -slice_utilization_ratio_maxmargin 5
--ifn alu.prj
+-ifn processor.prj

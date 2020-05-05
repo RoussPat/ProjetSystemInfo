@@ -19,8 +19,7 @@
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_LOGIC_UNSIGNED.ALL;
-use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -61,8 +60,8 @@ begin
 			end if;
 	end process;
 	
-		QA <= reg(to_integer(unsigned(A))) when W='0' else DATA; -- A FAIRE : bypass D ?
-		QB <= reg(to_integer(unsigned(B))) when W='0' else DATA;
+		QA <= reg(to_integer(unsigned(A))) when (W='0' or A/=B) else DATA; -- A FAIRE : bypass D ?
+		QB <= reg(to_integer(unsigned(B))) when (W='0' or A/=B) else DATA;
 	
 end Behavioral;
 

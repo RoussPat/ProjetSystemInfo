@@ -30,23 +30,25 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity mux is
-	Generic ( num_Mux : NATURAL := 0); -- permet de definir le numero du multiplexeur a utiliser
+	Generic ( num_Mux : NATURAL := 0); -- permet de definir le numero du multiplexeur a utiliser (etage)
 	Port ( 	 A  : in  STD_LOGIC_VECTOR (7 downto 0);
-				 B  : out  STD_LOGIC_VECTOR (7 downto 0);
+				 B  : in  STD_LOGIC_VECTOR (7 downto 0);
 				 OP : in  STD_LOGIC_VECTOR (2 downto 0);
-				 S  : in  STD_LOGIC_VECTOR (7 downto 0));
+				 S  : out  STD_LOGIC_VECTOR (7 downto 0));
 end mux;
 
 architecture Behavioral of mux is
 begin
-	S <=  B when (num_Mux = 1 and OP = X"06") else -- mux DI/EX, AFC
-			B when (num_Mux = 1 and OP = X"05") else -- mux DI/EX, COP	
-			A when (num_Mux = 2 and OP = X"01") else -- mux EX/Mem, ADD 1
-			A when (num_Mux = 2 and OP = X"02") else -- mux EX/Mem, MUL 2
-			A when (num_Mux = 2 and OP = X"04") else -- mux EX/Mem, DIV 4
-			A when (num_Mux = 2 and OP = X"03") else -- mux EX/Mem, SOU 3
+	S <=  A when (num_Mux = 1 and OP = X"06") else -- mux DI/EX, AFC
+			B when (num_Mux = 1 and OP = X"05") else -- mux DI/EX, COP
+			B when (num_Mux = 1 and OP = X"07") else -- mux DI/EX, LOAD
+			A when (num_Mux = 1 and OP = X"08") else -- mux DI/EX, STORE
+			A when (num_Mux = 2 and OP = X"01") else -- mux EX/Mem, ADD
+			A when (num_Mux = 2 and OP = X"02") else -- mux EX/Mem, MUL
+			A when (num_Mux = 2 and OP = X"04") else -- mux EX/Mem, DIV
+			A when (num_Mux = 2 and OP = X"03") else -- mux EX/Mem, SOU
+			B when (num_Mux = 3 and OP = X"08") else -- mux sortie EX/Mem, STORE
+			A when (num_Mux = 4 and OP = X"07") else -- mux Mem/RE, LOAD
 			B;
-	-- LOAD ??
-	-- STORE ??
 end Behavioral;
 
