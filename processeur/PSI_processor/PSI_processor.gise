@@ -75,14 +75,19 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1588699504" xil_pn:in_ck="-1636556455236711087" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1588699504">
+    <transform xil_pn:end_ts="1588700302" xil_pn:in_ck="4740738052732607424" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1588700302">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <status xil_pn:value="OutOfDateForInputs"/>
-      <status xil_pn:value="OutOfDateForOutputs"/>
-      <status xil_pn:value="InputChanged"/>
-      <status xil_pn:value="InputRemoved"/>
-      <status xil_pn:value="OutputRemoved"/>
+      <status xil_pn:value="InputAdded"/>
+      <outfile xil_pn:name="alu.vhd"/>
+      <outfile xil_pn:name="data_memory.vhd"/>
+      <outfile xil_pn:name="instr_memory.vhd"/>
+      <outfile xil_pn:name="lc.vhd"/>
+      <outfile xil_pn:name="mux.vhd"/>
+      <outfile xil_pn:name="pipeline.vhd"/>
+      <outfile xil_pn:name="processor.vhd"/>
+      <outfile xil_pn:name="registre.vhd"/>
     </transform>
     <transform xil_pn:end_ts="1588694514" xil_pn:name="TRAN_xawsToSimhdl" xil_pn:prop_ck="5917217509834150101" xil_pn:start_ts="1588694514">
       <status xil_pn:value="SuccessfullyRun"/>
@@ -146,6 +151,7 @@
       <status xil_pn:value="OutOfDateForInputs"/>
       <status xil_pn:value="OutOfDateForPredecessor"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="InputAdded"/>
       <status xil_pn:value="InputRemoved"/>
       <status xil_pn:value="OutputRemoved"/>
     </transform>

@@ -35,7 +35,7 @@ entity alu is
     Port ( A : in  STD_LOGIC_VECTOR (7 downto 0);
            B : in  STD_LOGIC_VECTOR (7 downto 0);
            S : out  STD_LOGIC_VECTOR (7 downto 0);
-           Crtl_Alu : in  STD_LOGIC_VECTOR (2 downto 0);
+           Ctrl_Alu : in  STD_LOGIC_VECTOR (2 downto 0);
            C_Flag : out  STD_LOGIC;
            Z_Flag : out  STD_LOGIC;
            O_Flag : out  STD_LOGIC;
@@ -45,7 +45,7 @@ end alu;
 architecture Behavioral of alu is
 
 	-- Declaration des operations
-	signal S_add : STD_LOGIC_VECTOR(7 downto 0);
+	signal S_add : STD_LOGIC_VECTOR(8 downto 0);
 	signal S_sou : STD_LOGIC_VECTOR(7 downto 0);
 	signal S_mul : STD_LOGIC_VECTOR(7 downto 0);
 	Signal S_div : STD_LOGIC_VECTOR(7 downto 0);
@@ -88,9 +88,9 @@ begin
 			'0';
 	
 	-- Flag Zero
-	Z <=  '1' when (Ctr_Alu = X"01" and S_add(7 downto 0) = X"00") else -- addition
-			'1' when (Ctr_Alu = X"03" and S_sou(7 downto 0) = X"00") else -- soustraction
-			'1' when (Ctr_Alu = X"02" and S_mul(7 downto 0) = X"00") else -- multiplication
+	Z <=  '1' when (Ctrl_Alu = X"01" and S_add(7 downto 0) = X"00") else -- addition
+			'1' when (Ctrl_Alu = X"03" and S_sou(7 downto 0) = X"00") else -- soustraction
+			'1' when (Ctrl_Alu = X"02" and S_mul(7 downto 0) = X"00") else -- multiplication
 			'0';
 	
 	-- Flag Overflow

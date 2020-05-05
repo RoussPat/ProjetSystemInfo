@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer:
 --
--- Create Date:   19:25:06 05/05/2020
+-- Create Date:   19:38:23 05/05/2020
 -- Design Name:   
 -- Module Name:   /home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/test_alu.vhd
 -- Project Name:  PSI_processor
@@ -41,9 +41,29 @@ ARCHITECTURE behavior OF test_alu IS
  
     COMPONENT alu
     PORT(
+         A : IN  std_logic_vector(7 downto 0);
+         B : IN  std_logic_vector(7 downto 0);
+         S : OUT  std_logic_vector(7 downto 0);
+         Ctrl_Alu : IN  std_logic_vector(2 downto 0);
+         C_Flag : OUT  std_logic;
+         Z_Flag : OUT  std_logic;
+         O_Flag : OUT  std_logic;
+         N_Flag : OUT  std_logic
         );
     END COMPONENT;
     
+
+   --Inputs
+   signal A : std_logic_vector(7 downto 0) := (others => '0');
+   signal B : std_logic_vector(7 downto 0) := (others => '0');
+   signal Ctrl_Alu : std_logic_vector(2 downto 0) := (others => '0');
+
+ 	--Outputs
+   signal S : std_logic_vector(7 downto 0);
+   signal C_Flag : std_logic;
+   signal Z_Flag : std_logic;
+   signal O_Flag : std_logic;
+   signal N_Flag : std_logic;
    -- No clocks detected in port list. Replace <clock> below with 
    -- appropriate port name 
  
@@ -53,6 +73,14 @@ BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
    uut: alu PORT MAP (
+          A => A,
+          B => B,
+          S => S,
+          Ctrl_Alu => Ctrl_Alu,
+          C_Flag => C_Flag,
+          Z_Flag => Z_Flag,
+          O_Flag => O_Flag,
+          N_Flag => N_Flag
         );
 
    -- Clock process definitions
