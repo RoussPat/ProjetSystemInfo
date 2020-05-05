@@ -5,14 +5,14 @@ Parameter TMPDIR set to /home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/process
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.08 secs
+Total CPU time to Xst completion: 0.09 secs
  
 --> 
 Parameter xsthdpdir set to /home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/xst
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.08 secs
+Total CPU time to Xst completion: 0.09 secs
  
 --> 
 Reading design: lc.prj
@@ -49,12 +49,12 @@ Parsing architecture <Behavioral> of entity <lc>.
 
 
 Total REAL time to Xst completion: 3.00 secs
-Total CPU time to Xst completion: 3.30 secs
+Total CPU time to Xst completion: 3.41 secs
  
 --> 
 
 
-Total memory usage is 301148 kilobytes
+Total memory usage is 301144 kilobytes
 
 Number of errors   :    0 (   0 filtered)
 Number of warnings :    0 (   0 filtered)

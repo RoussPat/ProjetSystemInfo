@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer:
 --
--- Create Date:   18:38:50 05/05/2020
+-- Create Date:   19:25:06 05/05/2020
 -- Design Name:   
 -- Module Name:   /home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/test_alu.vhd
 -- Project Name:  PSI_processor
