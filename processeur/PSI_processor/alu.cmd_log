@@ -1,2 +1,0 @@
-xst -intstyle ise -ifn "/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.xst" -ofn "/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.syr" 
-xst -intstyle ise -ifn "/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.xst" -ofn "/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.syr" 
