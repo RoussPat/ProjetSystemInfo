@@ -27,4 +27,6 @@ processeur/PSI_processor/alu_summary.html
 processeur/PSI_processor/iseconfig/alu.xreport
 processeur/PSI_processor/PSI_processor_ise12migration.zip
 processeur/PSI_processor/isim
+processeur/PSI_processor/_xmsgs/pn_parser.xmsgs
+processeur/PSI_processor/processor_summary.html
 
