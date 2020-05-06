@@ -104,11 +104,3 @@ begin
 			'0';
 
 end Behavioral;
-
--- Ici on gere : addition, soustraction, division et multiplication
-
--- Vocublaire : 
--- N -> valeur ngative en sortie [bit de poids fort a 1]
--- O -> overflow (dordement) [ add : + + - et - - + | sou + - - et - + +]
--- Z -> valeur nulle ne sortie
--- C -> retenue de l'addition

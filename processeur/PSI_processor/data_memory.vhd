@@ -70,3 +70,23 @@ begin
 	v_OUT <= v_out_aux;
 
 end Behavioral;
+
+-- Notes : 
+
+-- RST --> initialiser le contenu de la memoire a 0x00
+
+-- addr : adresse de la zone memoire
+
+-- lecture de donnees : RW
+-- RW == 1  -> lecture
+-- copier le contenu lu a l'adresse addr sur le signal_OUT ???
+
+
+-- ecriture de donnees : !RW
+-- RW == 0 -> ecriture
+-- copier le contenu de signal_IN a l'addresse addr
+
+--RST, lecture et ecriture se font en synchrone sur la CLK
+
+
+--mémoire de données => adresse des valeurs que l'on manipule / table des symboles

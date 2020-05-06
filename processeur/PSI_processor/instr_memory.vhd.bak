@@ -78,15 +78,3 @@ begin
 
 end Behavioral;
 
-
--- Notes : 
-
--- Nous supposons que le programme a execute par le microprocesseur est stock dans cette memoire
--- A l'execution, nous empechons toute modification du contenu de cette memoire
-
--- La lecture se fait en synchrone sur la CLK
-
--- mémoire d'instruction => assembleur genere
-
--- Remarque -> avec le composant physique il y aura tout dans le tableau
---	    -> pour la simulation on lit un fichier et on init la stucture
