@@ -41,7 +41,7 @@ architecture Behavioral of lc is
 begin
 
 
-	val <= '1' when (OP=B"110") else --gestion de l'AFC
+	val <= '1' when (OP=B"110") else
 		'0';
 	
 	-- LOAD
