@@ -36,7 +36,7 @@ entity alu is
     Port ( A : in  STD_LOGIC_VECTOR (size-1 downto 0);
            B : in  STD_LOGIC_VECTOR (size-1 downto 0);
            S : out  STD_LOGIC_VECTOR (size-1 downto 0);
-           Ctrl_Alu : in  STD_LOGIC_VECTOR (2 downto 0);
+           Ctrl_Alu : in  STD_LOGIC_VECTOR (3 downto 0);
            C_Flag : out  STD_LOGIC;
            Z_Flag : out  STD_LOGIC;
            O_Flag : out  STD_LOGIC;
