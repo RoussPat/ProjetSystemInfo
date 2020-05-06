@@ -172,54 +172,56 @@ ARCHITECTURE behavior OF test_alu IS
     
 
    --Inputs
-	signal SIGNAL_CLK : std_logic;
-   signal SIGNAL_A : std_logic_vector(7 downto 0) := (others => '0');
-   signal SIGNAL_B : std_logic_vector(7 downto 0) := (others => '0');
-   signal SIGNAL_Ctrl_Alu : std_logic_vector(3 downto 0) := (others => '0');
+	--signal CLK : std_logic :='0';
+   signal A : std_logic_vector(7 downto 0) := (others => '0');
+   signal B : std_logic_vector(7 downto 0) := (others => '0');
+   signal Ctrl_Alu : std_logic_vector(3 downto 0) := (others => '0');
 
  	--Outputs
-   signal SIGNAL_S : std_logic_vector(7 downto 0);
-   signal SIGNAL_C_Flag : std_logic;
-   signal SIGNAL_Z_Flag : std_logic;
-   signal SIGNAL_O_Flag : std_logic;
-   signal SIGNAL_N_Flag : std_logic;
-   -- No clocks detected in port list. Replace CLK below with 
-   -- appropriate port name 
-	signal CLK : std_logic := '0';
-   constant CLK_period : time := 10 ns;
+   signal S : std_logic_vector(7 downto 0);
+   signal C_Flag : std_logic;
+   signal Z_Flag : std_logic;
+   signal O_Flag : std_logic;
+   signal N_Flag : std_logic;
  
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
    uut: alu PORT MAP (
-          SIGNAL_A,
-          SIGNAL_B,
-          SIGNAL_S,
-          SIGNAL_Ctrl_Alu,
-          SIGNAL_C_Flag,
-          SIGNAL_Z_Flag,
-          SIGNAL_O_Flag,
-          SIGNAL_N_Flag
+			 A => A,
+			 B => B,
+          S => S,
+          Ctrl_Alu => Ctrl_Alu,
+          C_Flag => C_Flag,
+          Z_Flag => Z_Flag,
+          O_Flag => O_Flag,
+          N_Flag => N_Flag
         );
 
    -- Clock process definitions
-   CLK_process :process
-   begin
-		CLK <= '0';
-		wait for CLK_period/2;
-		CLK <= '1';
-		wait for CLK_period/2;
-   end process;
- 
-	SIGNAL_A 			<= X"01";
-	SIGNAL_B 			<= X"02";
-	SIGNAL_Ctrl_Alu 	<= X"1";
+--   CLK_process :process
+--   begin
+--		CLK <= '0';
+--		wait for CLK_period/2;
+--		CLK <= '1';
+--		wait for CLK_period/2;
+--   end process;
+-- 
+--	A 			<= X"01";
+--	B 			<= X"02";
+--	Ctrl_Alu <= X"1";
+--	S <= S;
 	
---	SIGNAL_S 			<= X"ff"; 	
---	SIGNAL_C_Flag <= '0', '1' after 30 ns;-- '0' after 600 ns;
---	SIGNAL_Z_Flag <= '0', '1' after 250 ns;--, '0' after 270 ns;
---	SIGNAL_O_Flag <= '0', '1' after 500 ns;-- , '0' after 570 ns;
---	SIGNAL_N_Flag <= '0', '1' after 300 ns;
+	 -- Stimulus process
+   stim_proc: process	
+   begin		
+      -- hold reset state for 100 ns.
+		A <= X"01";
+		B <= X"02";
+      wait for 100 ns;	
+      Ctrl_Alu <= X"0", X"1" after 100ns, X"2" after 200 ns, X"3" after 300ns;
+      wait;
+   end process;
 
    -- Stimulus process
 --   stim_proc: process
