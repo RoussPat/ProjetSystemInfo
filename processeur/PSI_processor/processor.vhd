@@ -33,7 +33,8 @@ use IEEE.STD_LOGIC_ARITH.ALL;
 
 entity processor is
 	port( CLK_PROC : in STD_LOGIC;
-			RST_PROC : in STD_LOGIC);
+			RST_PROC : in STD_LOGIC;
+			IP: in STD_LOGIC_VECTOR(7 downto 0));
 end processor;
 
 architecture Behavioral of processor is
@@ -42,7 +43,7 @@ architecture Behavioral of processor is
 		Port (  A : in  STD_LOGIC_VECTOR (7 downto 0);
 				  B : in  STD_LOGIC_VECTOR (7 downto 0);
 				  S : out  STD_LOGIC_VECTOR (7 downto 0);
-				  Crtl_Alu : in  STD_LOGIC_VECTOR (2 downto 0);
+				  Crtl_Alu : in  STD_LOGIC_VECTOR (3 downto 0);
 				  C_Flag : out  STD_LOGIC;
 				  Z_Flag : out  STD_LOGIC;
 				  O_Flag : out  STD_LOGIC;
@@ -52,11 +53,11 @@ architecture Behavioral of processor is
 	component pipeline is
 		Port (  CLK    : in  STD_LOGIC;
 				  A_in   : in  STD_LOGIC_VECTOR (7 downto 0);
-				  OP_in  : in  STD_LOGIC_VECTOR (2 downto 0);
+				  OP_in  : in  STD_LOGIC_VECTOR (3 downto 0);
 				  B_in   : in  STD_LOGIC_VECTOR (7 downto 0);
 				  C_in   : in  STD_LOGIC_VECTOR (7 downto 0);
 				  A_out  : out  STD_LOGIC_VECTOR (7 downto 0);
-				  OP_out : out  STD_LOGIC_VECTOR (2 downto 0);
+				  OP_out : out  STD_LOGIC_VECTOR (3 downto 0);
 				  B_out  : out  STD_LOGIC_VECTOR (7 downto 0);
 				  C_out  : out  STD_LOGIC_VECTOR (7 downto 0));
 	end component;
@@ -92,7 +93,7 @@ architecture Behavioral of processor is
 		Generic ( num_Mux : NATURAL := 0); -- permet de definir le numero du multiplexeur a utiliser
 		Port ( 	 A 	: in  STD_LOGIC_VECTOR (7 downto 0);
 					 B 	: out  STD_LOGIC_VECTOR (7 downto 0);
-					 OP 	: in  STD_LOGIC_VECTOR (2 downto 0);
+					 OP 	: in  STD_LOGIC_VECTOR (3 downto 0);
 					 S 	: in  STD_LOGIC_VECTOR (7 downto 0));
 	end component;
 	
@@ -100,8 +101,8 @@ architecture Behavioral of processor is
 		Port ( OP  : in  STD_LOGIC_VECTOR (3 downto 0);
 				 val : out  STD_LOGIC);
 	end component;
-	signal IP : STD_LOGIC_VECTOR(7 downto 0);
-	signal OP_DI,OP_EX, OP_MEM, OP_RE:STD_LOGIC_VECTOR(2 downto 0);
+	signal IP_AUX : STD_LOGIC_VECTOR(7 downto 0);
+	signal OP_DI,OP_EX, OP_MEM, OP_RE:STD_LOGIC_VECTOR(3 downto 0);
 	signal A_DI, B_DI, C_DI : STD_LOGIC_VECTOR(7 downto 0);
 	signal A_EX, B_EX, C_EX : STD_LOGIC_VECTOR(7 downto 0);
 	signal A_MEM, B_MEM, C_MEM : STD_LOGIC_VECTOR(7 downto 0);
@@ -120,9 +121,9 @@ begin
 
 	Li_Di: pipeline PORT MAP (
 		CLK => CLK_PROC,
-		A_in => Instruction(22 downto 15),   
-		OP_in => Instruction(31 downto 23)(2 downto 0),
-		B_in => Instruction(14 downto 8),
+		A_in => Instruction(23 downto 16),   
+		OP_in => Instruction(27 downto 24), -- une chance sur 2 Little indian or big indian ?? pour tous
+		B_in => Instruction(15 downto 8),
 		C_in => Instruction(7 downto 0),
 		A_out => A_DI,
 		OP_out => OP_DI,
@@ -174,7 +175,7 @@ begin
 	Reg : registre PORT MAP( 
 		A=>X"0",
 		B=>X"0",
-		addrW => A_RE,
+		addrW => A_RE(3 downto 0),
 		W=>LC_out,
 		DATA=> B_RE,
 		RST=>RST_PROC,
