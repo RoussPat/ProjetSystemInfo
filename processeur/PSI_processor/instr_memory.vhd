@@ -39,15 +39,17 @@ entity instr_memory is
 			  instr_OUT : out  STD_LOGIC_VECTOR (31 downto 0));
 end instr_memory;
 
+--00120406 ecriture dans le fichier pour ADD 12 4 6
+
 architecture Behavioral of instr_memory is
 	-- Permet de recuperer un fichier avec les instructions a executer
-	type mem_array_t is array(0 to 2**8-1) of std_logic_vector(7 downto 0);
+	type mem_array_t is array(0 to 2**8-1) of std_logic_vector(31 downto 0);
 	-- Init memory with the filename "init_file" or not.
 	impure function init_mem(filename: in string) return mem_array_t is
 		file f_handler: text;
 		variable mem: mem_array_t;
 		variable f_line: line;
-		variable data_line : std_logic_vector(7 downto 0);
+		variable data_line : std_logic_vector(31 downto 0);
 		variable good: boolean;
 		variable lineno: integer := 0;
 		begin

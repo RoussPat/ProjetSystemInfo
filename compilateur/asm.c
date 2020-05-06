@@ -88,16 +88,16 @@ void writefulltable(int num){
 			printf("[%3d]",current->line);
 			if(current->el2 ==-1){
 			printf("%s %d\n",getopcode(current->code,1),current->el1);
-			fprintf(Outputfile,"%x %d\n",current->code+1,current->el1);
+			fprintf(Outputfile,"%2x%2x0000\n",current->code+1,current->el1);
 		}
 		else{
 			if(current->el3 ==-1){
 				printf("%s %d %d\n",getopcode(current->code,2),current->el1,current->el2);
-				fprintf(Outputfile,"%x %d %d\n",current->code+1,current->el1,current->el2);
+				fprintf(Outputfile,"%2x%2x%2x00\n",current->code+1,current->el1,current->el2);
 			}
 			else{
 				printf("%s %d %d %d\n",getopcode(current->code,3),current->el1,current->el2,current->el3);
-				fprintf(Outputfile,"%x %d %d %d\n",current->code+1,current->el1,current->el2,current->el3);
+				fprintf(Outputfile,"%2x%2x%2x%2x\n",current->code+1,current->el1,current->el2,current->el3);
 			}
 		}
 		tofree = current;
@@ -105,18 +105,18 @@ void writefulltable(int num){
 		free(tofree);
 	}
 	printf("[%3d]",current->line);
-	if(current->el2 ==-1){
+		if(current->el2 ==-1){
 		printf("%s %d\n",getopcode(current->code,1),current->el1);
-		fprintf(Outputfile,"%x %d\n",current->code+1,current->el1);
+		fprintf(Outputfile,"%2x%2x0000\n",current->code+1,current->el1);
 	}
 	else{
 		if(current->el3 ==-1){
 			printf("%s %d %d\n",getopcode(current->code,2),current->el1,current->el2);
-			fprintf(Outputfile,"%x %d %d\n",current->code+1,current->el1,current->el2);
+			fprintf(Outputfile,"%2x%2x%2x00\n",current->code+1,current->el1,current->el2);
 		}
 		else{
 			printf("%s %d %d %d\n",getopcode(current->code,3),current->el1,current->el2,current->el3);
-			fprintf(Outputfile,"%x %d %d %d\n",current->code+1,current->el1,current->el2,current->el3);
+			fprintf(Outputfile,"%2x%2x%2x%2x\n",current->code+1,current->el1,current->el2,current->el3);
 		}
 	}
 	free(current);
