@@ -60,21 +60,8 @@ begin
 			end if;
 	end process;
 	
-		QA <= reg(to_integer(unsigned(A)));
-		QB <= reg(to_integer(unsigned(B)));
+		QA <= reg(to_integer(unsigned(A))) when (W='0' or A/=B) else DATA; -- A FAIRE : bypass D ?
+		QB <= reg(to_integer(unsigned(B))) when (W='0' or A/=B) else DATA;
 	
 end Behavioral;
 
--- Notes : 
-
--- RST actif  0 --> contenu du banc mis  0x00
-
--- lecture de donnees : add_A, add_B, QA et QB
--- add_A et add_B permettent de lire 2 registres simultanment
--- QA et QB --> on leur donne les valeurs que l'on lit dans les registres (add_A, add_B)
-
--- ecriture de donnees : add_W, W et Data
--- W == 1 si ecriture
--- copier le contenu de Data dans le registre d'adresse add_W
-
---RST et ecrtiure se font en synchrone sur la CLK
