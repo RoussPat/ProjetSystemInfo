@@ -252,13 +252,13 @@ Cross Clock Domains Report:
 =========================================================================
 
 
-Total REAL time to Xst completion: 5.00 secs
-Total CPU time to Xst completion: 4.62 secs
+Total REAL time to Xst completion: 8.00 secs
+Total CPU time to Xst completion: 6.25 secs
  
 --> 
 
 
-Total memory usage is 379776 kilobytes
+Total memory usage is 379784 kilobytes
 
 Number of errors   :    0 (   0 filtered)
 Number of warnings :    2 (   0 filtered)

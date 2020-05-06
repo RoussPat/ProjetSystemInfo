@@ -4,3 +4,6 @@ map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -re
 xst -intstyle ise -ifn "/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/processor.xst" -ofn "/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/processor.syr" 
 ngdbuild -intstyle ise -dd _ngo -nt timestamp -i -p xc6slx16-csg324-3 processor.ngc processor.ngd  
 map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o processor_map.ncd processor.ngd processor.pcf 
+xst -intstyle ise -ifn "/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/processor.xst" -ofn "/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/processor.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -i -p xc6slx16-csg324-3 processor.ngc processor.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o processor_map.ncd processor.ngd processor.pcf 
