@@ -32,7 +32,7 @@ use IEEE.STD_LOGIC_ARITH.ALL;
 --use UNISIM.VComponents.all;
 
 entity lc is
-    Port ( OP : in  STD_LOGIC_VECTOR (2 downto 0);
+    Port ( OP : in  STD_LOGIC_VECTOR (3 downto 0);
            val : out  STD_LOGIC);
 end lc;
 
@@ -41,7 +41,7 @@ architecture Behavioral of lc is
 begin
 
 
-	val <= '1' when (OP=B"110") else --gestion de l'AFC
+	val <= '1' when (OP=B"0110") else --gestion de l'AFC
 		'0';
 	
 	-- LOAD

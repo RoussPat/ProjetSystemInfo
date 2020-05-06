@@ -33,22 +33,22 @@ entity mux is
 	Generic ( num_Mux : NATURAL := 0); -- permet de definir le numero du multiplexeur a utiliser (etage)
 	Port ( 	 A  : in  STD_LOGIC_VECTOR (7 downto 0);
 				 B  : in  STD_LOGIC_VECTOR (7 downto 0);
-				 OP : in  STD_LOGIC_VECTOR (2 downto 0);
+				 OP : in  STD_LOGIC_VECTOR (3 downto 0);
 				 S  : out  STD_LOGIC_VECTOR (7 downto 0));
 end mux;
 
 architecture Behavioral of mux is
 begin
-	S <=  A when (num_Mux = 1 and OP = X"06") else -- mux DI/EX, AFC
-			B when (num_Mux = 1 and OP = X"05") else -- mux DI/EX, COP
-			B when (num_Mux = 1 and OP = X"07") else -- mux DI/EX, LOAD
-			A when (num_Mux = 1 and OP = X"08") else -- mux DI/EX, STORE
-			A when (num_Mux = 2 and OP = X"01") else -- mux EX/Mem, ADD
-			A when (num_Mux = 2 and OP = X"02") else -- mux EX/Mem, MUL
-			A when (num_Mux = 2 and OP = X"04") else -- mux EX/Mem, DIV
-			A when (num_Mux = 2 and OP = X"03") else -- mux EX/Mem, SOU
-			B when (num_Mux = 3 and OP = X"08") else -- mux sortie EX/Mem, STORE
-			A when (num_Mux = 4 and OP = X"07") else -- mux Mem/RE, LOAD
+	S <=  A when (num_Mux = 1 and OP = X"6") else -- mux DI/EX, AFC
+			B when (num_Mux = 1 and OP = X"5") else -- mux DI/EX, COP
+			B when (num_Mux = 1 and OP = X"7") else -- mux DI/EX, LOAD
+			A when (num_Mux = 1 and OP = X"8") else -- mux DI/EX, STORE
+			A when (num_Mux = 2 and OP = X"1") else -- mux EX/Mem, ADD
+			A when (num_Mux = 2 and OP = X"2") else -- mux EX/Mem, MUL
+			A when (num_Mux = 2 and OP = X"4") else -- mux EX/Mem, DIV
+			A when (num_Mux = 2 and OP = X"3") else -- mux EX/Mem, SOU
+			B when (num_Mux = 3 and OP = X"8") else -- mux sortie EX/Mem, STORE
+			A when (num_Mux = 4 and OP = X"7") else -- mux Mem/RE, LOAD
 			B;
 end Behavioral;
 

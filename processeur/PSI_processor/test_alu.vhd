@@ -191,7 +191,7 @@ BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
    uut: alu PORT MAP (
-          SIGNAL_A,
+          A=> SIGNAL_A,
           SIGNAL_B,
           SIGNAL_S,
           SIGNAL_Ctrl_Alu,
