@@ -64,12 +64,12 @@ begin
 
 -- Implementation des operations
 	-- Gestion des OpCodes
-	S <=  S_add(size downto 0) when Ctrl_Alu = "001" else -- 1
-			S_sou(size-1 downto 0) when Ctrl_Alu = "011" else -- 3
-			S_mul(size-1 downto 0) when Ctrl_Alu = "010" else -- 2
-			--(X"00" & S_equ) when Ctrl_Alu = "1011" else -- B
-			--(X"00" & S_inf) when Ctrl_Alu = "1001" else -- 9
-			--(X"00" & S_sup) when Ctrl_Alu = "1010" else -- A
+	S <=  S_add(size downto 0) when Ctrl_Alu = X"1" else
+			S_sou(size-1 downto 0) when Ctrl_Alu = X"3" else
+			S_mul(size-1 downto 0) when Ctrl_Alu = X"2" else
+			(X"00" & S_equ) when Ctrl_Alu = X"B" else
+			(X"00" & S_inf) when Ctrl_Alu = X"9" else
+			(X"00" & S_sup) when Ctrl_Alu = X"A" else
 			X"00";
 			
 	-- Actions a faire en fonction de l'OpCode
@@ -77,23 +77,23 @@ begin
 	S_sou <= A-B;
 	S_mul <= A*B;
 	
-	--S_equ <= '1' when (Ctrl_Alu = "1011" and A = B) else '0'; -- egalite B
-	--S_inf <= '1' when (Ctrl_Alu = "1001" and A < B) else '0'; -- inferieur stricte 9
-	--S_sup <= '1' when (Ctrl_Alu = "1010" and A > B) else '0'; -- superieur stricte A
+	S_equ <= '1' when (Ctrl_Alu = X"B" and A = B) else '0'; -- egalite B
+	S_inf <= '1' when (Ctrl_Alu = X"9" and A < B) else '0'; -- inferieur stricte 9
+	S_sup <= '1' when (Ctrl_Alu = X"A" and A > B) else '0'; -- superieur stricte A
 	
 	-- Flag Carry
-	C <=  S_add(size) when (Ctrl_Alu = "001" and S_add(size) = '1') else '0'; -- 1
+	C <=  S_add(size) when (Ctrl_Alu = X"1" and S_add(size) = '1') else '0'; 
 	
 	-- Flag Negative
-	N <=  S_add(size-1) when (Ctrl_Alu = "001" and S_add(size-1) = '1') else	-- addition 1
-			S_sou(size-1) when (Ctrl_Alu = "011" and S_sou(size-1) = '1') else	-- soustraction 3
-			S_mul(size-1) when (Ctrl_Alu = "010" and S_mul(size-1) = '1') else	-- multiplication 2
+	N <=  S_add(size-1) when (Ctrl_Alu = X"1" and S_add(size-1) = '1') else	-- addition 1
+			S_sou(size-1) when (Ctrl_Alu = X"3" and S_sou(size-1) = '1') else	-- soustraction 3
+			S_mul(size-1) when (Ctrl_Alu = X"2" and S_mul(size-1) = '1') else	-- multiplication 2
 			'0';
 	
 	-- Flag Zero
-	Z <=  '1' when (Ctrl_Alu = "001" and S_add(size-1 downto 0) = X"00") else -- addition 1
-			'1' when (Ctrl_Alu = "011" and S_sou(size-1 downto 0) = X"00") else -- soustraction 3
-			'1' when (Ctrl_Alu = "010" and S_mul(size-1 downto 0) = X"00") else -- multiplication 2
+	Z <=  '1' when (Ctrl_Alu = X"1" and S_add(size-1 downto 0) = X"00") else -- addition 1
+			'1' when (Ctrl_Alu = X"3" and S_sou(size-1 downto 0) = X"00") else -- soustraction 3
+			'1' when (Ctrl_Alu = X"2" and S_mul(size-1 downto 0) = X"00") else -- multiplication 2
 			'0';
 	
 	-- Flag Overflow
