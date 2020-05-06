@@ -64,14 +64,14 @@ architecture Behavioral of instr_memory is
 		 return mem;
 		end function;
 		
-	signal instruction_OUT : mem_array_t := init_mem(filename => "./executable.hex");
+	signal instr_OUT_AUX : mem_array_t := init_mem(filename => "./executable.hex");
 
 begin
 	
 	process
 	begin
 		wait until CLK'event and CLK = '1';
-		instr_OUT <= instruction_OUT(to_integer(unsigned(addr)));
+		instr_OUT <= instr_OUT_AUX(to_integer(unsigned(addr)));
 	end process;
 
 end Behavioral;
