@@ -67,6 +67,6 @@ begin
 	end process;
 
 	-- en //
-	v_OUT <= v_out_aux;
+	
 
 end Behavioral;
