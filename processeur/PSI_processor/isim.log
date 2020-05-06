@@ -1,6 +1,5 @@
 ISim log file
-Running: /home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/test_counter_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/test_counter_isim_beh.wdb 
-INFO: There is another simulation running in the same directory. Using database file name isim1.wdb.
+Running: /home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu_isim_beh.wdb 
 ISim O.87xd (signature 0x8ddf5b5d)
 ----------------------------------------------------------------------
 INFO:Security:50 - The XILINXD_LICENSE_FILE environment variable is set to '2100@srv-gei-ens1'.
@@ -27,3 +26,13 @@ available at "www.acresso.com".
 WARNING: A full ISim License cannot be checked out due to the issues listed above. Please use Xilinx License Configuration Manager to fix these issues in order to check out a full ISim license.
 WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
 This is a Lite version of ISim.
+Time resolution is 1 ps
+# onerror resume
+# wave add /
+# run 1000 ns
+Simulator is doing circuit initialization process.
+at 0 ps, Instance /alu/ : Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+ERROR: In process alu.vhd:78 
+ Target Size 8 and source size 16 for array dimension 0 does not match. 
+
+INFO: Simulator is stopped.

@@ -1,24 +1,11 @@
-Running: /usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -lib secureip -o /home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/test_counter_isim_beh.exe -prj /home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/test_counter_beh.prj work.test_counter 
+Running: /usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -lib secureip -o /home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/test_alu_isim_beh.exe -prj /home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/test_alu_beh.prj work.test_alu 
 ISim O.87xd (signature 0x8ddf5b5d)
 Number of CPUs detected in this system: 12
 Turning on mult-threading, number of parallel sub-compilation jobs: 24 
 Determining compilation order of HDL files
-Parsing VHDL file " " into library work
-Parsing VHDL file " " into library work
-Starting static elaboration
-Completed static elaboration
-Fuse Memory Usage: 96760 KB
-Fuse CPU Usage: 1240 ms
-Compiling package standard
-Compiling package std_logic_1164
-Compiling package std_logic_arith
-Compiling package std_logic_unsigned
-Compiling architecture behavioral of entity counter [counter_default]
-Compiling architecture behavior of entity test_counter
-Time Resolution for simulation is 1ps.
-Waiting for 1 sub-compilation(s) to finish...
-Compiled 7 VHDL Units
-Built simulation executable /home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/test_counter_isim_beh.exe
-Fuse Memory Usage: 1717648 KB
-Fuse CPU Usage: 1360 ms
-GCC CPU Usage: 330 ms
+Parsing VHDL file "/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/alu.vhd" into library work
+Parsing VHDL file "/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/test_alu.vhd" into library work
+ERROR:HDLCompiler:69 - "/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/test_alu.vhd" Line 89: <clk> is not declared.
+ERROR:HDLCompiler:69 - "/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/test_alu.vhd" Line 91: <clk> is not declared.
+ERROR:HDLCompiler:854 - "/home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/test_alu.vhd" Line 38: Unit <behavior> ignored due to previous errors.
+VHDL file /home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/test_alu.vhd ignored due to errors

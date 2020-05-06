@@ -4,15 +4,15 @@ Copyright (c) 1995-2011 Xilinx, Inc.  All rights reserved.
 Parameter TMPDIR set to /home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/xst/projnav.tmp
 
 
-Total REAL time to Xst completion: 1.00 secs
-Total CPU time to Xst completion: 0.06 secs
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.08 secs
  
 --> 
 Parameter xsthdpdir set to /home/erpeldin/Documents/4IR/S8/ProjetSystemInfo/processeur/PSI_processor/xst
 
 
-Total REAL time to Xst completion: 1.00 secs
-Total CPU time to Xst completion: 0.06 secs
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.08 secs
  
 --> 
 Reading design: alu.prj
@@ -49,7 +49,7 @@ Parsing architecture <Behavioral> of entity <alu>.
 
 
 Total REAL time to Xst completion: 4.00 secs
-Total CPU time to Xst completion: 3.29 secs
+Total CPU time to Xst completion: 4.49 secs
  
 --> 
 
