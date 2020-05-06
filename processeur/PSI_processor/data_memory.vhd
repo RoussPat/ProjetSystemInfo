@@ -19,12 +19,12 @@
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_LOGIC_UNSIGNED.ALL;
-use IEEE.STD_LOGIC_ARITH.ALL;
+--use IEEE.STD_LOGIC_UNSIGNED.ALL;
+--use IEEE.STD_LOGIC_ARITH.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
@@ -42,8 +42,9 @@ end memory;
 
 architecture Behavioral of memory is
 
-	type data is array (NATURAL range <>) of STD_LOGIC_VECTOR(7 downto 0);
-	signal d : data((2**8-1) downto 0); 
+	type data_array is array (NATURAL range <>) of STD_LOGIC_VECTOR(7 downto 0);
+	signal data : data_array((2**8-1) downto 0); 
+	signal v_out_aux : STD_LOGIC_VECTOR (7 downto 0);
 
 begin
 
@@ -53,16 +54,19 @@ begin
 		wait until CLK'event and CLK = '1';
 			if (RST='0') then	
 				-- mise a zero des donnees
-				d <= (others => X"00"); 
+				data <= (others => X"00"); 
 			elsif (RST='1') then
 				-- lecture
 				if (RW='1') then
-					data(to_integer(unsigned(v_OUT))) <= addr;
+					data(to_integer(unsigned(v_out_aux))) <= addr;
 				-- ecriture
 				elsif (RW='0') then
 					data(to_integer(unsigned(addr))) <= v_IN;
 				end if;
 			end if;
 	end process;
+
+	-- en //
+	v_OUT <= v_out_aux;
 
 end Behavioral;
