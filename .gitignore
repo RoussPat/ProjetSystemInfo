@@ -107,3 +107,7 @@ processeur/PSI_processor/xlnx_auto_0_xdb
 processeur/PSI_processor/pepExtractor.prj      
 processeur/PSI_processor/_xmsgs
 
+processeur/PSI_processor/alu_isim_beh2.wdb
+
+processeur/PSI_processor/alu_stx_beh.prj
+
