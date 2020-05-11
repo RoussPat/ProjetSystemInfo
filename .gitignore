@@ -106,8 +106,20 @@ processeur/PSI_processor/_ngo
 processeur/PSI_processor/xlnx_auto_0_xdb
 processeur/PSI_processor/pepExtractor.prj      
 processeur/PSI_processor/_xmsgs
-
 processeur/PSI_processor/alu_isim_beh2.wdb
-
 processeur/PSI_processor/alu_stx_beh.prj
+processeur/PSI_processor/fuse.xmsgs
+processeur/PSI_processor/isim.cmd
+processeur/PSI_processor/isim.log
+processeur/PSI_processor/test_alu_isim_beh.exe
+processeur/PSI_processor/test_alu_isim_beh1.wdb
+processeur/PSI_processor/test_alu_isim_beh2.wdb
+processeur/PSI_processor/test_alu_stx_beh.prj
+processeur/PSI_processor/test_intr_memory_beh.prj
+processeur/PSI_processor/test_intr_memory_isim_beh.exe
+processeur/PSI_processor/test_intr_memory_isim_beh.wdb
+processeur/PSI_processor/test_intr_memory_stx_beh.prj
+processeur/PSI_processor/test_registre_beh.prj
+processeur/PSI_processor/test_registre_isim_beh.exe
+processeur/PSI_processor/test_registre_isim_beh.wdb
 
