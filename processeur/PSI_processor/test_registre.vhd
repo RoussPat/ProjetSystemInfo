@@ -94,27 +94,15 @@ BEGIN
 		wait for CLK_period/2;
    end process;
  
-
-   -- Stimulus process
-   stim_proc: process
-   begin		
-      -- hold reset state for 100 ns.
-      wait for 100 ns;	
-
-      wait for CLK_period*10;
-
       -- insert stimulus here 
-		RST <= '0', '1' after 100 ns; -- RST=0 => initialisation des registres a 0
-		W <= '0', '1' after 250 ns, '0' after 500 ns;
-		A <= X"8" after 300 ns;
-		B <= X"A" after 300 ns;		
-		DATA <= X"02",X"05" after 150 ns;
-		addrW <= X"1", X"2" after 250 ns;
-		W <= '0', '1' after 200 ns, '0' after 300 ns;
-		addrA <= X"4" after 250 ns;
-		addrB <= X"4" after 350 ns;
+	
+	RST <= '0', '1' after 100 ns,'0' after 850 ns; -- RST=0 => initialisation des registres a 0
+	W <= '0', '1' after 260 ns, '0' after 700 ns;
+	DATA <=X"00", X"02" after 250 ns, X"05" after 500 ns;
+	addrW <= X"0", X"1" after 250 ns, X"2" after 500 ns;
+	A <= X"1" after 690 ns;
+	B <= X"2" after 690 ns;
 
-      wait;
-   end process;
+  
 
 END;
