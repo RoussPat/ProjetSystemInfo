@@ -93,8 +93,8 @@ BEGIN
  
 	 -- Stimulus process
 	 
-		A <= X"01";
-		B <= X"02";
+		A <= X"FF";
+		B <= X"01";
       Ctrl_Alu <= X"0", X"1" after 100ns, X"2" after 200 ns, X"3" after 300ns;
      
 --    Stimulus process

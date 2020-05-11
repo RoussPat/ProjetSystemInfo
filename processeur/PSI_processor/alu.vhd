@@ -94,17 +94,17 @@ begin
 				'0';
 	
 	-- Flag Zero
-	Z_AUX <=  '1' when (Ctrl_Alu = X"1" and S_add(size-1 downto 0) = X"00") else -- addition 1
+	Z_AUX <= '1' when (Ctrl_Alu = X"1" and S_add(size-1 downto 0) = X"00") else -- addition 1
 				'1' when (Ctrl_Alu = X"3" and S_sou(size-1 downto 0) = X"00") else -- soustraction 3
 				'1' when (Ctrl_Alu = X"2" and S_mul(size-1 downto 0) = X"00") else -- multiplication 2
 				'0';
 	
 	-- Flag Overflow
-	O_AUX <=  '1' when (S_add(size-1) = '1' and A(size-1) = '0' and B(size-1) = '0') else 	-- add cas 1 : A et B positifs
-			'1' when (S_add(size-1) = '0' and A(size-1) = '1' and B(size-1) = '1') else	-- add cas 2 : A et B negatifs
-			'1' when (S_sou(size-1) = '0' and A(size-1) = '1' and B(size-1) = '0') else	-- sou cas 1 : A negatif, B positif
-			'1' when (S_sou(size-1) = '1' and A(size-1) = '0' and B(size-1) = '1') else 	-- sou cas 2 : A positif, B negatif
-			'0';
+	O_AUX <= '1' when (S_add(size-1) = '1' and A(size-1) = '0' and B(size-1) = '0' and Ctrl_Alu = X"1") else -- add cas 1 : A et B positifs
+				'1' when (S_add(size-1) = '0' and A(size-1) = '1' and B(size-1) = '1' and Ctrl_Alu = X"1") else	-- add cas 2 : A et B negatifs
+				'1' when (S_sou(size-1) = '0' and A(size-1) = '1' and B(size-1) = '0' and Ctrl_Alu = X"3") else	-- sou cas 1 : A negatif, B positif
+				'1' when (S_sou(size-1) = '1' and A(size-1) = '0' and B(size-1) = '1' and Ctrl_Alu = X"3") else -- sou cas 2 : A positif, B negatif
+				'0';
 
 	O_flag <= O_AUX;
 	Z_flag <= Z_AUX;
