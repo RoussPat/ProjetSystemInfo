@@ -27,7 +27,9 @@
 --------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
- 
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
 --USE ieee.numeric_std.ALL;
@@ -52,7 +54,8 @@ ARCHITECTURE behavior OF test_processor IS
    signal CLK_PROC : std_logic := '0';
    signal RST_PROC : std_logic := '0';
    signal IP : std_logic_vector(7 downto 0) := (others => '0');
-
+	signal TIM : NATURAL;
+	signal i :std_logic_vector(7 downto 0):=(others=>'0');
    -- Clock period definitions
    constant CLK_PROC_period : time := 10 ns;
  
@@ -70,11 +73,15 @@ BEGIN
    begin
 		CLK_PROC <= '0';
 		wait for CLK_PROC_period/2;
+		TIM<=TIM + 10;
 		CLK_PROC <= '1';
 		wait for CLK_PROC_period/2;
+		TIM<=TIM + 10;
+		if (((TIM-50) mod 100)=0) then
+			IP<=i;
+			i<=i+X"01";
+		end if;
    end process;
- 
-	IP <= X"00",X"01" after 100 ns;
-   
+	RST_PROC <= '0', '1' after 50 ns;
 
 END;

@@ -58,7 +58,7 @@ begin
 			elsif (RST='1') then
 				-- lecture
 				if (RW='1') then
-					data(to_integer(unsigned(v_out_aux))) <= addr;
+					v_out_aux <= data(to_integer(unsigned(addr)))  ;
 				-- ecriture
 				elsif (RW='0') then
 					data(to_integer(unsigned(addr))) <= v_IN;
@@ -89,4 +89,4 @@ end Behavioral;
 --RST, lecture et ecriture se font en synchrone sur la CLK
 
 
---mémoire de données => adresse des valeurs que l'on manipule / table des symboles
+--mmoire de donnes => adresse des valeurs que l'on manipule / table des symboles

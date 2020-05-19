@@ -19,8 +19,8 @@
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_LOGIC_UNSIGNED.ALL;
-use IEEE.STD_LOGIC_ARITH.ALL;
+--use IEEE.STD_LOGIC_UNSIGNED.ALL;
+--use IEEE.STD_LOGIC_ARITH.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -32,22 +32,23 @@ use IEEE.STD_LOGIC_ARITH.ALL;
 --use UNISIM.VComponents.all;
 
 entity lc is
-    Port ( OP : in  STD_LOGIC_VECTOR (3 downto 0);
-           val : out  STD_LOGIC);
+	Generic ( num_lc : STD_LOGIC:='0'); -- gestion du numero du LC 
+   Port ( 	OP : in  STD_LOGIC_VECTOR (3 downto 0);
+				val : out  STD_LOGIC);
 end lc;
 
 architecture Behavioral of lc is
 
 begin
 
-
-	val <= '1' when (OP=B"0110") else --gestion de l'AFC
-		'0';
+	val <= '1' when (num_lc = '0' AND (OP=X"5" OR OP=X"6" OR OP=X"7" OR OP=X"1" OR OP=X"2" OR OP=X"3"  )) else --gestion de LOG_C (registre) AFC COP 
+			 '1' when (num_lc = '1' AND (OP=X"8")) else --gestion de LC_MEM (MEM) LOAD AND STORE
+			 '0';
 	
-	-- LOAD
-	-- STORE
+
 	
 end Behavioral;
 
 -- LC permet de dire s'il faut ecrire dans le banc de registre
+
 

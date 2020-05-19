@@ -43,11 +43,14 @@ begin
 			B when (num_Mux = 1 and OP = X"5") else -- mux DI/EX, COP
 			B when (num_Mux = 1 and OP = X"7") else -- mux DI/EX, LOAD
 			A when (num_Mux = 1 and OP = X"8") else -- mux DI/EX, STORE
-			A when (num_Mux = 2 and OP = X"1") else -- mux EX/Mem, ADD
-			A when (num_Mux = 2 and OP = X"2") else -- mux EX/Mem, MUL
-			A when (num_Mux = 2 and OP = X"4") else -- mux EX/Mem, DIV
-			A when (num_Mux = 2 and OP = X"3") else -- mux EX/Mem, SOU
-			B when (num_Mux = 3 and OP = X"8") else -- mux sortie EX/Mem, STORE
+			B when (num_Mux = 1) else
+			B when (num_Mux = 2 and OP = X"1") else -- mux EX/Mem, ADD
+			B when (num_Mux = 2 and OP = X"2") else -- mux EX/Mem, MUL
+			B when (num_Mux = 2 and OP = X"4") else -- mux EX/Mem, DIV
+			B when (num_Mux = 2 and OP = X"3") else -- mux EX/Mem, SOU
+			A when (num_Mux = 2 ) else
+			A when (num_Mux = 3 and OP = X"8") else -- mux sortie EX/Mem, STORE
+			B when (num_mux = 3 ) else
 			A when (num_Mux = 4 and OP = X"7") else -- mux Mem/RE, LOAD
 			B;
 end Behavioral;

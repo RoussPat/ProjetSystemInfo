@@ -45,7 +45,7 @@ end registre;
 architecture Behavioral of registre is
 
 	type registres is array (NATURAL range <>) of STD_LOGIC_VECTOR(7 downto 0);
-	signal reg : registres(3 downto 0);
+	signal reg : registres(15 downto 0);
 
 begin
 
