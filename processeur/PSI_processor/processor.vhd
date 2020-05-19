@@ -92,9 +92,9 @@ architecture Behavioral of processor is
 	component mux is
 		Generic ( num_Mux : NATURAL := 0); -- permet de definir le numero du multiplexeur a utiliser
 		Port ( 	 A 	: in  STD_LOGIC_VECTOR (7 downto 0);
-					 B 	: out  STD_LOGIC_VECTOR (7 downto 0);
+					 B 	: in  STD_LOGIC_VECTOR (7 downto 0);
 					 OP 	: in  STD_LOGIC_VECTOR (3 downto 0);
-					 S 	: in  STD_LOGIC_VECTOR (7 downto 0));
+					 S 	: out  STD_LOGIC_VECTOR (7 downto 0));
 	end component;
 	
 	component lc is
