@@ -54,8 +54,6 @@ ARCHITECTURE behavior OF test_processor IS
    signal CLK_PROC : std_logic := '0';
    signal RST_PROC : std_logic := '0';
    signal IP : std_logic_vector(7 downto 0) := (others => '0');
-	signal TIM : NATURAL;
-	signal i :std_logic_vector(7 downto 0):=(others=>'0');
    -- Clock period definitions
    constant CLK_PROC_period : time := 10 ns;
  
@@ -73,15 +71,26 @@ BEGIN
    begin
 		CLK_PROC <= '0';
 		wait for CLK_PROC_period/2;
-		TIM<=TIM + 10;
 		CLK_PROC <= '1';
 		wait for CLK_PROC_period/2;
-		TIM<=TIM + 10;
-		if (((TIM-50) mod 100)=0) then
-			IP<=i;
-			i<=i+X"01";
-		end if;
    end process;
+	
+	IP<=X"00" after 50 ns,
+	X"01" after 100 ns,
+	X"02" after 150 ns,
+	X"03" after 200 ns,
+	X"04" after 250 ns,
+	X"05" after 300 ns,
+	X"06" after 350 ns,
+	X"07" after 400 ns,
+	X"08" after 450 ns,
+	X"09" after 500 ns,
+	X"0A" after 550 ns,
+	X"0B" after 600 ns,
+	X"0C" after 650 ns,
+	X"0D" after 700 ns,
+	X"0E" after 750 ns,
+	X"0F" after 800 ns;
 	RST_PROC <= '0', '1' after 50 ns;
 
 END;

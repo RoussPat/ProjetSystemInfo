@@ -42,7 +42,8 @@ architecture Behavioral of lc is
 begin
 
 	val <= '1' when (num_lc = '0' AND (OP=X"5" OR OP=X"6" OR OP=X"7" OR OP=X"1" OR OP=X"2" OR OP=X"3"  )) else --gestion de LOG_C (registre) AFC COP 
-			 '1' when (num_lc = '1' AND (OP=X"8")) else --gestion de LC_MEM (MEM) LOAD AND STORE
+			 '0' when (num_lc = '1' AND OP=X"8" ) else --gestion de LC_MEM (MEM) LOAD AND STORE
+			 '1' when (num_lc = '1') else
 			 '0';
 	
 
