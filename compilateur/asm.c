@@ -45,7 +45,7 @@ void addline(op_code code,int el1, int el2, int el3){
 }
 
 void initTable(){
-	Outputfile = fopen("a.out", "w+");
+	Outputfile = fopen("a.hex", "w+");
 	fclose(Outputfile);
 	table.line = 0;
 }
@@ -81,7 +81,7 @@ void update_element(int linenumber,int newel1, int newel2, int newel3){ //don't 
 
 
 void writefulltable(int num){
-	Outputfile = fopen("a.out", "a+");
+	Outputfile = fopen("a.hex", "a+");
 	element * current = table.head;
 	element * tofree;
 	while(current->next != NULL){
